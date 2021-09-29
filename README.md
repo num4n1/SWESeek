@@ -2,6 +2,8 @@
 
 ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
 ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
+![Flask](https://img.shields.io/badge/flask-%23000.svg?style=for-the-badge&logo=flask&logoColor=white)
+
 
 The problems encountered by engineering and computer science students looking for internships are common,this led to the birth of a feature in LinkedIn that eased the hardships of job searching,significantly but not completely. The problem interests us mainly due to the hardships we have faced while looking for intern level jobs. The Problem is solved to some extent but the current state of solution is impractical as most of these features are segregated over different applications making the entire process of job-searchingextremely tedious, Some of these applications include:
 
