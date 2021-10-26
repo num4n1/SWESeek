@@ -1,10 +1,118 @@
-import './App.css';
+import "./Styles/NavStyles.css";
+import * as React from "react";
+import { Container, Col, Row, Navbar, Nav, Button } from "react-bootstrap";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import TrackingPage from "./Pages/TrackingPage";
+import JobsPage from "./Pages/JobsPage";
+import SalariesPage from "./Pages/SalariesPage";
+import LearningPage from "./Pages/LearningPage";
+import HomePage from "./Pages/HomePage";
 
 function App() {
   return (
-    <div className="App">
-      
-    </div>
+    <Router>
+      <Navbar collapseOnSelect expand="lg">
+        <Container>
+          <Navbar.Brand href="/">SWEseek</Navbar.Brand>
+          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+          <Navbar.Collapse id="responsive-navbar-nav">
+            <Nav className="me-auto">
+              <Nav.Link href="/tracking">Tracking</Nav.Link>
+              <Nav.Link href="/jobs">Jobs</Nav.Link>
+              <Nav.Link href="/salaries">Salaries</Nav.Link>
+              <Nav.Link href="/learing">Learning</Nav.Link>
+            </Nav>
+            <Nav>
+              <Button
+                className="navButton"
+                style={{
+                  backgroundColor: `white`,
+                  color: `#264653`,
+                  borderColor: `white`,
+                }}
+                href="/signup"
+              >
+                Sign up
+              </Button>
+              <Button
+                className="navButton"
+                style={{
+                  backgroundColor: `#3b6b7e`,
+                  color: `white`,
+                  borderColor: `#3b6b7e`,
+                }}
+                href="/signin"
+              >
+                Sign in
+              </Button>
+            </Nav>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
+
+
+      <Switch>
+        <Route path="/" exact>
+          <HomePage />
+        </Route>
+        <Route path="/tracking" exact>
+          <TrackingPage />
+        </Route>
+        <Route path="/jobs" exact>
+          <JobsPage />
+        </Route>
+        <Route path="/salaries" exact>
+          <SalariesPage />
+        </Route>
+        <Route path="/learning" exact>
+          <LearningPage />
+        </Route>
+        <Route path="/" >
+          <h1 style={{marginTop: `5%`, fontFamily:`Ubuntu`}}>Sorry this page doesn't exist!</h1>
+        </Route> 
+      </Switch>
+
+
+      <Navbar collapseOnSelect expand="lg" sticky="bottom">
+        <Container>
+          <Navbar.Brand href="/">SWEseek</Navbar.Brand>
+          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+          <Navbar.Collapse id="responsive-navbar-nav">
+            <Nav className="me-auto">
+              <Nav.Link href="/tracking">Tracking</Nav.Link>
+              <Nav.Link href="/jobs">Jobs</Nav.Link>
+              <Nav.Link href="/salaries">Salaries</Nav.Link>
+              <Nav.Link href="/learing">Learning</Nav.Link>
+            </Nav>
+            <Nav>
+              <Button
+                className="navButton"
+                style={{
+                  backgroundColor: `white`,
+                  color: `#264653`,
+                  borderColor: `white`,
+                }}
+                href="/signup"
+              >
+                Sign up
+              </Button>
+              <Button
+                className="navButton"
+                style={{
+                  backgroundColor: `#3b6b7e`,
+                  color: `white`,
+                  borderColor: `#3b6b7e`,
+                }}
+                href="/signin"
+              >
+                Sign in
+              </Button>
+            </Nav>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
+    </Router>
+    
   );
 }
 

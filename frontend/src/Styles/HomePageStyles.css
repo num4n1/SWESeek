@@ -1,0 +1,49 @@
+h1{
+    color:#2A9D8F;
+}
+
+.HomeHeader {
+    margin-top: 4%;
+    color:#2A9D8F;
+    font-size: 100px;
+    font-family: "Ubuntu", sans-serif;
+}
+
+.HomeSubHeader {
+    font-size: 30px;
+    font-family: "Ubuntu", sans-serif;
+    margin: 0 0 0% 0;
+}
+
+.HomeMidHeader{
+    margin-top: 5%;
+    color:#264653;
+    font-size: 50px;
+    font-family: "Ubuntu", sans-serif;
+}
+
+.HomeCard{
+    width: 18rem;
+    margin: 2% 0 3% 0;
+    padding: 10px;
+    background-color: #3b6b7e;
+    color: white;
+    border-radius: 20px;
+}
+
+.HomeCardButton {
+    background-color: #2A9D8F;
+    border-color: #2A9D8F;
+}
+
+.HomeCardButton:hover {
+    transform: scale(1.05);
+    transition: 0.5s;
+    background-color: #2A9D8F;
+    border-color: #2A9D8F;
+}
+
+.HomeCardImg {
+    width: 150px;
+    align-self: center;
+}

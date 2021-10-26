@@ -1,0 +1,21 @@
+.nav-link {
+  font-family: "Ubuntu", sans-serif;
+  color: white !important;
+  padding: 0.5rem 1.1rem !important;
+}
+
+.navbar-brand {
+  font-family: "Ubuntu", sans-serif;
+  font-size: 32px;
+  color: white !important;
+}
+
+.navbar {
+  background-color: #264653 !important;
+}
+
+.navButton {
+    font-family: "Ubuntu", sans-serif;
+    margin: 0.5rem 0.8rem;
+    padding: 0.5rem 1.3rem;
+}
