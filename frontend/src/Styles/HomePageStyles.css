@@ -1,22 +1,47 @@
-h1{
-    color:#2A9D8F;
+
+.BackGroundLeef {
+    z-index: -1;
+    position: absolute;
+    margin: -15% 0 0 28%;
+    width: 34vw;
+}
+
+.BackGroundLeef2 {
+    z-index: -1;
+    position: absolute;
+    margin: -10% 0 0 -63%;
+    transform: rotate(160deg);
+    width: 38vw;
+}
+
+@media only screen and (max-width: 990px) {
+    .BackGroundLeef{
+        display: none;
+    }
+    .BackGroundLeef2{
+        display: none;
+    }
+    h1{
+        font-size: 18px;
+    }
 }
 
 .HomeHeader {
-    margin-top: 4%;
-    color:#2A9D8F;
-    font-size: 100px;
+    margin-top: 5%;
+    color:#1b7e72;
+    font-size: 120px;
     font-family: "Ubuntu", sans-serif;
+    text-shadow:0 0.032em 0 #b0b0b0, 0px 0.15em 0.11em rgb(0 0 0 / 15%), 0px 0.18em 0.021em rgb(0 0 0 / 10%), 0px 0.32em 0.32em rgb(0 0 0 / 10%);
 }
 
 .HomeSubHeader {
-    font-size: 30px;
+    font-size: 45px;
     font-family: "Ubuntu", sans-serif;
-    margin: 0 0 0% 0;
+    margin: 0 0 2% 0;
 }
 
 .HomeMidHeader{
-    margin-top: 5%;
+    margin-top: 9%;
     color:#264653;
     font-size: 50px;
     font-family: "Ubuntu", sans-serif;
@@ -26,9 +51,10 @@ h1{
     width: 18rem;
     margin: 2% 0 3% 0;
     padding: 10px;
-    background-color: #3b6b7e;
-    color: white;
+    background-color: white;
+    color: black;
     border-radius: 20px;
+    border-color: white;
 }
 
 .HomeCardButton {
@@ -44,6 +70,17 @@ h1{
 }
 
 .HomeCardImg {
-    width: 150px;
+    width: 120px;
     align-self: center;
+}
+
+.HomeCardTitle {
+    font-family: "Ubuntu", sans-serif;
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+
+.HomeCardBody {
+    font-family: "Ubuntu", sans-serif;
+    font-size: 1rem;
 }

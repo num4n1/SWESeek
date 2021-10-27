@@ -73,42 +73,12 @@ function App() {
       </Switch>
 
 
-      <Navbar collapseOnSelect expand="lg" sticky="bottom">
-        <Container>
-          <Navbar.Brand href="/">SWEseek</Navbar.Brand>
-          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-          <Navbar.Collapse id="responsive-navbar-nav">
-            <Nav className="me-auto">
-              <Nav.Link href="/tracking">Tracking</Nav.Link>
-              <Nav.Link href="/jobs">Jobs</Nav.Link>
-              <Nav.Link href="/salaries">Salaries</Nav.Link>
-              <Nav.Link href="/learing">Learning</Nav.Link>
-            </Nav>
-            <Nav>
-              <Button
-                className="navButton"
-                style={{
-                  backgroundColor: `white`,
-                  color: `#264653`,
-                  borderColor: `white`,
-                }}
-                href="/signup"
-              >
-                Sign up
-              </Button>
-              <Button
-                className="navButton"
-                style={{
-                  backgroundColor: `#3b6b7e`,
-                  color: `white`,
-                  borderColor: `#3b6b7e`,
-                }}
-                href="/signin"
-              >
-                Sign in
-              </Button>
-            </Nav>
-          </Navbar.Collapse>
+      <Navbar collapseOnSelect expand="lg" sticky="bottom" style={{height:`170px`}}>
+        <Container style={{justifyContent:`center`}}>
+          <div>
+            <h1>Simplify your job search, increase your total compensation, and practice for the interview. All for free.</h1>
+            <h1 className="FooterLogo">SWEseek</h1>
+          </div>
         </Container>
       </Navbar>
     </Router>
