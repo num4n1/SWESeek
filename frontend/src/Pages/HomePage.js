@@ -30,7 +30,7 @@ export default function HomePage() {
         <span>Learning Resource</span>
         <Typist.Backspace count={17} delay={1200} />
       </Typist>
-      <Button className="HomeCardButton" style={{width:`200px`, height:`50px`, fontSize:`18px`}}>Sign up to get started</Button>
+      <Button href="/signup" className="HomeCardButton" >Sign up to get started</Button>
       <h2 className="HomeMidHeader">What we do.</h2>
       <Row style={{justifyContent:`center`, gap:`5%`}}>
         <Card className="HomeCard" >
