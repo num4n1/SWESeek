@@ -1,0 +1,17 @@
+.SignupHeader{
+    font-size: 50px;;
+    color: #1b7e72;
+}
+
+.SignupButton{
+    background-color: #3b6b7e;
+    color: white;
+    border-color: #3b6b7e;
+    font-family: "Ubuntu", sans-serif;
+    margin: 0.5rem 0.8rem;
+    padding: 0.5rem 1.3rem;
+}
+
+.SignupForm{
+    margin-bottom: 4%;
+}

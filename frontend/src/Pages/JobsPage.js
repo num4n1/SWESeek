@@ -1,6 +1,8 @@
 
 export default function JobsPage(){
     return(
-        <h1>JobsPage</h1>
+        <div style={{minHeight:`69.5vh`}}>
+            <h1>JobsPage</h1>
+        </div>
     )
 }

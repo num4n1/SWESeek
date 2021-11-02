@@ -7,6 +7,8 @@ import JobsPage from "./Pages/JobsPage";
 import SalariesPage from "./Pages/SalariesPage";
 import LearningPage from "./Pages/LearningPage";
 import HomePage from "./Pages/HomePage";
+import LoginPage from "./Pages/LoginPage";
+import SignupPage from "./Pages/SignupPage";
 
 function App() {
   return (
@@ -32,7 +34,7 @@ function App() {
                 }}
                 href="/signup"
               >
-                Sign up
+                Sign up for free
               </Button>
               <Button
                 className="navButton"
@@ -41,7 +43,7 @@ function App() {
                   color: `white`,
                   borderColor: `#3b6b7e`,
                 }}
-                href="/signin"
+                href="/login"
               >
                 Sign in
               </Button>
@@ -66,6 +68,12 @@ function App() {
         </Route>
         <Route path="/learning" exact>
           <LearningPage />
+        </Route>
+        <Route path="/signup" exact>
+          <SignupPage />
+        </Route>
+        <Route path="/login" exact>
+          <LoginPage />
         </Route>
         <Route path="/" >
           <h1 style={{marginTop: `5%`, fontFamily:`Ubuntu`}}>Sorry this page doesn't exist!</h1>
