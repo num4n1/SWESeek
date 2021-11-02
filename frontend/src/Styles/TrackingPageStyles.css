@@ -1,0 +1,17 @@
+
+.TrackingHeader{
+    color: #1b7e72;
+    font-size: 50px;
+    font-family: 'Ubuntu';
+}
+
+.TrackingSubHeader{
+    color:black;
+    font-family: 'Poppins';
+    margin-top: 10%;
+}
+
+.ListSelectButton{
+    color: white;
+    font-family: "Ubuntu", sans-serif;
+}
