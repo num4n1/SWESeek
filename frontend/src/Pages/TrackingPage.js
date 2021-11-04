@@ -22,7 +22,7 @@ const exampleWishList = [
     applicationStatus: "Wish List",
     startDate: "May 2021",
     description:
-      "fsefesghagiohaighiahegiohaegoihaeioghoigheiohgiosehgiohseighaigheiohegihgesoihgseohgosgehiosehg",
+      "fsefesghadaaaaaaaagiohaighiahegiohaegoihaeioghoigheiohgiosehgiohseighaigheiohegihgesoihgseohgosgehiosehg",
   },
   {
     id: "144",
@@ -329,6 +329,12 @@ export default function TrackingPage() {
           <Card.Subtitle className="mb-2 text-muted">
             { modalInfo.companyName}
           </Card.Subtitle>
+          <div style={{textAlign:`left`}}>
+            <Card.Text style={{margin:`2% 0`}}><span style={{fontWeight:`bold`}}>Start Date:</span> {modalInfo.startDate}</Card.Text>
+            <Card.Text style={{margin:`2% 0`}}><span style={{fontWeight:`bold`}}>Application Date:</span> {modalInfo.applicationDate}</Card.Text>
+            <Card.Text style={{margin:`2% 0`, overflowWrap:`anywhere`}}><span style={{fontWeight:`bold`}}>Job Description:</span> {modalInfo.description}</Card.Text>
+            <Card.Link href={modalInfo.link}>Posting</Card.Link>
+          </div>
         </Modal.Body>
       </Modal>
     </Container>
