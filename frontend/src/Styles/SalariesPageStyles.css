@@ -1,0 +1,47 @@
+.SalaryHeader{
+    color: #1b7e72;
+    font-size: 50px;
+    font-family: 'Ubuntu';
+    padding-top: 3%;
+    padding-bottom: 1%;
+    text-align: center;
+}
+
+.SearchLabel{
+    font-family: 'Poppins';
+}
+
+.SubHeader{
+    font-size: 35px;
+    font-family: 'Ubuntu';
+    padding-top: 3%;
+    padding-bottom: 1%;
+    color: rgb(80, 80, 80);
+}
+
+.CompanyCard{
+    width: 15%;
+    margin: 1% 0;
+    cursor: pointer;
+}
+
+.SalaryCardHeader{
+    text-align:left;
+    font-size: 25px;
+    font-family: 'Poppins';
+    color: black;
+}
+
+.SalaryCardSubHeader{
+    text-align:left;
+    font-size: 16px;
+    font-family: 'Poppins';
+}
+
+.NoError{
+    color:rgba(255, 255, 255, 0);
+}
+
+.ShowError{
+    color: rgba(160, 3, 3, 0.781);
+}
