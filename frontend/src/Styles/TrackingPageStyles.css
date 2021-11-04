@@ -24,6 +24,13 @@
 
 .ColumnHeader{
   font-family: 'Poppins';
+  margin-bottom: 2%;
+}
+
+.ColumnSubHeader{
+  font-family: 'Poppins';
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.589);
 }
 
 .Column{

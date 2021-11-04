@@ -141,22 +141,27 @@ export default function TrackingPage() {
     1: {
       name: "Wishlist",
       items: wishListItems,
+      count: wishListItems.length,
     },
     2: {
       name: "Applied",
       items: appliedItems,
+      count: appliedItems.length,
     },
     3: {
       name: "Interview",
       items: interviewItems,
+      count: interviewItems.length,
     },
     4: {
       name: "Offer",
       items: offerItems,
+      count: offerItems.length,
     },
     5: {
       name: "Rejected",
       items: regectedItems,
+      count: regectedItems.length,
     },
   });
 
@@ -180,10 +185,12 @@ export default function TrackingPage() {
         [source.droppableId]: {
           ...sourceColumn,
           items: sourceItems,
+          count: sourceItems.length,
         },
         [destination.droppableId]: {
           ...destColumn,
           items: destItems,
+          count: destItems.length,
         },
       });
     } else {
@@ -238,6 +245,7 @@ export default function TrackingPage() {
               return (
                 <div className="Column">
                   <h2 className="ColumnHeader">{column.name}</h2>
+                  <h3 className="ColumnSubHeader">{column.count} Jobs</h3>
                   <Droppable droppableId={columnId} key={columnId}>
                     {(provided) => (
                       <div {...provided.droppableProps} ref={provided.innerRef}>
@@ -259,6 +267,7 @@ export default function TrackingPage() {
                                     <Row>
                                       <Col xs={2}>
                                         <img
+                                          style={{marginTop:`15%`}}
                                           className="JobCardImage"
                                           src="/Assets/facebookicon.png"
                                           alt=""
