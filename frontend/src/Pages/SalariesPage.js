@@ -3,10 +3,11 @@ import {
   Container,
   Form,
   FormLabel,
-  Col,
   Row,
   Card,
   Modal,
+  Button,
+  Col,
 } from "react-bootstrap";
 import "../Styles/SalariesPageStyles.css";
 
@@ -161,6 +162,7 @@ export default function SalariesPage() {
 
   const [modalInfo, setModalInfo] = useState(exampleDataPopular[0]);
   const [show, setShow] = useState(false);
+  const [showAddSalary, setShowAddSalary] = useState(false);
 
   function openCard(company) {
     setModalInfo(company);
@@ -171,18 +173,40 @@ export default function SalariesPage() {
     setShow(false);
   }
 
-  function handleSearch(e){
-      if(e === "Enter"){
-        let query = document.getElementById("searchBar").value;
-        let result = allCompanys.find(({ companyName }) => companyName.toLowerCase() === query.toLowerCase());
-        if(result !== undefined){
-            document.getElementById("errorMessage").classList.remove("ShowError");
-            openCard(result)
-        }
-        else{
-            document.getElementById("errorMessage").classList.add("ShowError");
-        }
+  function handleSearch(e) {
+    if (e === "Enter") {
+      let query = document.getElementById("searchBar").value;
+      let result = allCompanys.find(
+        ({ companyName }) => companyName.toLowerCase() === query.toLowerCase()
+      );
+      if (result !== undefined) {
+        document.getElementById("errorMessage").classList.remove("ShowError");
+        openCard(result);
+      } else {
+        document.getElementById("errorMessage").classList.add("ShowError");
       }
+    }
+  }
+
+  function addSalary() {
+    setShowAddSalary(true);
+  }
+
+  function handleCloseSalary() {
+    setShowAddSalary(false);
+  }
+
+  function submitSalary(){
+    let company = document.getElementById("addCompanyName").value;
+    let size = document.getElementById("addCompanySize").value;
+    let role = document.getElementById("addRole").value;
+    let comp = document.getElementById("addComp").value;
+
+    /*
+      Send Salary to backend
+    */
+
+    handleCloseSalary();
   }
 
   return (
@@ -192,12 +216,23 @@ export default function SalariesPage() {
         <FormLabel className="SearchLabel">Search Companys</FormLabel>
         <Form.Control
           id="searchBar"
-          style={{ width: `16%` }}
+          style={{ width: `200px` }}
           type="text"
           placeholder="Google"
-          onKeyPress={(e) => handleSearch(e.code) }
+          onKeyPress={(e) => handleSearch(e.code)}
         />
-        <Form.Text id="errorMessage" className="txt-muted NoError">Sorry we couldnt find that company.</Form.Text>
+        <Form.Text id="errorMessage" className="txt-muted NoError">
+          Sorry we couldnt find that company.
+        </Form.Text>
+        <Row>
+          <Button
+            onClick={addSalary}
+            size="md"
+            style={{ width: `130px`, marginLeft: `1%` }}
+          >
+            Or add salary
+          </Button>
+        </Row>
       </Form.Group>
       <h2 className="SubHeader">Popular</h2>
       <Row style={{ justifyContent: `space-between` }}>
@@ -252,17 +287,64 @@ export default function SalariesPage() {
             <span style={{ fontSize: `20px`, fontWeight: `bold` }}>Size: </span>
             {modalInfo.size}
           </Card.Title>
-          <Row style={{ justifyContent: `space-between`, marginTop:`5%` ,marginBottom: `4%` }}>
-          {
-          modalInfo.payInfo.map((val) => {
-            return (
-              <div style={{width:`auto`}}>
-                <h1 className="SalaryCardHeader" style={{textAlign:`left`}}>{val.position}:</h1>
-                <h2 className="SalaryCardSubHeader" style={{textAlign:`left`}}>Total Comp: ~${val.totalComp} USD</h2>
-              </div>
-            );
-          })}
+          <Row
+            style={{
+              justifyContent: `space-between`,
+              marginTop: `5%`,
+              marginBottom: `4%`,
+            }}
+          >
+            {modalInfo.payInfo.map((val) => {
+              return (
+                <div style={{ width: `auto` }}>
+                  <h1
+                    className="SalaryCardHeader"
+                    style={{ textAlign: `left` }}
+                  >
+                    {val.position}:
+                  </h1>
+                  <h2
+                    className="SalaryCardSubHeader"
+                    style={{ textAlign: `left` }}
+                  >
+                    Total Comp: ~${val.totalComp} USD
+                  </h2>
+                </div>
+              );
+            })}
           </Row>
+        </Modal.Body>
+      </Modal>
+      <Modal centered show={showAddSalary} onHide={handleCloseSalary}>
+        <Modal.Header closeButton>
+          <Modal.Title>Add Salary</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Row>
+            <Col>
+              <FormLabel className="SearchLabel">Company: </FormLabel>
+              <Form.Control style={{width:`100%`}} placeholder="Google" id="addCompanyName" />
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <FormLabel style={{marginTop:`3%`}} className="SearchLabel">Rough Size: </FormLabel>
+              <Form.Control style={{width:`100%`}} placeholder="10000+" id="addCompanySize" />
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <FormLabel style={{marginTop:`3%`}} className="SearchLabel">Role: </FormLabel>
+              <Form.Control style={{width:`100%`}} placeholder="Intern" id="addRole" />
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <FormLabel style={{marginTop:`3%`}} className="SearchLabel">Total Compensation: </FormLabel>
+              <Form.Control style={{width:`100%`}} placeholder="120000" id="addComp" />
+            </Col>
+          </Row>
+          <Button onClick={submitSalary} style={{marginTop:`3%`}}>Submit</Button>
         </Modal.Body>
       </Modal>
     </Container>

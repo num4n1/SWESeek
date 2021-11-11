@@ -22,7 +22,7 @@ function App() {
               <Nav.Link href="/tracking">Tracking</Nav.Link>
               <Nav.Link href="/jobs">Jobs</Nav.Link>
               <Nav.Link href="/salaries">Salaries</Nav.Link>
-              <Nav.Link href="/learing">Learning</Nav.Link>
+              <Nav.Link href="/learning">Learning</Nav.Link>
             </Nav>
             <Nav>
               <Button
