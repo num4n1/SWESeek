@@ -7,6 +7,7 @@ import {
   FormLabel,
   Badge,
   Modal,
+  Col,
 } from "react-bootstrap";
 import { useState } from "react";
 import "../Styles/SalariesPageStyles.css";
@@ -14,21 +15,25 @@ import "../Styles/LearningPageStyles.css";
 
 const exampleLearningResources = [
   {
+    id: "1",
     tag: ["Trees"],
     topic: ["Learn Tree structures and their algorithms"],
     link: "https://www.youtube.com",
   },
   {
+    id: "2",
     tag: ["LinkList"],
     topic: ["Learn Linked List structures and their algorithms"],
     link: "https://www.youtube.com",
   },
   {
+    id: "3",
     tag: ["HashMaps"],
     topic: ["Learn HashMaps and how to use them"],
     link: "https://www.youtube.com",
   },
   {
+    id: "4",
     tag: ["Strings"],
     topic: ["Learn Strings and their algorithms"],
     link: "https://www.youtube.com",
@@ -37,6 +42,7 @@ const exampleLearningResources = [
 
 const exampleQuestionResources = [
   {
+    id: "5",
     tag: ["Trees", "Strings"],
     qPrompt:
       "Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target. You may assume that each input would have exactly one solution, and you may not use the same element twice. You can return the answer in any order.",
@@ -47,6 +53,7 @@ const exampleQuestionResources = [
     },
   },
   {
+    id: "6",
     tag: ["Trees", "Strings"],
     qPrompt:
       "Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target. You may assume that each input would have exactly one solution, and you may not use the same element twice. You can return the answer in any order.",
@@ -57,6 +64,7 @@ const exampleQuestionResources = [
     },
   },
   {
+    id: "7",
     tag: ["Trees", "Strings"],
     qPrompt:
       "Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target. You may assume that each input would have exactly one solution, and you may not use the same element twice. You can return the answer in any order.",
@@ -67,6 +75,7 @@ const exampleQuestionResources = [
     },
   },
   {
+    id: "8",
     tag: ["Trees", "Strings"],
     qPrompt:
       "Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target. You may assume that each input would have exactly one solution, and you may not use the same element twice. You can return the answer in any order.",
@@ -85,6 +94,8 @@ export default function LearningPage() {
   const [questionResources, setQuestionResources] = useState(
     exampleQuestionResources
   );
+  const [starredResources, setstarredResources] = useState([]);
+
   const [show, setShow] = useState(false);
   const [modalData, setModalData] = useState(questionResources[0]);
 
@@ -96,26 +107,172 @@ export default function LearningPage() {
     setShow(false);
   }
 
+  function addToFavorite(id) {
+    let a;
+    if (!(starredResources.filter((element) => element.id === id).length > 0)) {
+      let res = learningResources.filter((item) => {
+        if (item.id === id) return true;
+        else return false;
+      });
+      if (res.length === 0) {
+        res = questionResources.filter((item) => {
+          if (item.id === id) return true;
+          else return false;
+        });
+        a = questionResources.filter((element) => {
+          if(element.id !== id) return true;
+          else return false;
+        })
+        setQuestionResources(a);
+      }else{
+        a = learningResources.filter((element) => {
+          if(element.id !== id) return true;
+          else return false;
+        })
+        setLearningResources(a);
+      }
+      res = res[0];
+      setstarredResources([...starredResources, res]);
+    }else{
+      let res = starredResources.filter((element) => {
+        if(element.id !== id) return true;
+        else return false;
+      })
+      a = starredResources.filter((element) => {
+        if(element.id === id) return true;
+        else return false;
+      })
+      setstarredResources(res);
+      if("qPrompt" in a[0]){
+        setQuestionResources([...questionResources, a[0]]);
+      }else{
+        setLearningResources([...learningResources, a[0]]);
+      }
+    }
+  }
+
   return (
     <Container style={{ minHeight: `77vh`, textAlign: `left` }}>
       <h1 className="SalaryHeader">Learn how to ace the interview</h1>
+      {starredResources.length !== 0 ? (
+        <h2 className="SubHeader">Starred Resources</h2>
+      ) : (
+        <div></div>
+      )}
+      <Row style={{ justifyContent: `space-between` }}>
+        {starredResources.map((example) => {
+          if ("qPrompt" in example) {
+            return (
+              <Card className="resourceCard">
+                <Card.Header>
+                  <Card.Title style={{ fontSize: `22px` }}>
+                    <Row>
+                      <Col onClick={() => openCard(example)}>
+                        {example.questionNum}
+                      </Col>
+                      <Col>
+                        <h1
+                          onClick={() => addToFavorite(example.id)}
+                          style={{ marginLeft: `95%` }}
+                          class="star filled"
+                        >
+                          &#9733;
+                        </h1>
+                      </Col>
+                    </Row>
+                  </Card.Title>
+                  <Card.Subtitle
+                    style={{ fontSize: `12px`, color: `rgb(100, 100, 100)` }}
+                  >
+                    {example.tag.map((tag) => {
+                      return (
+                        <Badge style={{ margin: `1%` }} bg="primary">
+                          {tag}
+                        </Badge>
+                      );
+                    })}
+                  </Card.Subtitle>
+                </Card.Header>
+              </Card>
+            );
+          } else {
+            return (
+              <Card className="resourceCard">
+                <Card.Header>
+                  <Card.Title>
+                    <Row>
+                      <Col
+                        onClick={() =>
+                          window.open(example.link, "_blank").focus()
+                        }
+                      >
+                        {example.tag.map((tag) => {
+                          return (
+                            <Badge
+                              style={{ margin: `1%`, width: `auto` }}
+                              bg="primary"
+                            >
+                              {tag}
+                            </Badge>
+                          );
+                        })}
+                      </Col>
+                      <Col style={{ width: `20%` }}>
+                        <h1
+                          onClick={() => addToFavorite(example.id)}
+                          style={{ marginLeft: `95%` }}
+                          class="star filled"
+                        >
+                          &#9733;
+                        </h1>
+                      </Col>
+                    </Row>
+                  </Card.Title>
+                  <Card.Subtitle
+                    style={{ fontSize: `14px`, color: `rgb(100, 100, 100)` }}
+                  >
+                    {example.topic}
+                  </Card.Subtitle>
+                </Card.Header>
+              </Card>
+            );
+          }
+        })}
+      </Row>
       <h2 className="SubHeader">Learn data structures and algo's</h2>
       <Row style={{ justifyContent: `space-between` }}>
         {learningResources.map((example) => {
           return (
-            <Card
-              onClick={() => window.open(example.link, "_blank").focus()}
-              className="resourceCard"
-            >
+            <Card className="resourceCard">
               <Card.Header>
                 <Card.Title>
-                  {example.tag.map((tag) => {
-                    return (
-                      <Badge style={{ margin: `1%` }} bg="primary">
-                        {tag}
-                      </Badge>
-                    );
-                  })}
+                  <Row>
+                    <Col
+                      onClick={() =>
+                        window.open(example.link, "_blank").focus()
+                      }
+                    >
+                      {example.tag.map((tag) => {
+                        return (
+                          <Badge
+                            style={{ margin: `1%`, width: `auto` }}
+                            bg="primary"
+                          >
+                            {tag}
+                          </Badge>
+                        );
+                      })}
+                    </Col>
+                    <Col style={{ width: `20%` }}>
+                      <h1
+                        onClick={() => addToFavorite(example.id)}
+                        style={{ marginLeft: `95%` }}
+                        class="star"
+                      >
+                        &#9733;
+                      </h1>
+                    </Col>
+                  </Row>
                 </Card.Title>
                 <Card.Subtitle
                   style={{ fontSize: `14px`, color: `rgb(100, 100, 100)` }}
@@ -131,10 +288,23 @@ export default function LearningPage() {
       <Row style={{ justifyContent: `space-between`, marginBottom: `4%` }}>
         {questionResources.map((example) => {
           return (
-            <Card onClick={() => openCard(example)} className="resourceCard">
+            <Card className="resourceCard">
               <Card.Header>
                 <Card.Title style={{ fontSize: `22px` }}>
-                  {example.questionNum}
+                  <Row>
+                    <Col onClick={() => openCard(example)}>
+                      {example.questionNum}
+                    </Col>
+                    <Col>
+                      <h1
+                        onClick={() => addToFavorite(example.id)}
+                        style={{ marginLeft: `95%` }}
+                        class="star"
+                      >
+                        &#9733;
+                      </h1>
+                    </Col>
+                  </Row>
                 </Card.Title>
                 <Card.Subtitle
                   style={{ fontSize: `12px`, color: `rgb(100, 100, 100)` }}
@@ -164,9 +334,11 @@ export default function LearningPage() {
           })}
         </Modal.Header>
         <Modal.Body>
-            <p style={{textAlign:`left`}}>{modalData.qPrompt}</p>
-            <Card.Title style={{textAlign:`left`}}>Solution</Card.Title>
-            <Card.Link href={modalData.solutionVideo.link}>{modalData.solutionVideo.description}</Card.Link>
+          <p style={{ textAlign: `left` }}>{modalData.qPrompt}</p>
+          <Card.Title style={{ textAlign: `left` }}>Solution</Card.Title>
+          <Card.Link href={modalData.solutionVideo.link}>
+            {modalData.solutionVideo.description}
+          </Card.Link>
         </Modal.Body>
       </Modal>
     </Container>

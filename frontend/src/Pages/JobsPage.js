@@ -8,11 +8,14 @@ import {
   FormLabel,
   Button,
   Card,
+  Modal,
+  Col,
 } from "react-bootstrap";
 import "../Styles/JobsPageStyles.css";
 
 const exampleJobs = [
   {
+    id: "1",
     companyName: "Google",
     industry: "Tech",
     size: "10000+",
@@ -22,6 +25,7 @@ const exampleJobs = [
     url: "https://www.google.com",
   },
   {
+    id: "2",
     companyName: "Amazon",
     industry: "Tech",
     size: "10000+",
@@ -31,6 +35,7 @@ const exampleJobs = [
     url: "https://www.google.com",
   },
   {
+    id: "3",
     companyName: "GM",
     industry: "Automotive",
     size: "10000+",
@@ -40,6 +45,7 @@ const exampleJobs = [
     url: "https://www.google.com",
   },
   {
+    id: "4",
     companyName: "Health Company",
     industry: "Health",
     size: "10000+",
@@ -49,6 +55,7 @@ const exampleJobs = [
     url: "https://www.google.com",
   },
   {
+    id: "5",
     companyName: "JP Morgan",
     industry: "Banking",
     size: "10000+",
@@ -58,6 +65,7 @@ const exampleJobs = [
     url: "https://www.google.com",
   },
   {
+    id: "6",
     companyName: "Netflix",
     industry: "Tech",
     size: "10000+",
@@ -68,43 +76,101 @@ const exampleJobs = [
   },
 ];
 
+const exampleDocuments = [
+  {
+    fileName: "file1",
+    dNo: "1",
+    dateUploaded: "10/2/5",
+    file: "filehere",
+    type: "resume",
+  },
+  {
+    fileName: "file2",
+    dNo: "2",
+    dateUploaded: "10/2/5",
+    file: "filehere",
+    type: "resume",
+  },
+  {
+    fileName: "file3",
+    dNo: "3",
+    dateUploaded: "10/2/5",
+    file: "filehere",
+    type: "coverLetter",
+  },
+  {
+    fileName: "file4",
+    dNo: "4",
+    dateUploaded: "10/2/5",
+    file: "filehere",
+    type: "coverLetter",
+  },
+];
+
 export default function JobsPage() {
   const [jobs, jobsToShow] = useState(exampleJobs);
   const [resultsToShow, setResultsToShow] = useState(jobs);
+  const [showApplyJob, setShowApplyJob] = useState(false);
+  const [currJob, setCurrJob] = useState({});
+  const [documents, setDocuments] = useState(exampleDocuments);
+  const [showAddDoc, setShowAddDoc] = useState(false);
+
+  function handleCloseAddDoc() {
+    setShowAddDoc(false);
+  }
+
+  function handleCloseApplyJob() {
+    setShowApplyJob(false);
+  }
 
   function handleSearch(e) {
     if (e === "Enter") {
       let query = document.getElementById("searchBar").value.toLowerCase();
-      if(query === ""){
+      if (query === "") {
         setResultsToShow(jobs);
-      }else{
+      } else {
         let res = jobs.filter((job) => {
-            if (
-              job.companyName.toLowerCase() === query ||
-              job.industry.toLowerCase() === query ||
-              job.Title.toLowerCase() === query
-            ) {
-              return true;
-            } else {
-              return false;
-            }
-          });
-    
-          if (res.length === 0) {
-            document.getElementById("errorMessage").classList.add("ShowError");
+          if (
+            job.companyName.toLowerCase() === query ||
+            job.industry.toLowerCase() === query ||
+            job.Title.toLowerCase() === query
+          ) {
+            return true;
           } else {
-            document.getElementById("errorMessage").classList.remove("ShowError");
-            setResultsToShow(res);
+            return false;
           }
+        });
+
+        if (res.length === 0) {
+          document.getElementById("errorMessage").classList.add("ShowError");
+        } else {
+          document.getElementById("errorMessage").classList.remove("ShowError");
+          setResultsToShow(res);
+        }
       }
     }
+  }
+
+  function apply(id) {
+    setCurrJob(jobs.find((job) => (job.id = id)));
+    setShowApplyJob(true);
+  }
+
+  function applyForJob(id) {
+    //applys for job
+  }
+  
+  function submitDocuments(){
+    //submits document
   }
 
   return (
     <Container style={{ minHeight: `69.5vh` }}>
       <h1 className="JobsHeader">Discover oportunities</h1>
       <Form.Group style={{ textAlign: `left` }}>
-        <FormLabel className="SearchLabel">Search Companys, Industrys and Job Titles</FormLabel>
+        <FormLabel className="SearchLabel">
+          Search Companys, Industrys and Job Titles
+        </FormLabel>
         <Form.Control
           id="searchBar"
           style={{ width: `200px` }}
@@ -115,6 +181,9 @@ export default function JobsPage() {
         <Form.Text id="errorMessage" className="txt-muted NoError">
           Sorry we couldnt find that company.
         </Form.Text>
+        <Row>
+          <Button onClick={() => setShowAddDoc(true)} style={{width:`15%`, marginLeft:`1%`}}>Upload Documents</Button>
+        </Row>
       </Form.Group>
       <Row style={{ justifyContent: `space-evenly` }}>
         {resultsToShow.map((job) => {
@@ -129,12 +198,82 @@ export default function JobsPage() {
                   {job.industry}, {job.size}
                 </Card.Subtitle>
                 <Card.Text>{job.Description}</Card.Text>
-                <Card.Link href={job.url}>Apply</Card.Link>
+                <Card.Link
+                  style={{ cursor: `pointer` }}
+                  onClick={() => apply(job.id)}
+                >
+                  Apply
+                </Card.Link>
               </Card.Body>
             </Card>
           );
         })}
       </Row>
+
+      <Modal centered show={showApplyJob} onHide={handleCloseApplyJob}>
+        <Modal.Header closeButton>
+          <Modal.Title>Apply</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Row>
+            <Col>
+              <FormLabel className="SearchLabel">Resume</FormLabel>
+              <Form.Select style={{ width: `100%` }} id="addResume">
+                {documents.length === 0 ? (
+                  <option>Upload a resume first</option>
+                ) : (
+                  documents.map((doc) => {
+                    if (doc.type === "resume") {
+                      return <option>{doc.fileName}</option>;
+                    }
+                  })
+                )}
+              </Form.Select>
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <FormLabel className="SearchLabel" style={{ marginTop: `3%` }}>
+                Cover Letter (optional)
+              </FormLabel>
+              <Form.Select style={{ width: `100%` }} id="addResume">
+                {documents.length === 0 ? (
+                  <option>Upload a resume first</option>
+                ) : (
+                  documents.map((doc) => {
+                    if (doc.type === "coverLetter") {
+                      return <option>{doc.fileName}</option>;
+                    }
+                  })
+                )}
+              </Form.Select>
+            </Col>
+          </Row>
+          <Button
+            onClick={() => applyForJob(currJob.id)}
+            id="submitButton"
+            style={{ marginTop: `3%` }}
+          >
+            Submit
+          </Button>
+        </Modal.Body>
+      </Modal>
+      <Modal centered show={showAddDoc} onHide={handleCloseAddDoc}>
+        <Modal.Header closeButton>
+          <Modal.Title>Add Documents</Modal.Title>
+        </Modal.Header>
+        <Modal.Body style={{textAlign:`left`}}>
+          <Form.Group controlId="formFile" className="mb-3">
+            <Form.Label>Uploaded Resume</Form.Label>
+            <Form.Control style={{ width: `60%` }} type="file" />
+          </Form.Group>
+          <Form.Group controlId="formFile" className="mb-3">
+            <Form.Label>Uploaded Cover Letter</Form.Label>
+            <Form.Control style={{ width: `60%` }} type="file" />
+          </Form.Group>
+          <Button onClick={submitDocuments}>Submit</Button>
+        </Modal.Body>
+      </Modal>
     </Container>
   );
 }

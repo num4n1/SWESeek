@@ -9,6 +9,9 @@ import LearningPage from "./Pages/LearningPage";
 import HomePage from "./Pages/HomePage";
 import LoginPage from "./Pages/LoginPage";
 import SignupPage from "./Pages/SignupPage";
+import EmployerDashboardPage from "./Pages/EmployerDashboardPage";
+import EmployerSignupPage from "./Pages/EmployerSignupPage";
+
 
 function App() {
   return (
@@ -72,8 +75,14 @@ function App() {
         <Route path="/signup" exact>
           <SignupPage />
         </Route>
+        <Route path="/employersignup" exact>
+          <EmployerSignupPage />
+        </Route>
         <Route path="/login" exact>
           <LoginPage />
+        </Route>
+        <Route path="/employerdashboard" exact>
+          <EmployerDashboardPage />
         </Route>
         <Route path="/" >
           <h1 style={{marginTop: `5%`, fontFamily:`Ubuntu`}}>Sorry this page doesn't exist!</h1>

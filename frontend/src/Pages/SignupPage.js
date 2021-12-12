@@ -11,18 +11,16 @@ import "../Styles/LoginAndSignupStyles.css";
 import Axios from "axios";
 
 export default function SignupPage() {
-    const [emailValidity, setEmailValidity] = useState(false);
-    const [firstNameValidity, setFirstNameValidity] = useState(false);
-    const [lastNameValidity, setLastNameValidity] = useState(false);
-    const [phoneValidity, setPhoneValidity] = useState(false);
-    const [usernameValidity, setUsernameValidity] = useState(false);
-    const [passwordValidity, setPasswordValidity] = useState(false);
-    const [confirmPasswordValidity, setConfirmPasswordValidity] = useState(false);
+  const [emailValidity, setEmailValidity] = useState(false);
+  const [firstNameValidity, setFirstNameValidity] = useState(false);
+  const [lastNameValidity, setLastNameValidity] = useState(false);
+  const [phoneValidity, setPhoneValidity] = useState(false);
+  const [usernameValidity, setUsernameValidity] = useState(false);
+  const [passwordValidity, setPasswordValidity] = useState(false);
+  const [confirmPasswordValidity, setConfirmPasswordValidity] = useState(false);
 
   function signup() {
-    if (
-      validateFields()
-    ) {
+    if (validateFields()) {
       Axios.post("", {
         email: document.getElementById("email").value,
         firstName: document.getElementById("firstName").value,
@@ -37,40 +35,49 @@ export default function SignupPage() {
         .catch((res) => {
           // Error Message
         });
-    } else{
-        //Passwords do not match
+    } else {
+      //Passwords do not match
     }
   }
 
-  function validateFields(){
+  function validateFields() {
     let returnVal = true;
-    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(document.getElementById("email").value)){
-        returnVal = false;
-        setEmailValidity(true);
+    if (
+      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(document.getElementById("email").value)
+    ) {
+      returnVal = false;
+      setEmailValidity(true);
     }
-    if(document.getElementById("firstName").value.length < 2){
-        returnVal = false;
-        setFirstNameValidity(true);
+    if (document.getElementById("firstName").value.length < 2) {
+      returnVal = false;
+      setFirstNameValidity(true);
     }
-    if(document.getElementById("lastName").value.length < 2){
-        returnVal = false;
-        setLastNameValidity(true);
+    if (document.getElementById("lastName").value.length < 2) {
+      returnVal = false;
+      setLastNameValidity(true);
     }
-    if(!/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im.test(document.getElementById("phone").value)){
-        returnVal = false;
-        setPhoneValidity(true);
+    if (
+      !/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im.test(
+        document.getElementById("phone").value
+      )
+    ) {
+      returnVal = false;
+      setPhoneValidity(true);
     }
-    if(document.getElementById("username").value.length < 3){
-        returnVal = false;
-        setUsernameValidity(true);
+    if (document.getElementById("username").value.length < 3) {
+      returnVal = false;
+      setUsernameValidity(true);
     }
-    if(document.getElementById("password").value !== document.getElementById("confirmPassword")){
-        returnVal = false;
-        setConfirmPasswordValidity(true);
+    if (
+      document.getElementById("password").value !==
+      document.getElementById("confirmPassword")
+    ) {
+      returnVal = false;
+      setConfirmPasswordValidity(true);
     }
-    if(document.getElementById("password").value.length < 6){
-        returnVal = false;
-        setPasswordValidity(true);
+    if (document.getElementById("password").value.length < 6) {
+      returnVal = false;
+      setPasswordValidity(true);
     }
     return returnVal;
   }
@@ -142,7 +149,12 @@ export default function SignupPage() {
             label="Username"
             className="mb-3"
           >
-            <Form.Control id="username" type="text" placeholder="username" isInvalid={usernameValidity} />
+            <Form.Control
+              id="username"
+              type="text"
+              placeholder="username"
+              isInvalid={usernameValidity}
+            />
           </FloatingLabel>
           <Row>
             <Col>
@@ -174,8 +186,15 @@ export default function SignupPage() {
               </FloatingLabel>
             </Col>
           </Row>
-          <Button size="lg" className="SignupButton" onClick={signup}>
-            Submit
+          <Row>
+            <Col>
+              <Button size="lg" className="SignupButton" onClick={signup}>
+                Submit
+              </Button>
+            </Col>
+          </Row>
+          <Button size="lg" className="SignupButton" href="/employersignup">
+            Or Sign up as an employer.
           </Button>
         </Form>
       </Container>
