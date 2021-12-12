@@ -21,22 +21,21 @@ export default function SignupPage() {
 
   function signup() {
     if (validateFields()) {
-      Axios.post("", {
+      Axios.post("http://localhost:3000/api/signup", {
         email: document.getElementById("email").value,
         firstName: document.getElementById("firstName").value,
         lastName: document.getElementById("lastName").value,
-        phone: document.getElementById("phone").value,
+        phoneNumber: document.getElementById("phone").value,
         userName: document.getElementById("userName").value,
         password: document.getElementById("password").value,
       })
         .then((res) => {
-          // Cookie setting
+          localStorage.setItem("token", res.data.token);
+          window.location.href = "http://localhost:3000/tracking";
         })
         .catch((res) => {
-          // Error Message
+          console.log(res);
         });
-    } else {
-      //Passwords do not match
     }
   }
 

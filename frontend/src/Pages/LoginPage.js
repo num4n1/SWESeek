@@ -5,16 +5,17 @@ import Axios from 'axios';
 export default function LoginPage() {
   
     function login(){
-        Axios.post("", {
+        Axios.get("http://localhost:3000/api/login", {
             "email": document.getElementById("email").value,
             "password": document.getElementById("password").value,
         })
-        .then(res => {
-            // Cookie setting
+        .then((res) => {
+            localStorage.setItem("token", res.data.token);
+            window.location.href = "http://localhost:3000/tracking";
         })
-        .catch(res => {
-            // Error Message
-        })
+        .catch((res) => {
+            console.log(res);
+        });
     }
 
     function keyPress(e){
