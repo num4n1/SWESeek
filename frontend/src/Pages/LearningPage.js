@@ -9,7 +9,8 @@ import {
   Modal,
   Col,
 } from "react-bootstrap";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import Axios from 'axios';
 import "../Styles/SalariesPageStyles.css";
 import "../Styles/LearningPageStyles.css";
 
@@ -94,10 +95,39 @@ export default function LearningPage() {
   const [questionResources, setQuestionResources] = useState(
     exampleQuestionResources
   );
-  const [starredResources, setstarredResources] = useState([]);
+  const [starredResources, setStarredResources] = useState([]);
 
   const [show, setShow] = useState(false);
   const [modalData, setModalData] = useState(questionResources[0]);
+
+  useEffect(() => {
+    Axios.get("http://localhost:3000/api/learningResources", {})
+    .then((res) => {
+      setLearningResources(res.data);
+    })
+
+    Axios.get("http://localhost:3000/api/exampleQuestionResources", {})
+    .then((res) => {
+      setQuestionResources(res.data);
+    })
+
+    let temp;
+    Axios.get("http://localhost:3000/api/savedResources", {
+      token: localStorage.getItem("token"),
+    })
+    .then((res) => {
+      temp = res.data;
+    })
+
+    Axios.get("http://localhost:3000/api/savedPracticeResources", {
+      token: localStorage.getItem("token"),
+    })
+    .then((res) => {
+      temp.push(...res.data);
+    })
+
+    setStarredResources(temp);
+  }, [])
 
   function openCard(example) {
     setModalData(example);
@@ -132,7 +162,7 @@ export default function LearningPage() {
         setLearningResources(a);
       }
       res = res[0];
-      setstarredResources([...starredResources, res]);
+      setStarredResources([...starredResources, res]);
     }else{
       let res = starredResources.filter((element) => {
         if(element.id !== id) return true;
@@ -142,7 +172,7 @@ export default function LearningPage() {
         if(element.id === id) return true;
         else return false;
       })
-      setstarredResources(res);
+      setStarredResources(res);
       if("qPrompt" in a[0]){
         setQuestionResources([...questionResources, a[0]]);
       }else{
