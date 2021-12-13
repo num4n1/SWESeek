@@ -12,6 +12,7 @@ import {
 import { useState, useEffect } from "react";
 import "../Styles/TrackingPageStyles.css";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
+import Axios from 'axios';
 const uuidv4 = require("uuid/v4");
 
 const exampleWishList = [
@@ -140,6 +141,48 @@ export default function TrackingPage() {
   const [show, setShow] = useState(false);
   const [showAdd, setShowAdd] = useState(false);
   const [modalInfo, setModalInfo] = useState({});
+
+  useEffect(() => {
+    // Checks for token in storage, indicating signed in.
+    if(localStorage.getItem("token") == null){
+      window.location.href = "http://localhost:3000/login";
+    }
+
+    Axios.post("http://localhost:3000/api/getLists", {
+      token: localStorage.getItem("token"),
+    })
+    .then((res) =>{
+        let wishList = [];
+        let appliedList = [];
+        let interviewList = [];
+        let offerList = [];
+        let regectedList = [];
+        let list;
+        if(currentList !== undefined){
+          list = res.data.find(e => e.listName === currentList);
+        }
+        else{
+          list = res.data[0];
+        }
+        setLists(res.data);
+        list.jobs.forEach((job) => {
+          if(job.applicationStatus === "Wish"){
+            wishList.push(job);
+          }else if (job.applicationStatus === "Applied"){
+            appliedList.push(job);
+          }else if (job.applicationStatus === "Interview"){
+            appliedList.push(job);
+          }else if (job.applicationStatus === "Offer"){
+            appliedList.push(job);
+          }else if (job.applicationStatus === "Applied"){
+            appliedList.push(job);
+          }
+        })
+    })
+    .catch((res) => {
+      console.log(res);
+    });
+  });
 
   const handleClose = () => setShow(false);
   const handleShow = (item) => {
