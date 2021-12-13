@@ -147,23 +147,23 @@ export default function TrackingPage() {
     if(localStorage.getItem("token") == null){
       window.location.href = "http://localhost:3000/login";
     }
+    getLists();
+    
+  }, []);
 
-    Axios.post("http://localhost:3000/api/getLists", {
+  async function getLists(){
+    /*
+    let wishList = [];
+    let appliedList = [];
+    let interviewList = [];
+    let offerList = [];
+    let regectedList = [];
+    let list;
+    await Axios.post("http://localhost:3000/api/getLists", {
       token: localStorage.getItem("token"),
     })
     .then((res) =>{
-        let wishList = [];
-        let appliedList = [];
-        let interviewList = [];
-        let offerList = [];
-        let regectedList = [];
-        let list;
-        if(currentList !== undefined){
-          list = res.data.find(e => e.listName === currentList);
-        }
-        else{
-          list = res.data[0];
-        }
+        list = res.data[0];
         setLists(res.data);
         list.jobs.forEach((job) => {
           if(job.applicationStatus === "Wish"){
@@ -171,18 +171,26 @@ export default function TrackingPage() {
           }else if (job.applicationStatus === "Applied"){
             appliedList.push(job);
           }else if (job.applicationStatus === "Interview"){
-            appliedList.push(job);
+            interviewList.push(job);
           }else if (job.applicationStatus === "Offer"){
-            appliedList.push(job);
-          }else if (job.applicationStatus === "Applied"){
-            appliedList.push(job);
+            offerList.push(job);
+          }else if (job.applicationStatus === "Regected"){
+            regectedList.push(job);
           }
         })
     })
     .catch((res) => {
       console.log(res);
     });
-  });
+    
+    setCurrentList(list);
+    setWishListItems(wishList);
+    setAppliedItems(appliedList);
+    setInterviewItems(interviewList);
+    setOfferItems(offerList);
+    setRegectedItems(regectedList);
+    */
+  }
 
   const handleClose = () => setShow(false);
   const handleShow = (item) => {
@@ -227,13 +235,13 @@ export default function TrackingPage() {
   function handleOnDragEnd(result) {
     if (!result.destination) return;
     const { source, destination } = result;
-
+    let removed = [];
     if (source.droppableId !== destination.droppableId) {
       const sourceColumn = columns[source.droppableId];
       const destColumn = columns[destination.droppableId];
       const sourceItems = [...sourceColumn.items];
       const destItems = [...destColumn.items];
-      const [removed] = sourceItems.splice(source.index, 1);
+      [removed] = sourceItems.splice(source.index, 1);
       removed.applicationStatus = destColumn.name;
       destItems.splice(destination.index, 0, removed);
       setColumns({
@@ -262,6 +270,16 @@ export default function TrackingPage() {
         },
       });
     }
+
+    console.log(removed.applicationStatus)
+
+    Axios.put("http://localhost:3000/api/updateTrackingList", {
+        token: localStorage.getItem("token"),
+        listName: currentList.name,
+        listId: currentList.id,
+        jobId: removed.id,
+        applicationStatus: removed.applicationStatus,
+    })
   }
 
   function addJob() {
@@ -273,7 +291,7 @@ export default function TrackingPage() {
     let description = document.getElementById("addDescription").value;
     let applicationStatus = column.name;
     let applicationDate = new Date().toDateString();
-    let id = uuidv4();
+    let id; //= uuidv4();
     
     if(company === "") setCompanyValid(true);
     if(position === "") setPositionValid(true);
@@ -289,6 +307,24 @@ export default function TrackingPage() {
       description !== ""
     ) {
 
+      column.count++;
+      handleCloseAdd();
+      Axios.post("http://localhost:3000/api/addJobToTrack", {
+        token: localStorage.getItem("token"),
+        companyName: company,
+        position: position,
+        startDate: startDate,
+        link: link,
+        description: description,
+        listName: currentList.name,
+        listId: currentList.id,
+        applicationStatus: applicationStatus,
+        applicationDate: applicationDate,
+      })
+      .then((res) => {
+        id = res.data.jobId;
+      })
+
       column.items.push({
         id: id,
         companyName: company,
@@ -299,8 +335,6 @@ export default function TrackingPage() {
         startDate: startDate,
         description: description,
       });
-      column.count++;
-      handleCloseAdd();
     }
   }
 
@@ -317,6 +351,12 @@ export default function TrackingPage() {
     theColumn.items.splice(theColumn.items.findIndex(item => item.id === modalInfo.id), 1);
     theColumn.count--;
     handleClose();
+
+    Axios.delete("http://localhost:3000/api/removeJobFromList", {
+      token: localStorage.getItem("token"),
+      listId: currentList.id,
+      jobId: modalInfo.id,
+    });
   }
 
   function addJobModal(columnId) {

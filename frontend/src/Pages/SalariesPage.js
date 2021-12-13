@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Container,
   Form,
@@ -9,6 +9,7 @@ import {
   Button,
   Col,
 } from "react-bootstrap";
+import Axios from 'axios';
 import "../Styles/SalariesPageStyles.css";
 
 const exampleDataPopular = [
@@ -157,12 +158,24 @@ const exampleDataNotPopular = [
 ];
 
 export default function SalariesPage() {
-  const popularCompanys = exampleDataPopular;
-  const allCompanys = exampleDataNotPopular;
+  const [popularCompanys, setPopularCompanys] = useState(exampleDataPopular);
+  const [allCompanys, setAllCompanys] = useState(exampleDataNotPopular);
 
   const [modalInfo, setModalInfo] = useState(exampleDataPopular[0]);
   const [show, setShow] = useState(false);
   const [showAddSalary, setShowAddSalary] = useState(false);
+
+  useEffect(() => {
+    Axios.get("http://localhost:3000/api/summerizedSalaryInfo", {})
+    .then((res) => {
+      setAllCompanys(res.data);
+    });
+
+    Axios.get("http://localhost:3000/api/summarizedPopularSalaryInfo", {})
+    .then((res) => {
+      setPopularCompanys(res.data);
+    });
+  }, []);
 
   function openCard(company) {
     setModalInfo(company);
@@ -202,9 +215,12 @@ export default function SalariesPage() {
     let role = document.getElementById("addRole").value;
     let comp = document.getElementById("addComp").value;
 
-    /*
-      Send Salary to backend
-    */
+    Axios.post("http://localhost:3000/api/addSalary", {
+      company: company,
+      companySize: size,
+      role: role,
+      totalComp: comp,
+    })
 
     handleCloseSalary();
   }
