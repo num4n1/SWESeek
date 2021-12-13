@@ -103,15 +103,15 @@ export default function LearningPage() {
   useEffect(() => {
     Axios.get("http://localhost:3000/api/learningResources", {})
     .then((res) => {
-      setLearningResources(res.data);
+      //setLearningResources(res.data);
     })
 
     Axios.get("http://localhost:3000/api/exampleQuestionResources", {})
     .then((res) => {
-      setQuestionResources(res.data);
+      //setQuestionResources(res.data);
     })
 
-    let temp;
+    let temp = [];
     Axios.get("http://localhost:3000/api/savedResources", {
       token: localStorage.getItem("token"),
     })
@@ -154,12 +154,26 @@ export default function LearningPage() {
           else return false;
         })
         setQuestionResources(a);
+        Axios.put("http://localhost:3000/api/setSavedPracticeResources", {
+          token: localStorage.getItem("token"),
+          tags: res[0].tag,
+          qPrompt: res[0].qPrompt,
+          questionNum: res[0].questionNum,
+          solutionVideo: res[0].solutionVideo,
+        })
       }else{
         a = learningResources.filter((element) => {
           if(element.id !== id) return true;
           else return false;
         })
         setLearningResources(a);
+        Axios.put("http://localhost:3000/api/setSavedLearningResources", {
+          token: localStorage.getItem("token"),
+          id: res[0].id,
+          tags: res[0].tag,
+          topic: res[0].topic,
+          link: res[0].link,
+        })
       }
       res = res[0];
       setStarredResources([...starredResources, res]);
@@ -175,10 +189,21 @@ export default function LearningPage() {
       setStarredResources(res);
       if("qPrompt" in a[0]){
         setQuestionResources([...questionResources, a[0]]);
+        Axios.delete("http://localhost:3000/api/deleteSavedPracticeResources", {
+          token: localStorage.getItem("token"),
+          id: res[0].id,
+          tags: res[0].tag,
+          topic: res[0].topic,
+          link: res[0].link,
+        })
       }else{
         setLearningResources([...learningResources, a[0]]);
       }
     }
+
+
+
+
   }
 
   return (
