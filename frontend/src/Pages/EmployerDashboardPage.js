@@ -9,7 +9,7 @@ import {
   FormLabel,
   Card,
 } from "react-bootstrap";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Axios from "axios";
 
 const exampleJobsPosted = [
@@ -46,6 +46,20 @@ export default function EmployerDashboardPage() {
   const companyName = "Google";
   const [showAddJob, setShowAddJob] = useState(false);
   const [jobs, setJobs] = useState(exampleJobsPosted);
+  const [showApplicants, setShowApplicants] = useState(false);
+  const [applicants, setApplicants] = useState();
+
+  useEffect(() => {
+    /*Axios.get("http://localhost:3000/api/getCompanyJobs", {
+      token: localStorage.getItem("token"),
+    })
+    .then((res) => {
+      setJobs(res.data);
+    })
+    .catch((res) => {
+      console.log(res);
+    })*/
+  }, []);
 
   function handleCloseAddJob() {
     setShowAddJob(false);
@@ -64,37 +78,44 @@ export default function EmployerDashboardPage() {
       let day = date[1];
       let year = date[2];
 
-      Axios.post("", {
-        token: "", // get token
+      Axios.post("http://localhost:3000/api/postJob", {
+        token: localStorage.getItem("token"),
         year: year,
         month: month,
         day: day,
         title: document.getElementById("addJobTitle").value,
         description: document.getElementById("addJobDescription").value,
         jobURL: document.getElementById("addJobUrl").value,
-      })
-        .then((res) => {
-          // Cookie setting
-        })
-        .catch((res) => {
-          // Error Message
-        });
-    } else {
-      //Passwords do not match
+      }).catch((res) => {
+        console.log(res);
+      });
     }
   }
 
   function validateFields() {}
 
-  function deleteJob(id){
-    console.log("test")
+  function deleteJob(id) {
+    console.log("test");
     let newJobs = jobs;
     newJobs = newJobs.filter((job) => {
-      if(job.JobID !== id) return true;
+      if (job.JobID !== id) return true;
       else return false;
-    })
+    });
     setJobs(newJobs);
-    // deletes job with id = id
+    Axios.delete("http://localhost:3000/api/deleteJob", {
+      token: localStorage.getItem("token"),
+      jobId: id,
+    })
+  }
+
+  function downloadJobApplicants(jobId){
+    Axios.get("http://localhost:3000/api/getUsersWhoApplied", {
+      token: localStorage.getItem("token"),
+      JobID: jobId,
+    })
+    .then((res) => {
+      //download files https://medium.com/yellowcode/download-api-files-with-react-fetch-393e4dae0d9e
+    })
   }
 
   return (
@@ -112,90 +133,43 @@ export default function EmployerDashboardPage() {
         </Form.Group>
         <h1 className="dashboardSubHeader">Your postings</h1>
         <Row style={{ justifyContent: `space-evenly` }}>
-        {jobs.map((job) => {
-          return (
-            <Card style={{ width: "18rem", margin: `1% 0` }}>
-              <Card.Body>
-                <Card.Title>{job.title}</Card.Title>
-                <Card.Subtitle className="mb-2 text-muted">
-                  {job.description}
-                </Card.Subtitle>
-                <Card.Subtitle className="mb-2 text-muted">
-                  {job.month}/{job.day}/{job.year}
-                </Card.Subtitle>
-                <Card.Link href={job.jobURL}>Posting Link</Card.Link>
-                <Row style={{marginTop:`5%`}}>
-                <Button onClick={() => deleteJob(job.JobID)} style={{width:`40%`, margin:`auto`, }}>Delete</Button>
-                </Row>
-              </Card.Body>
-            </Card>
-          );
-        })}
+          {jobs.map((job) => {
+            return (
+              <Card style={{ width: "18rem", margin: `1% 0` }}>
+                <Card.Body>
+                  <Card.Title>{job.title}</Card.Title>
+                  <Card.Subtitle className="mb-2 text-muted">
+                    {job.description}
+                  </Card.Subtitle>
+                  <Card.Subtitle className="mb-2 text-muted">
+                    {job.month}/{job.day}/{job.year}
+                  </Card.Subtitle>
+                  <Card.Link href={job.jobURL}>Posting Link</Card.Link>
+                  <Row style={{ marginTop: `5%` }}>
+                    <Row>
+                      <Button
+                        onClick={() => downloadJobApplicants(job.JobID)}
+                        style={{ width: `90%`, margin: `auto auto 5% auto` }}
+                      >
+                        Download Applicants Resumes
+                      </Button>
+                    </Row>
+                    <Button
+                      onClick={() => deleteJob(job.JobID)}
+                      style={{ width: `40%`, margin: `auto` }}
+                    >
+                      Delete
+                    </Button>
+                  </Row>
+                </Card.Body>
+              </Card>
+            );
+          })}
         </Row>
 
         <Modal centered show={showAddJob} onHide={handleCloseAddJob}>
           <Modal.Header closeButton>
-            <Modal.Title>Add Salary</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <Row>
-              <Col>
-                <FormLabel className="SearchLabel">Title</FormLabel>
-                <Form.Control
-                  style={{ width: `100%` }}
-                  placeholder="Software Engineer"
-                  id="addJobTitle"
-                />
-              </Col>
-            </Row>
-            <Row>
-              <Col>
-                <FormLabel style={{ marginTop: `3%` }} className="SearchLabel">
-                  Start date (m/d/y)
-                </FormLabel>
-                <Form.Control
-                  style={{ width: `100%` }}
-                  placeholder="1/30/2022"
-                  id="addJobStartDate"
-                />
-              </Col>
-            </Row>
-            <Row>
-              <Col>
-                <FormLabel style={{ marginTop: `3%` }} className="SearchLabel">
-                  Description
-                </FormLabel>
-                <Form.Control
-                  style={{ width: `100%` }}
-                  placeholder="Will be working with C++ and SQL"
-                  id="addJobDescription"
-                />
-              </Col>
-            </Row>
-            <Row>
-              <Col>
-                <FormLabel style={{ marginTop: `3%` }} className="SearchLabel">
-                  URL
-                </FormLabel>
-                <Form.Control
-                  style={{ width: `100%` }}
-                  placeholder="https:/www.sweseek.com/careers"
-                  id="addJobUrl"
-                />
-              </Col>
-            </Row>
-            <Button
-              onClick={addNewJob}
-              id="submitButton"
-              style={{ marginTop: `3%` }}
-            >
-              Submit
-            </Button>
-          </Modal.Body>
-        </Modal>
-        <Modal centered show={showAddJob} onHide={handleCloseAddJob}>
-          <Modal.Header closeButton>
-            <Modal.Title>Applicants</Modal.Title>
+            <Modal.Title>Add Job</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <Row>

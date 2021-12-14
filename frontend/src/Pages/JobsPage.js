@@ -1,4 +1,5 @@
-import { useState } from "react";
+import Axios from "axios";
+import { useEffect, useState } from "react";
 import {
   Container,
   DropdownButton,
@@ -108,12 +109,29 @@ const exampleDocuments = [
 ];
 
 export default function JobsPage() {
-  const [jobs, jobsToShow] = useState(exampleJobs);
+  const [jobs, setJobsToShow] = useState(exampleJobs);
   const [resultsToShow, setResultsToShow] = useState(jobs);
   const [showApplyJob, setShowApplyJob] = useState(false);
   const [currJob, setCurrJob] = useState({});
   const [documents, setDocuments] = useState(exampleDocuments);
   const [showAddDoc, setShowAddDoc] = useState(false);
+  const [resume, setResume] = useState();
+  const [coverLetter, setCoverLetter] = useState();
+
+
+  useEffect(() => {
+    Axios.get("http://localhost:3000/api/jobPostings", {})
+    .then((res) => {
+      setJobsToShow(res);
+    })
+
+    Axios.get("http://localhost:3000/api/getUserDocuments", {
+      token: localStorage.getItem("token"),
+    })
+    .then((res) => {
+      setDocuments(res.data);
+    })
+  }, [])
 
   function handleCloseAddDoc() {
     setShowAddDoc(false);
@@ -156,12 +174,30 @@ export default function JobsPage() {
     setShowApplyJob(true);
   }
 
-  function applyForJob(id) {
-    //applys for job
+  function applyForJob(id, resumeDNo, coverDno) {
+    let temp = [resumeDNo];
+    if(coverDno !== undefined){
+      temp.push(coverDno);
+    }
+    Axios.post("http://localhost:3000/api/apply", {
+      token: localStorage.getItem("token"),
+      JobID: id,
+      dNo:  temp,
+    })
   }
   
-  function submitDocuments(){
-    //submits document
+  function submitDocuments(resume, coverLetter){
+    console.log(resume, coverLetter)
+    Axios.post("http://localhost:3000/api/addUserDocument", {
+      token: localStorage.getItem("token"),
+      file: resume,
+      type: "resume",
+    })
+    Axios.post("http://localhost:3000/api/addUserDocument", {
+      token: localStorage.getItem("token"),
+      file: coverLetter,
+      type: "coverLetter",
+    })
   }
 
   return (
@@ -224,7 +260,7 @@ export default function JobsPage() {
                 ) : (
                   documents.map((doc) => {
                     if (doc.type === "resume") {
-                      return <option>{doc.fileName}</option>;
+                      return <option value={doc.dNo}>{doc.fileName}</option>;
                     }
                   })
                 )}
@@ -236,13 +272,13 @@ export default function JobsPage() {
               <FormLabel className="SearchLabel" style={{ marginTop: `3%` }}>
                 Cover Letter (optional)
               </FormLabel>
-              <Form.Select style={{ width: `100%` }} id="addResume">
+              <Form.Select style={{ width: `100%` }} id="addCover">
                 {documents.length === 0 ? (
                   <option>Upload a resume first</option>
                 ) : (
                   documents.map((doc) => {
                     if (doc.type === "coverLetter") {
-                      return <option>{doc.fileName}</option>;
+                      return <option value={doc.dNo}>{doc.fileName}</option>;
                     }
                   })
                 )}
@@ -250,7 +286,7 @@ export default function JobsPage() {
             </Col>
           </Row>
           <Button
-            onClick={() => applyForJob(currJob.id)}
+            onClick={() => applyForJob(currJob.id, document.getElementById("addResume").value, document.getElementById("addCover").value)}
             id="submitButton"
             style={{ marginTop: `3%` }}
           >
@@ -265,13 +301,13 @@ export default function JobsPage() {
         <Modal.Body style={{textAlign:`left`}}>
           <Form.Group controlId="formFile" className="mb-3">
             <Form.Label>Uploaded Resume</Form.Label>
-            <Form.Control style={{ width: `60%` }} type="file" />
+            <Form.Control style={{ width: `60%` }} type="file" onChange={(e) => setResume(e.target.files)}/>
           </Form.Group>
           <Form.Group controlId="formFile" className="mb-3">
             <Form.Label>Uploaded Cover Letter</Form.Label>
-            <Form.Control style={{ width: `60%` }} type="file" />
+            <Form.Control style={{ width: `60%` }} type="file" onChange={(e) => setCoverLetter(e.target.files)}/>
           </Form.Group>
-          <Button onClick={submitDocuments}>Submit</Button>
+          <Button onClick={() => submitDocuments(resume, coverLetter)}>Submit</Button>
         </Modal.Body>
       </Modal>
     </Container>

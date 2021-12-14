@@ -23,20 +23,19 @@ import {
         validateFields()
       ) {
         Axios.post("", {
-          email: document.getElementById("companyName").value,
+          companyName: document.getElementById("companyName").value,
           username: document.getElementById("username").value,
           industry: document.getElementById("industry").value,
           size: document.getElementById("size").value,
           password: document.getElementById("password").value,
         })
           .then((res) => {
-            // Cookie setting
+            localStorage.setItem("token", res.data.token);
+            window.location.href = "http://localhost:3000/employerdashboard";
           })
           .catch((res) => {
-            // Error Message
+            console.log(res);
           });
-      } else{
-          //Passwords do not match
       }
     }
   
