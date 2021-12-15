@@ -3,15 +3,23 @@ CREATE DATABASE SWESEEK;
 USE SWESEEK;
 
 DROP TABLE IF EXISTS USERCREDENTIALS;
-CREATE TABLE CREDENTIALS (
+CREATE TABLE USERCREDENTIALS (
 	Username			varchar(25) not null,
 	Password			varchar(25) not null,
-	PhoneNumber			varchar(10) not null,
+	PhoneNumber			varchar(13) not null,
     email				varchar(255) not null,
     FirstName			char(25) not null,
     LastName			char(25) not null,
 	primary key (Username)
 );
+
+INSERT INTO USERCREDENTIALS (Username, Password, PhoneNumber, email, FirstName, LastName)
+VALUES
+('num4n',			'Numan1234',		'236-145-2542',	'numan@gmail.com', 		'Mohamed', 	'Numan'),
+('nick_knapton',	'software1234',		'587-890-4387',	'nicholas@yahoo.com', 	'Nicholas', 'Knapton'),
+('zeeshansalim',	'code3211',			'705-667-9481',	'zeeshan@outlook.com',	'Zeeshan', 	'Chougle'),
+('elon',			'spacex4life',		'306-512-5508',	'elon@tesla.com', 		'Elon', 	'Musk'),
+('bezos_1',			'amazonisgreat32',	'403-980-9876',	'jeff@amazon.com', 		'Jeff', 	'Bezos');
 
 DROP TABLE IF EXISTS JOBS;
 CREATE TABLE JOBS (
@@ -27,6 +35,7 @@ CREATE TABLE JOBS (
     ApplicationDate		char(25) ,
 	primary key (CompanyName)
 );
+
 
 DROP TABLE IF EXISTS TRACKING;
 CREATE TABLE TRACKING (
