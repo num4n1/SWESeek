@@ -28,14 +28,28 @@ CREATE TABLE JOBS (
 	StartDate			varchar(10) ,
     EndDate				varchar(255),
     Link				char(25) not null,
-    Description			char(25) not null,
+    Description			char(255) ,
 	ListName			char(25) ,
     ListId				char(25) ,
+	primary key (CompanyName)
+);
+
+INSERT INTO JOBS (CompanyName, Position, StartDate, EndDate, Link, Description, ListName, ListId)
+VALUES
+('Amazon',	  'Back-End',			'15-01-2022',	'15-04-2022', 		'amazoncareers.ca', 	'N/A',	'N/A',	'N/A'),
+('Google',	  'Front-End',			'11-04-2022',	'11-04-2023', 		'careersgoogle.com', 	'N/A',	'N/A',	'N/A'),
+('IBM',		  'Devops',				'21-07-2022',	'21-01-2023',		'ibmrecruitment.ca', 	'N/A',	'N/A',	'N/A'),
+('Tesla',     'Machine Learning',	'28-04-2022',	'15-01-2023', 		'teslahires.com', 		'N/A',	'N/A',	'N/A'),
+('Microsoft', 'Back-End',			'09-06-2022',	'09-10-2022', 		'microsoftjobs.com', 	'N/A',	'N/A',	'N/A');
+
+DROP TABLE IF EXISTS MYJOBS;
+CREATE TABLE MYJOBS (
+	CompanyName			varchar(25) not null,
+	Position			varchar(25) not null,
 	ApplicationStatus	char(25) not null,
     ApplicationDate		char(25) ,
 	primary key (CompanyName)
 );
-
 
 DROP TABLE IF EXISTS TRACKING;
 CREATE TABLE TRACKING (
