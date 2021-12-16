@@ -26,3 +26,10 @@ SELECT company,companySize,industry,role,avg(totalComp) FROM SALARY AS S, COMPAN
 Endpoint 12:
 INSERT INTO SALARY (company, companySize, role, totalComp)
 VALUES ('CUSTOM', 'CUSTOM', 'CUSTOM', 9999);
+
+Endpoint 13:
+
+Endpoint 14:
+
+Endpoint 15:
+SELECT * FROM REVIEWS;
