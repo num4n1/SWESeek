@@ -46,10 +46,16 @@ DROP TABLE IF EXISTS MYJOBS;
 CREATE TABLE MYJOBS (
 	CompanyName			varchar(25) not null,
 	Position			varchar(25) not null,
-	ApplicationStatus	char(25) not null,
-    ApplicationDate		char(25) ,
+	ApplicationStatus		char(25) not null,
+    	ApplicationDate			char(25),
 	primary key (CompanyName)
 );
+
+INSERT INTO MYJOBS (CompanyName, Position, ApplicationStatus, ApplicationDate)
+VALUES
+('Amazon',	'Back-End',		'Offer Recieved',	'01-01-2022'),
+('IBM',		'Devops',		'Under-Review',		'01-02-2022'),
+('Tesla',     	'Machine Learning',	'Under-Review',		'02-01-2022');
 
 DROP TABLE IF EXISTS TRACKING;
 CREATE TABLE TRACKING (
@@ -60,9 +66,9 @@ CREATE TABLE TRACKING (
 DROP TABLE IF EXISTS COMPANY;
 CREATE TABLE COMPANY (
 	Company			varchar(25) not null,
-    CompanySize		varchar(25) not null,
-    Role			varchar(25) not null,
-    TotalComp		double not null,
+    	CompanySize		varchar(25) not null,
+    	Role			varchar(25) not null,
+    	TotalComp		double not null,
 	primary key (Company)
 );
 
