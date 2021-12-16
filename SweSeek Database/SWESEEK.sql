@@ -80,11 +80,11 @@ CREATE TABLE COMPANY (
 
 INSERT INTO COMPANY (Company, CompanySize, Role, TotalComp)
 VALUES
-('Amazon',  	'Large',	'Intern',	115000.0),
-('IBM',	  	'Large',	'Intern',	70000.0),
-('Tesla',     	'Large',	'Intern',	100000.0),
-('Google',     	'Large',	'Intern',	120000.0),
-('Microsoft',   'Large',	'Intern',	111000.0);
+('Amazon',	 'Large',	'Back-End',		115000.0),
+('IBM',		'Large',	'Devops',		70000.0),
+('Tesla',     	'Large',	'Machine Learning',	100000.0),
+('Google',     	'Large',	'Front-End',		120000.0),
+('Microsoft',   'Large',	'Back-End',		111000.0);
 
 DROP TABLE IF EXISTS JOBSAPPLIED;
 CREATE TABLE JOBSAPPLIED (
@@ -95,7 +95,7 @@ CREATE TABLE JOBSAPPLIED (
 
 DROP TABLE IF EXISTS JOBPOSTING;
 CREATE TABLE JOBPOSTING (
-	Year			varchar(25) not null,
+    Year			varchar(25) not null,
     Month			varchar(25) not null,
     Day				varchar(25) not null,
     Title			varchar(25) not null,
@@ -106,10 +106,10 @@ CREATE TABLE JOBPOSTING (
 
 DROP TABLE IF EXISTS COMPANYCREDENTIALS;
 CREATE TABLE COMPANYCREDENTIALS (
-	CompanyName			varchar(25) not null,
+    CompanyName			varchar(25) not null,
     CompanyUsername		varchar(25) not null,
     Industry			varchar(25) not null,
-    Size				varchar(25) not null,
+    Size			varchar(25) not null,
     Passwprd			varchar(25) not null,
 	primary key (CompanyUsername)
 );
@@ -117,8 +117,8 @@ CREATE TABLE COMPANYCREDENTIALS (
 
 INSERT INTO COMPANYCREDENTIALS (CompanyName, CompanyUsername, Passwprd, Industry, Size, Link)
 VALUES
-('Amazon',	  'AMZN',			'Jeff1969',		'E-commerce', 				'Large', 	'amazoncareers.ca'),
-('Google',	  'GOOGL',			'ELGOOG321',	'Technology', 				'Large',	'careersgoogle.com'),
-('IBM',		  'IBMC',			'AK642020',		'Computer-Hardware', 		'Large',	'ibmrecruitment.ca'),
-('Tesla',     'TSLA',			'EMUSK420',		'Vehicle Manufacturer', 	'Large',	'teslahires.com'),
-('Microsoft', 'MSFT',			'UEOQ234@',		'Technology', 				'Large',	'microsoftjobs.com');
+('Amazon',    'AMZN',	'Jeff1969',	'E-commerce', 		'Large', 	'amazoncareers.ca'),
+('Google',    'GOOGL',	'ELGOOG321',	'Technology', 		'Large',	'careersgoogle.com'),
+('IBM',	      'IBMC',	'AK642020',	'Computer-Hardware', 	'Large',	'ibmrecruitment.ca'),
+('Tesla',     'TSLA',	'EMUSK420',	'Vehicle Manufacturer', 'Large',	'teslahires.com'),
+('Microsoft', 'MSFT',	'UEOQ234@',	'Technology', 		'Large',	'microsoftjobs.com');
