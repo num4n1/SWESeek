@@ -121,6 +121,22 @@ def addUserDocument():
 def getUserDocuments():
     pass
 
+@app.route('/api/getUsersWhoApplied', methods=['GET'])
+def getUsersWhoApplied():
+    pass
+
+@app.route('/api/apply', methods=['POST'])
+def apply():
+    pass
+
+@app.route('/api/savedResources', methods=['GET'])
+def savedResources():
+    pass
+
+@app.route('/api/setSavedLearningResources', methods=['PUT'])
+def setSavedLearningResources():
+    pass
+
 if __name__ == "__main__":
     app.run(debug=True)
 
