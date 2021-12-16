@@ -19,3 +19,6 @@ SELECT J.companyId,position,size,industry,link,description FROM JOBS AS J, COMPA
 
 Endpoint 10:
 SELECT company,companySize,industry,role,totalComp FROM SALARY AS S, COMPANYCREDENTIALS AS C WHERE S.companyId = C.companyId;
+
+Endpoint 11:
+SELECT company,companySize,industry,role,avg(totalComp) FROM SALARY AS S, COMPANYCREDENTIALS AS C WHERE S.companyId = C.companyId GROUP BY company; 
