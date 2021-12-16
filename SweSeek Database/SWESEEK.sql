@@ -63,6 +63,12 @@ CREATE TABLE TRACKING (
 	primary key (ListName)
 );
 
+INSERT INTO TRACKING (ListName)
+VALUES
+('Amazon'),
+('IBM'),
+('Tesla');
+
 DROP TABLE IF EXISTS COMPANY;
 CREATE TABLE COMPANY (
 	Company			varchar(25) not null,
@@ -72,10 +78,18 @@ CREATE TABLE COMPANY (
 	primary key (Company)
 );
 
+INSERT INTO COMPANY (Company, CompanySize, Role, TotalComp)
+VALUES
+('Amazon',  	'Large',	'Intern',	115000.0),
+('IBM',	  	'Large',	'Intern',	70000.0),
+('Tesla',     	'Large',	'Intern',	100000.0),
+('Google',     	'Large',	'Intern',	120000.0),
+('Microsoft',   'Large',	'Intern',	111000.0);
+
 DROP TABLE IF EXISTS JOBSAPPLIED;
 CREATE TABLE JOBSAPPLIED (
 	JobId			varchar(25) not null,
-    DNo				int not null,
+    	DNo				int not null,
 	primary key (JobId)
 );
 
