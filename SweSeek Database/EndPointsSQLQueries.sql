@@ -1,4 +1,4 @@
-Endpoint 3:
+Endpoint 3: #wrong
 SELECT T.ListId, T.ListName
 FROM TRACKINGLIST AS T
 WHERE T.userName='CUSTOM'; 
@@ -7,28 +7,28 @@ SELECT t.listId,M.CompanyName,M.Position,J.link,M.applicationDate,M.applicationS
 FROM TRACKINGLIST AS T ,MYJOBS AS M, JOBS AS J
 WHERE T.listId='003' AND J.JobId = M.Id AND T.myjobId = M.Id; 
 
-Endpoint 4:
+Endpoint 4: #wrong
 SELECT Serial,companyName,position,link,applicationDate,applicationStatus,startDate,description FROM TRACKINGLIST;
 
-Endpoint 4.1:
+Endpoint 4.1: 
 UPDATE TRACKINGLIST AS T, MYJOBS AS M
 SET applicationStatus = 'Offer Recieved'
 WHERE listName = 'N/A'AND listId='N/A'AND T.Id =3 AND T.Id=M.Id; 
 
-Endpoint 7:
-DELETE FROM TRACKINGLIST WHERE listId='N/A' AND Id=2;
+Endpoint 7: #corrected
+DELETE FROM TRACKINGLIST WHERE listId=%s AND myJobId=%s AND userName=%s
 
-Endpoint 9:
+Endpoint 9: #correct
 SELECT J.companyId,position,size,industry,link,description FROM JOBS AS J, COMPANYCREDENTIALS AS C WHERE J.companyId = C.companyId;
 
-Endpoint 10:
+Endpoint 10: #correct
 SELECT company,companySize,industry
 FROM SALARY AS S, COMPANYCREDENTIALS AS C WHERE S.companyId = C.companyId;
 
 SELECT company,role,totalComp
 FROM SALARY AS S, COMPANYCREDENTIALS AS C WHERE S.companyId = C.companyId
 
-Endpoint 11:
+Endpoint 11: #correct
 SELECT company,companySize,industry
 FROM SALARY AS S, COMPANYCREDENTIALS AS C WHERE S.companyId = C.companyId;
 
@@ -37,7 +37,7 @@ FROM SALARY AS S, COMPANYCREDENTIALS AS C
 WHERE S.companyId = C.companyId 
 GROUP BY company; 
 
-Endpoint 12:
+Endpoint 12:  #correct
 INSERT INTO SALARY (company, companySize, role, totalComp)
 VALUES ('CUSTOM', 'CUSTOM', 'CUSTOM', 9999);
 
@@ -45,5 +45,5 @@ Endpoint 13:
 
 Endpoint 14:
 
-Endpoint 15:
+Endpoint 15:  #correct
 SELECT * FROM REVIEWS WHERE companyName ='CUSTOM';
