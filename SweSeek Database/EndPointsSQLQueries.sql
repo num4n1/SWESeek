@@ -7,12 +7,14 @@ Endpoint 4:
 SELECT Serial,companyName,position,link,applicationDate,applicationStatus,startDate,description FROM TRACKINGLIST;
 
 Endpoint 4.1:
-UPDATE TRACKINGLIST
+UPDATE TRACKINGLIST AS T, MYJOBS AS M
 SET applicationStatus = 'Offer Recieved'
-WHERE listName = 'N/A'AND listId='N/A'AND serial =3; 
+WHERE listName = 'N/A'AND listId='N/A'AND T.Id =3 AND T.Id=M.Id; 
 
 Endpoint 7:
-DELETE FROM TRACKINGLIST WHERE listId='N/A' AND Serial=1;
+DELETE FROM TRACKINGLIST WHERE listId='N/A' AND Id=2;
 
 Endpoint 9:
 SELECT J.companyId,position,size,industry,link,description FROM JOBS AS J, COMPANYCREDENTIALS AS C WHERE J.companyId = C.companyId;
+
+Endpoint 10:
