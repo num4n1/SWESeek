@@ -4,7 +4,7 @@ USE SWESEEK;
 
 DROP TABLE IF EXISTS USERCREDENTIALS;
 CREATE TABLE USERCREDENTIALS (
-    email			varchar(255) not null,
+    email				varchar(255) not null,
 	firstName			char(25) not null,
     lastName			char(25) not null,
     phoneNumber			varchar(13) not null,
@@ -63,20 +63,20 @@ VALUES
 
 DROP TABLE IF EXISTS MYJOBS;
 CREATE TABLE MYJOBS (
-	Serial			integer not null,
+	Id			integer not null,
 	userName		varchar(25) not null,
 	CompanyName		varchar(25) not null,
 	Position		varchar(25) not null,
 	ApplicationStatus	char(25) not null,
         ApplicationDate		char(25) ,
         CompanyId		char(3) not null,
-	primary key (Serial),
+	primary key (Id),
         foreign key (CompanyId) references COMPANYCREDENTIALS(CompanyId) ON UPDATE CASCADE,
-        foreign key (Serial) references JOBS(JobId) ON UPDATE CASCADE,
+        foreign key (Id) references JOBS(JobId) ON UPDATE CASCADE,
         foreign key (userName) references USERCREDENTIALS(UserName) ON UPDATE CASCADE
 );
 
-INSERT INTO MYJOBS (Serial,userName,CompanyName, Position, ApplicationStatus, ApplicationDate,CompanyId)
+INSERT INTO MYJOBS (Id,userName,CompanyName, Position, ApplicationStatus, ApplicationDate,CompanyId)
 VALUES
 (1,'nick_knapton','Amazon',    'Back-End',		'Offer Recieved',	'01-01-2022','001'),
 (2,'num4n','IBM',	      'Devops',			'Under-Review',		'01-02-2022','003'),
@@ -85,30 +85,26 @@ VALUES
 
 DROP TABLE IF EXISTS TRACKINGLIST;
 CREATE TABLE TRACKINGLIST (
-	Serial			integer not null,
+	Id			integer not null,
     userName		varchar(25) not null,
-	companyName		varchar(25) not null,
-    position		varchar(25) not null,
-    startDate		varchar(25) not null,
-	link			varchar(25) not null,
-    description		varchar(25) not null,
     listName		varchar(25) not null,
     listId			varchar(25) not null,
-	applicationStatus	char(25) not null,
-	applicationDate		char(25) ,
 	CompanyId		char(3) not null,
-	primary key (Serial),
+	primary key (Id),
         foreign key (CompanyId) references COMPANYCREDENTIALS(CompanyId) ON UPDATE CASCADE,
-        foreign key (Serial) references JOBS(JobId) ON UPDATE CASCADE,
+        foreign key (Id) references JOBS(JobId) ON UPDATE CASCADE,
+        foreign key (Id) references MYJOBS(Id) ON UPDATE CASCADE,
         foreign key (userName) references USERCREDENTIALS(userName) ON UPDATE CASCADE
 );
 
-INSERT INTO TRACKINGLIST (Serial,userName,companyName,position,startDate,link,description,listName,listId,applicationStatus,applicationDate,CompanyId)
+INSERT INTO TRACKINGLIST (Id,userName,listName,listId,CompanyId)
 VALUES
-(1,'nick_knapton','Amazon',    'Back-End',			'12-01-2022', 	'amazoncareers.ca','N/A' ,'N/A','N/A','Offer Recieved',	'01-01-2022','001'),
-(2,'num4n','IBM',	    'Devops',			'12-01-2022',	'ibmrecruitment.ca','N/A','N/A','N/A','Under-Review',		'01-02-2022','003'),
-(3,'zeeshansalim','Tesla',     'Machine Learning',	'12-01-2022',	'teslahires.com','N/A','N/A','N/A','Under-Review',		'02-01-2022','004'),
-(4,'zeeshansalim','IBM',     'Devops',	'12-01-2022',	'teslahires.com','N/A','N/A','N/A','Under-Review',		'12-01-2022','003');
+(1,'nick_knapton','N/A' ,'N/A','001'),
+(2,'num4n','N/A','N/A','003'),
+(3,'zeeshansalim','N/A','N/A','004'),
+(4,'zeeshansalim','N/A','N/A','003');
+
+
 DROP TABLE IF EXISTS TRACKING;
 CREATE TABLE TRACKING (
 	listName			varchar(25) not null,
@@ -144,14 +140,14 @@ VALUES
 
 DROP TABLE IF EXISTS JOBSAPPLIED;
 CREATE TABLE JOBSAPPLIED (
-	Serial			integer not null,
+	Id			integer not null,
 	userName		varchar(25) not null,
     jobId			varchar(25) not null,
     dNo				int not null,
     primary key (jobId)
 );
 
-INSERT INTO JOBSAPPLIED (Serial, username,jobId, dNo)
+INSERT INTO JOBSAPPLIED (Id, username,jobId, dNo)
 VALUES
 (1,'nick_knapton','001',	112),
 (2,'num4n','002',	324),
@@ -168,4 +164,4 @@ CREATE TABLE JOBPOSTING (
     Description			varchar(25) not null,
     JobUrl			varchar(25) not null,
     primary key (JobUrl)
-); 
+);
