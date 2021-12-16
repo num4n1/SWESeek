@@ -4,66 +4,62 @@ USE SWESEEK;
 
 DROP TABLE IF EXISTS USERCREDENTIALS;
 CREATE TABLE USERCREDENTIALS (
-    Username			varchar(25) not null,
-    Password			varchar(25) not null,
-    PhoneNumber			varchar(13) not null,
     email			varchar(255) not null,
-    FirstName			char(25) not null,
-    LastName			char(25) not null,
-    primary key (Username)
+	firstName			char(25) not null,
+    lastName			char(25) not null,
+    phoneNumber			varchar(13) not null,
+    userName			varchar(25) not null,
+    password			varchar(25) not null,
+    primary key (username)
 );
 
-INSERT INTO USERCREDENTIALS (Username, Password, PhoneNumber, email, FirstName, LastName)
+INSERT INTO USERCREDENTIALS (email, firstName, lastName, phoneNumber, userName, password)
 VALUES
-('num4n',		'Numan1234',		'236-145-2542',	'numan@gmail.com', 	'Mohamed', 	'Numan'),
-('nick_knapton',	'software1234',		'587-890-4387',	'nicholas@yahoo.com', 	'Nicholas',     'Knapton'),
-('zeeshansalim',	'code3211',		'705-667-9481',	'zeeshan@outlook.com',	'Zeeshan', 	'Chougle'),
-('elon',		'spacex4life',		'306-512-5508',	'elon@tesla.com', 	'Elon', 	'Musk'),
-('bezos_1',		'amazonisgreat32',	'403-980-9876',	'jeff@amazon.com', 	'Jeff', 	'Bezos');
+('numan@gmail.com',			'Mohamed', 	'Numan',	'236-145-2542',	'num4n',		'Numan1234'),
+('nicholas@yahoo.com',		'Nicholas', 'Knapton',	'587-890-4387',	'nick_knapton',	'software1234'),
+('zeeshan@outlook.com',		'Zeeshan', 	'Chougle',	'705-667-9481',	'zeeshansalim',	'code3211'),
+('elon@tesla.com',			'Elon', 	'Musk',		'306-512-5508',	'elon',			'spacex4life'),
+('jeff@amazon.com',			'Jeff', 	'Bezos',	'403-980-9876',	'bezos_1',		'amazonisgreat32');
 
 DROP TABLE IF EXISTS COMPANYCREDENTIALS;
 CREATE TABLE COMPANYCREDENTIALS (
-    CompanyId			char(3) not null,
-    CompanyName			varchar(25) not null,
-    CompanyUsername		varchar(25) not null,
-    Passwprd			varchar(25) not null,
-    Industry			varchar(25) not null,
-    Size			varchar(25) not null,
-    Link			varchar(25) not null,
-    primary key (CompanyId)
+    companyId			char(3) not null,
+    companyName			varchar(25) not null,
+    username		varchar(25) not null,
+    industry			varchar(25) not null,
+    size			varchar(25) not null,
+    password			varchar(25) not null,
+    primary key (companyId)
 );
 
-INSERT INTO COMPANYCREDENTIALS (CompanyId, CompanyName, CompanyUsername, Passwprd, Industry, Size, Link)
+INSERT INTO COMPANYCREDENTIALS (companyId, companyName, username, industry, size, password)
 VALUES
-('001', 'Amazon',     'AMZN',		'Jeff1969',	'E-commerce', 			'Large', 	'amazoncareers.ca'),
-('002', 'Google',     'GOOGL',		'ELGOOG321',	'Technology', 			'Large',	'careersgoogle.com'),
-('003', 'IBM',	      'IBMC',		'AK642020',	'Computer-Hardware', 		'Large',	'ibmrecruitment.ca'),
-('004', 'Tesla',      'TSLA',		'EMUSK420',	'Vehicle Manufacturer', 	'Large',	'teslahires.com'),
-('005','Microsoft',   'MSFT',		'UEOQ234@',	'Technology', 			'Large',	'microsoftjobs.com');
+('001', 'Amazon',     'AMZN',	'E-commerce', 			'Large',	'Jeff1969'),
+('002', 'Google',     'GOOGL',	'Technology', 			'Large',	'ELGOOG321'),
+('003', 'IBM',	      'IBMC',	'Computer-Hardware', 	'Large',	'AK642020'),
+('004', 'Tesla',      'TSLA',	'Vehicle Manufacturer', 'Large',	'EMUSK420'),
+('005',	'Microsoft',  'MSFT',	'Technology', 			'Large',	'UEOQ234@');
 
 DROP TABLE IF EXISTS JOBS;
 CREATE TABLE JOBS (
 	JobId			integer not null,
-    Company			varchar(25) not null,
-    Position			varchar(25) not null,
-    StartDate			varchar(10) ,
-    EndDate			varchar(255),
-    Link			char(25) not null,
-    Description			char(255) ,
-    ListName			char(25) ,
-    ListId			char(25) ,
+    company			varchar(25) not null,
+    position			varchar(25) not null,
+    startDate			varchar(10) ,
+    link			char(25) not null,
+    description			char(255) ,
     CompanyId			char(3) not null,
     primary key (JobId),
     foreign key (CompanyId) references COMPANYCREDENTIALS(CompanyId) ON UPDATE CASCADE
 );
 
-INSERT INTO JOBS (JobId, CompanyId, Company, Position, StartDate, EndDate, Link, Description, ListName, ListId)
+INSERT INTO JOBS (JobId, CompanyId, Company, Position, StartDate, Link, Description)
 VALUES
-(1,'001','Amazon',	  'Back-End',			'15-01-2022',	'15-04-2022', 		'amazoncareers.ca', 	'N/A',	'N/A',	'N/A'),
-(2,'002','Google',	  'Front-End',			'11-04-2022',	'11-04-2023', 		'careersgoogle.com', 	'N/A',	'N/A',	'N/A'),
-(3,'003','IBM',		  'Devops',			'21-07-2022',	'21-01-2023',		'ibmrecruitment.ca', 	'N/A',	'N/A',	'N/A'),
-(4,'004','Tesla',           'Machine Learning',	        '28-04-2022',	'15-01-2023', 		'teslahires.com', 	'N/A',	'N/A',	'N/A'),
-(5,'005','Microsoft',       'Back-End',			'09-06-2022',	'09-10-2022', 		'microsoftjobs.com', 	'N/A',	'N/A',	'N/A');
+(1,'001','Amazon',	  'Back-End',			'15-01-2022','amazoncareers.ca',	'N/A'),
+(2,'002','Google',	  'Front-End',			'11-04-2022',		'careersgoogle.com',	'N/A'),
+(3,'003','IBM',		  'Devops',			'21-07-2022',		'ibmrecruitment.ca',	'N/A'),
+(4,'004','Tesla',           'Machine Learning',	  	'15-01-2023', 		'teslahires.com',	'N/A'),
+(5,'005','Microsoft',       'Back-End',			'09-06-2022',	'microsoftjobs.com',	'N/A');
 
 DROP TABLE IF EXISTS MYJOBS;
 CREATE TABLE MYJOBS (
@@ -87,32 +83,58 @@ VALUES
 (3,'zeeshansalim','Tesla',     'Machine Learning',	'Under-Review',		'02-01-2022','004'),
 (4,'zeeshansalim','IBM',     'Devops',	'Under-Review',		'12-01-2022','003');
 
+DROP TABLE IF EXISTS TRACKINGLIST;
+CREATE TABLE TRACKINGLIST (
+	Serial			integer not null,
+    userName		varchar(25) not null,
+	companyName		varchar(25) not null,
+    position		varchar(25) not null,
+    startDate		varchar(25) not null,
+	link			varchar(25) not null,
+    description		varchar(25) not null,
+    listName		varchar(25) not null,
+    listId			varchar(25) not null,
+	applicationStatus	char(25) not null,
+	applicationDate		char(25) ,
+	CompanyId		char(3) not null,
+	primary key (Serial),
+        foreign key (CompanyId) references COMPANYCREDENTIALS(CompanyId) ON UPDATE CASCADE,
+        foreign key (Serial) references JOBS(JobId) ON UPDATE CASCADE,
+        foreign key (userName) references USERCREDENTIALS(userName) ON UPDATE CASCADE
+);
+
+INSERT INTO TRACKINGLIST (Serial,userName,companyName,position,startDate,link,description,listName,listId,applicationStatus,applicationDate,CompanyId)
+VALUES
+(1,'nick_knapton','Amazon',    'Back-End',			'12-01-2022', 	'amazoncareers.ca','N/A' ,'N/A','N/A','Offer Recieved',	'01-01-2022','001'),
+(2,'num4n','IBM',	    'Devops',			'12-01-2022',	'ibmrecruitment.ca','N/A','N/A','N/A','Under-Review',		'01-02-2022','003'),
+(3,'zeeshansalim','Tesla',     'Machine Learning',	'12-01-2022',	'teslahires.com','N/A','N/A','N/A','Under-Review',		'02-01-2022','004'),
+(4,'zeeshansalim','IBM',     'Devops',	'12-01-2022',	'teslahires.com','N/A','N/A','N/A','Under-Review',		'12-01-2022','003');
 DROP TABLE IF EXISTS TRACKING;
 CREATE TABLE TRACKING (
-	ListName			varchar(25) not null,
+	listName			varchar(25) not null,
     CompanyId			char(3) not null,	
 	primary key (CompanyId),
     foreign key (CompanyId) references COMPANYCREDENTIALS(CompanyId) ON UPDATE CASCADE
 );
 
-INSERT INTO TRACKING (ListName,CompanyId)
+INSERT INTO TRACKING (listName,CompanyId)
 VALUES
 ('Amazon','001'),
 ('IBM','003'),
 ('Tesla','004');
 
-DROP TABLE IF EXISTS COMPANY;
-CREATE TABLE COMPANY (
-    Company		varchar(25) not null,
-    CompanySize		varchar(25) not null,
-    Role		varchar(25) not null,
-    TotalComp		double not null,
+DROP TABLE IF EXISTS SALARY;
+CREATE TABLE SALARY (
+    company		varchar(25) not null,
+    companySize		varchar(25) not null,
+    role		varchar(25) not null,
+    totalComp		double not null,
     CompanyId		char(3) not null,
-    primary key (Company),
-    foreign key (CompanyId) references COMPANYCREDENTIALS(CompanyId) ON UPDATE CASCADE
+    primary key (company),
+    foreign key (companyId) references COMPANYCREDENTIALS(CompanyId) ON UPDATE CASCADE
 );
 
-INSERT INTO COMPANY (Company, CompanySize, Role, TotalComp,CompanyId)
+INSERT INTO SALARY (company, companySize, role, totalComp, companyId)
 VALUES
 ('Amazon',	'Large',	'Back-End',		115000.0, '001'),
 ('IBM',		'Large',	'Devops',		70000.0,  '003'),
@@ -122,18 +144,20 @@ VALUES
 
 DROP TABLE IF EXISTS JOBSAPPLIED;
 CREATE TABLE JOBSAPPLIED (
-    JobId			varchar(25) not null,
-    DNo				int not null,
-    primary key (JobId)
+	Serial			integer not null,
+	userName		varchar(25) not null,
+    jobId			varchar(25) not null,
+    dNo				int not null,
+    primary key (jobId)
 );
 
-INSERT INTO JOBSAPPLIED (JobId, DNo)
+INSERT INTO JOBSAPPLIED (Serial, username,jobId, dNo)
 VALUES
-('Amazon',	112),
-('IBM',		324),
-('Tesla',     	123),
-('Google',     	462),
-('Microsoft',   098);
+(1,'nick_knapton','001',	112),
+(2,'num4n','002',	324),
+(3,'zeeshansalim','003',  123);
+
+
 
 DROP TABLE IF EXISTS JOBPOSTING;
 CREATE TABLE JOBPOSTING (
