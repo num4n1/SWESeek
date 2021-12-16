@@ -42,15 +42,19 @@ def signup():
     token=username+":"+password
     return jsonify({'token':token})
 
+
 @app.route('/api/login', methods=['GET'])
 def login():
 
     email = request.args.get('email')
     password = request.args.get('password')
+
     cur = mysql.connection.cursor()
-    result = cur.execute("Select * FROM accounts")
+    result = cur.execute("Select * FROM USERCREDENTIALS")
+
 
     if(result>0):
+
         userDetails = cur.fetchall()
         for user in userDetails:
             if(user[0]==email and user[5]==password):
