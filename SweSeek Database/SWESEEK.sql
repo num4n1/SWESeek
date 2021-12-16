@@ -66,29 +66,31 @@ VALUES
 
 DROP TABLE IF EXISTS MYJOBS;
 CREATE TABLE MYJOBS (
+	Serial			integer not null,
 	userName		varchar(25) not null,
 	CompanyName		varchar(25) not null,
 	Position		varchar(25) not null,
 	ApplicationStatus	char(25) not null,
         ApplicationDate		char(25) ,
         CompanyId		char(3) not null,
-	primary key (CompanyName),
+	primary key (Serial),
         foreign key (CompanyId) references COMPANYCREDENTIALS(CompanyId) ON UPDATE CASCADE,
         foreign key (userName) references USERCREDENTIALS(UserName) ON UPDATE CASCADE
 );
 
-INSERT INTO MYJOBS (userName,CompanyName, Position, ApplicationStatus, ApplicationDate,CompanyId)
+INSERT INTO MYJOBS (Serial,userName,CompanyName, Position, ApplicationStatus, ApplicationDate,CompanyId)
 VALUES
-('nick_knapton',      'Amazon',    'Back-End',	       'Offer Recieved',	'01-01-2022','001'),
-('num4n',	      'IBM',	   'Devops',	       'Under-Review',		'01-02-2022','003'),
-('zeeshansalim',      'Tesla',     'Machine Learning', 'Under-Review',		'02-01-2022','004');
+(1,'nick_knapton','Amazon',    'Back-End',		'Offer Recieved',	'01-01-2022','001'),
+(2,'num4n','IBM',	      'Devops',			'Under-Review',		'01-02-2022','003'),
+(3,'zeeshansalim','Tesla',     'Machine Learning',	'Under-Review',		'02-01-2022','004'),
+(4,'zeeshansalim','IBM',     'Devops',	'Under-Review',		'12-01-2022','003');
 
 DROP TABLE IF EXISTS TRACKING;
 CREATE TABLE TRACKING (
 	ListName			varchar(25) not null,
-    	CompanyId			char(3) not null,
-	primary key (ListName),
-    	foreign key (CompanyId) references COMPANYCREDENTIALS(CompanyId) ON UPDATE CASCADE
+    CompanyId			char(3) not null,	
+	primary key (CompanyId),
+    foreign key (CompanyId) references COMPANYCREDENTIALS(CompanyId) ON UPDATE CASCADE
 );
 
 INSERT INTO TRACKING (ListName,CompanyId)
@@ -96,7 +98,6 @@ VALUES
 ('Amazon','001'),
 ('IBM','003'),
 ('Tesla','004');
-
 
 DROP TABLE IF EXISTS COMPANY;
 CREATE TABLE COMPANY (
@@ -142,5 +143,3 @@ CREATE TABLE JOBPOSTING (
     JobUrl			varchar(25) not null,
     primary key (JobUrl)
 );
-
-
