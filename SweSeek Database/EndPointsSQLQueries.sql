@@ -1,7 +1,11 @@
 Endpoint 3:
-SELECT U.Username,T.ListId, T.ListName,M.Id, M.CompanyName, J.Position, J.Link, M.ApplicationDate, M.ApplicationStatus, J.StartDate, J.Description 
-FROM JOBS AS J, MYJOBS AS M, USERCREDENTIALS AS U, COMPANYCREDENTIALS AS C, TRACKINGLIST AS T
-WHERE J.CompanyId = C.CompanyId AND M.CompanyId = C.CompanyId AND U.UserName = M.userName AND T.Id = M.Id; 
+SELECT T.ListId, T.ListName
+FROM TRACKINGLIST AS T
+WHERE T.userName='CUSTOM'; 
+
+SELECT M.Position,M.CompanyName
+FROM TRACKINGLIST AS T ,MYJOBS AS M
+WHERE T.listId='CUSTOM'; 
 
 Endpoint 4:
 SELECT Serial,companyName,position,link,applicationDate,applicationStatus,startDate,description FROM TRACKINGLIST;
