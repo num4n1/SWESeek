@@ -113,3 +113,12 @@ CREATE TABLE COMPANYCREDENTIALS (
     Passwprd			varchar(25) not null,
 	primary key (CompanyUsername)
 );
+
+
+INSERT INTO COMPANYCREDENTIALS (CompanyName, CompanyUsername, Passwprd, Industry, Size, Link)
+VALUES
+('Amazon',	  'AMZN',			'Jeff1969',		'E-commerce', 				'Large', 	'amazoncareers.ca'),
+('Google',	  'GOOGL',			'ELGOOG321',	'Technology', 				'Large',	'careersgoogle.com'),
+('IBM',		  'IBMC',			'AK642020',		'Computer-Hardware', 		'Large',	'ibmrecruitment.ca'),
+('Tesla',     'TSLA',			'EMUSK420',		'Vehicle Manufacturer', 	'Large',	'teslahires.com'),
+('Microsoft', 'MSFT',			'UEOQ234@',		'Technology', 				'Large',	'microsoftjobs.com');
