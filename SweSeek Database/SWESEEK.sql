@@ -42,24 +42,24 @@ VALUES
 
 DROP TABLE IF EXISTS JOBS;
 CREATE TABLE JOBS (
-	JobId			integer not null,
-    company			varchar(25) not null,
+	JobId				integer not null,
+    company				varchar(25) not null,
     position			varchar(25) not null,
     startDate			varchar(10) ,
-    link			char(25) not null,
+    link				char(25) not null,
     description			char(255) ,
     CompanyId			char(3) not null,
     primary key (JobId),
     foreign key (CompanyId) references COMPANYCREDENTIALS(CompanyId) ON UPDATE CASCADE
 );
 
-INSERT INTO JOBS (JobId, CompanyId, Company, Position, StartDate, Link, Description)
+INSERT INTO JOBS (JobId,CompanyId, Company, Position, StartDate, link, Description)
 VALUES
-(1,'001','Amazon',	  'Back-End',			'15-01-2022','amazoncareers.ca',	'N/A'),
-(2,'002','Google',	  'Front-End',			'11-04-2022',		'careersgoogle.com',	'N/A'),
-(3,'003','IBM',		  'Devops',			'21-07-2022',		'ibmrecruitment.ca',	'N/A'),
-(4,'004','Tesla',           'Machine Learning',	  	'15-01-2023', 		'teslahires.com',	'N/A'),
-(5,'005','Microsoft',       'Back-End',			'09-06-2022',	'microsoftjobs.com',	'N/A');
+(1,'001','Amazon',	  'Back-End',			'15-01-2022',	'amazoncareers.ca', 'N/A'),
+(2,'002','Google',	  'Front-End',			'11-04-2022',	'careersgoogle.com','N/A'),
+(3,'003','IBM',		  'Devops',				'21-07-2022',	'ibmrecruitment.ca','N/A'),
+(4,'004','Tesla',       'Machine Learning',	'15-01-2023', 	'teslahires.com',	'N/A'),
+(5,'005','Microsoft',   'Back-End',			'09-06-2022',	'microsoftjobs.com','N/A');
 
 DROP TABLE IF EXISTS MYJOBS;
 CREATE TABLE MYJOBS (
@@ -86,6 +86,7 @@ VALUES
 DROP TABLE IF EXISTS TRACKINGLIST;
 CREATE TABLE TRACKINGLIST (
 	Id			integer not null,
+    myjobId			integer not null,
     userName		varchar(25) not null,
     listName		varchar(25) not null,
     listId			varchar(25) not null,
@@ -93,16 +94,16 @@ CREATE TABLE TRACKINGLIST (
 	primary key (Id),
         foreign key (CompanyId) references COMPANYCREDENTIALS(CompanyId) ON UPDATE CASCADE,
         foreign key (Id) references JOBS(JobId) ON UPDATE CASCADE,
-        foreign key (Id) references MYJOBS(Id) ON UPDATE CASCADE,
+        foreign key (myjobId) references MYJOBS(Id) ON UPDATE CASCADE,
         foreign key (userName) references USERCREDENTIALS(userName) ON UPDATE CASCADE
 );
 
-INSERT INTO TRACKINGLIST (Id,userName,listName,listId,CompanyId)
+INSERT INTO TRACKINGLIST (Id,myjobId,userName,listName,listId,CompanyId)
 VALUES
-(1,'nick_knapton','N/A' ,'N/A','001'),
-(2,'num4n','N/A','N/A','003'),
-(3,'zeeshansalim','N/A','N/A','004'),
-(4,'zeeshansalim','N/A','N/A','003');
+(1,2,'nick_knapton','Back-End','001' ,'001'),
+(2,2,'num4n','Front-End','002','002'),
+(3,1,'zeeshansalim','Back-End','003','004'),
+(4,4,'zeeshansalim','Front-End','003','003');
 
 
 DROP TABLE IF EXISTS TRACKING;
@@ -126,7 +127,7 @@ CREATE TABLE SALARY (
     companySize		varchar(25) not null,
     role		varchar(25) not null,
     totalComp		double not null,
-    CompanyId		char(3) not null,
+    CompanyId		char(3),
     primary key (company,role),
     foreign key (companyId) references COMPANYCREDENTIALS(CompanyId) ON UPDATE CASCADE
 );
@@ -138,7 +139,7 @@ VALUES
 ('Tesla',     	'Large',	'Machine Learning',	100000.0, '004'),
 ('Google',     	'Large',	'Front-End',		120000.0, '002'),
 ('Microsoft',   'Large',	'Back-End',		111000.0, '005'),
-('Microsoft',   'Large',	'Front-End',		89000.0, '005');
+('Microsoft',   'Large',	'Front-End',		89800.0, '005');
 
 DROP TABLE IF EXISTS JOBSAPPLIED;
 CREATE TABLE JOBSAPPLIED (
@@ -156,7 +157,6 @@ VALUES
 (3,'zeeshansalim','003',  123);
 
 
-
 DROP TABLE IF EXISTS JOBPOSTING;
 CREATE TABLE JOBPOSTING (
     Year			varchar(25) not null,
@@ -167,3 +167,19 @@ CREATE TABLE JOBPOSTING (
     JobUrl			varchar(25) not null,
     primary key (JobUrl)
 );
+
+DROP TABLE IF EXISTS REVIEWS;
+CREATE TABLE REVIEWS (
+    companyName		varchar(25) not null,
+	title			varchar(25) not null,
+    review			varchar(25) not null,
+    month			varchar(25) not null,
+	day				varchar(3) not null,
+    year			varchar(25) not null,
+    primary key (companyName,title)
+);
+INSERT INTO REVIEWS (companyName, title,review, month,day,year)
+VALUES
+('Amazon','Product Review','Satisfactory','January','3','2021'),
+('IBM','Interview Review','Very Tough',	'March','5','2020'),
+('Tesla','Electrical','Chip glitches',  'June','11','2021');
