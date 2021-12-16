@@ -168,4 +168,4 @@ CREATE TABLE JOBPOSTING (
     Description			varchar(25) not null,
     JobUrl			varchar(25) not null,
     primary key (JobUrl)
-);
+); 
