@@ -10,3 +10,6 @@ Endpoint 4.1:
 UPDATE TRACKINGLIST
 SET applicationStatus = 'Offer Recieved'
 WHERE listName = 'N/A'AND listId='N/A'AND serial =3; 
+
+Endpoint 7:
+DELETE FROM TRACKINGLIST WHERE listId='N/A' AND Serial=1;
