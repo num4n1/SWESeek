@@ -207,7 +207,22 @@ def summerizedSalaryInfo():
 
 @app.route('/api/addSalary', methods=['POST'])
 def addSalary():
-    pass
+    
+    company = request.json['company']
+    companySize = request.json['companySize']
+    role = request.json['role']
+    totalComp = request.json['totalComp']
+
+    print(company)
+
+    cur = mysql.connection.cursor()
+    cur.execute(
+        """INSERT INTO SALARY (company, companySize, role, totalComp) VALUES(%s,%s,%s,%s)""",
+        (company, companySize, role, totalComp))
+    mysql.connection.commit()
+    cur.close()
+
+    return "success"
 
 @app.route('/api/learningResources', methods=['GET'])
 def learningResources():
