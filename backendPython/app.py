@@ -147,10 +147,6 @@ def companyreviews():
 def addUserDocument():
     pass
 
-@app.route('/api/learningResources', methods=['GET'])
-def learningResources():
-    pass
-
 @app.route('/api/getUserDocuments', methods=['GET'])
 def getUserDocuments():
     pass
