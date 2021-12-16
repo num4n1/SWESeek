@@ -166,6 +166,20 @@ def deleteJob():
 def editJob():
     pass
 
+@app.route('/api/getCompanyJobs', methods=['GET'])
+def getCompanyJobs():
+    pass
+
+
+@app.route('/api/removeUserDocuments', methods=['DELETE'])
+def removeUserDocuments():
+    pass
+
+
+@app.route('/api/signupcompany', methods=['POST'])
+def signupcompany():
+    pass
+
 if __name__ == "__main__":
     app.run(debug=True)
 
