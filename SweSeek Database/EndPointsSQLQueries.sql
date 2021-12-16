@@ -46,4 +46,4 @@ Endpoint 13:
 Endpoint 14:
 
 Endpoint 15:
-SELECT * FROM REVIEWS;
+SELECT * FROM REVIEWS WHERE companyName ='CUSTOM';
