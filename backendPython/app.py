@@ -11,36 +11,6 @@ app.config['MYSQL_DB'] = 'flaskapp'
 
 mysql = MySQL(app)
 
-"""
-@app.route('/', methods=['GET','POST'])
-def index():
-    cur = mysql.connection.cursor()
-    cur.execute("INSERT INTO users(name, email) VALUES(%s,%s)", (name,email))
-    mysql.connection.commit()
-    cur.close()
-    return 'success'
-
-@app.route('/users')
-def users():
-    cur = mysql.connection.cursor()
-    result = cur.execute("Select * FROM users")
-    if result>0:
-        userDetails = cur.fetchall()
-
-        temp={}
-        i=0
-        for user in userDetails:
-            temp[i] = user
-            i+=1
-
-        return temp
-
-
-for i in range(2):
-    name = "name "+str(i+2)
-    email = "email"+" "+str(i+2)
-
-"""
 @app.route('/api/signup', methods=['POST'])
 def signup():
 
