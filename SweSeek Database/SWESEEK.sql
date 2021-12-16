@@ -121,12 +121,13 @@ VALUES
 
 DROP TABLE IF EXISTS SALARY;
 CREATE TABLE SALARY (
+	
     company		varchar(25) not null,
     companySize		varchar(25) not null,
     role		varchar(25) not null,
     totalComp		double not null,
     CompanyId		char(3) not null,
-    primary key (company),
+    primary key (company,role),
     foreign key (companyId) references COMPANYCREDENTIALS(CompanyId) ON UPDATE CASCADE
 );
 
@@ -136,7 +137,8 @@ VALUES
 ('IBM',		'Large',	'Devops',		70000.0,  '003'),
 ('Tesla',     	'Large',	'Machine Learning',	100000.0, '004'),
 ('Google',     	'Large',	'Front-End',		120000.0, '002'),
-('Microsoft',   'Large',	'Back-End',		111000.0, '005');
+('Microsoft',   'Large',	'Back-End',		111000.0, '005'),
+('Microsoft',   'Large',	'Front-End',		89000.0, '005');
 
 DROP TABLE IF EXISTS JOBSAPPLIED;
 CREATE TABLE JOBSAPPLIED (
