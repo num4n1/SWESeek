@@ -79,15 +79,12 @@ def login():
     result = cur.execute("Select * FROM accounts")
 
     if(result>0):
-
         userDetails = cur.fetchall()
-
         for user in userDetails:
-            
             if(user[0]==email and user[5]==password):
-                
-                return jsonify({'token':'success'})
-            
+                token = email + ":" + password
+                return jsonify({'token':token})
+
     return jsonify({'token':'failure'})
 
 @app.route('/api/getLists', methods=['GET'])
