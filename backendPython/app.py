@@ -133,9 +133,40 @@ def jobPostings():
     return jsonify(list)
 
 
-@app.route('/api/summarizedPopularSalaryInfo', methods=['POST'])
+@app.route('/api/summarizedPopularSalaryInfo', methods=['GET'])
 def summarizedPopularSalaryInfo():
-    pass
+
+    cur = mysql.connection.cursor()
+    result = cur.execute("""SELECT company,companySize,industry
+    FROM SALARY AS S, COMPANYCREDENTIALS AS C WHERE S.companyId = C.companyId""")
+
+    if (result > 0):
+
+        rows = cur.fetchall()
+        lists = []
+
+        for row in rows:
+
+            temp = {}
+            cur1 = mysql.connection.cursor()
+            cur1.execute("""SELECT role,totalComp
+            FROM SALARY AS S, COMPANYCREDENTIALS AS C WHERE S.companyId = C.companyId""")
+            temp["company"] = row[0]
+            temp["companySize"] = row[1]
+            temp["industry"] = row[2]
+
+            allJob = cur1.fetchall()
+
+            temp["payInfo"] = []
+
+            for singleJob in allJob:
+                temp["payInfo"].append({"position": singleJob[0], "totalComp": singleJob[1]})
+
+            lists.append(temp)
+
+        return jsonify(lists)
+
+    return jsonify({'token': 'failure'})
 
 @app.route('/api/summerizedSalaryInfo', methods=['GET'])
 def summerizedSalaryInfo():
