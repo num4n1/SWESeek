@@ -487,7 +487,7 @@ export default function TrackingPage() {
                                           alt=""
                                           />
                                           :
-                                          item.companyName.toLowerCase() === "telsa" ?
+                                          item.companyName.toLowerCase() === "tesla" ?
                                           <img
                                           style={{ marginTop: `15%` }}
                                           className="JobCardImage"
