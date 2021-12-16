@@ -46,10 +46,16 @@ DROP TABLE IF EXISTS MYJOBS;
 CREATE TABLE MYJOBS (
 	CompanyName			varchar(25) not null,
 	Position			varchar(25) not null,
-	ApplicationStatus	char(25) not null,
-    ApplicationDate		char(25) ,
+	ApplicationStatus		char(25) not null,
+    	ApplicationDate			char(25),
 	primary key (CompanyName)
 );
+
+INSERT INTO MYJOBS (CompanyName, Position, ApplicationStatus, ApplicationDate)
+VALUES
+('Amazon',	'Back-End',		'Offer Recieved',	'01-01-2022'),
+('IBM',		'Devops',		'Under-Review',		'01-02-2022'),
+('Tesla',     	'Machine Learning',	'Under-Review',		'02-01-2022');
 
 DROP TABLE IF EXISTS TRACKING;
 CREATE TABLE TRACKING (
@@ -57,25 +63,39 @@ CREATE TABLE TRACKING (
 	primary key (ListName)
 );
 
+INSERT INTO TRACKING (ListName)
+VALUES
+('Amazon'),
+('IBM'),
+('Tesla');
+
 DROP TABLE IF EXISTS COMPANY;
 CREATE TABLE COMPANY (
 	Company			varchar(25) not null,
-    CompanySize		varchar(25) not null,
-    Role			varchar(25) not null,
-    TotalComp		double not null,
+    	CompanySize		varchar(25) not null,
+    	Role			varchar(25) not null,
+    	TotalComp		double not null,
 	primary key (Company)
 );
+
+INSERT INTO COMPANY (Company, CompanySize, Role, TotalComp)
+VALUES
+('Amazon',	 'Large',	'Back-End',		115000.0),
+('IBM',		'Large',	'Devops',		70000.0),
+('Tesla',     	'Large',	'Machine Learning',	100000.0),
+('Google',     	'Large',	'Front-End',		120000.0),
+('Microsoft',   'Large',	'Back-End',		111000.0);
 
 DROP TABLE IF EXISTS JOBSAPPLIED;
 CREATE TABLE JOBSAPPLIED (
 	JobId			varchar(25) not null,
-    DNo				int not null,
+    	DNo				int not null,
 	primary key (JobId)
 );
 
 DROP TABLE IF EXISTS JOBPOSTING;
 CREATE TABLE JOBPOSTING (
-	Year			varchar(25) not null,
+    Year			varchar(25) not null,
     Month			varchar(25) not null,
     Day				varchar(25) not null,
     Title			varchar(25) not null,
@@ -86,10 +106,19 @@ CREATE TABLE JOBPOSTING (
 
 DROP TABLE IF EXISTS COMPANYCREDENTIALS;
 CREATE TABLE COMPANYCREDENTIALS (
-	CompanyName			varchar(25) not null,
+    CompanyName			varchar(25) not null,
     CompanyUsername		varchar(25) not null,
     Industry			varchar(25) not null,
-    Size				varchar(25) not null,
+    Size			varchar(25) not null,
     Passwprd			varchar(25) not null,
 	primary key (CompanyUsername)
 );
+
+
+INSERT INTO COMPANYCREDENTIALS (CompanyName, CompanyUsername, Passwprd, Industry, Size, Link)
+VALUES
+('Amazon',    'AMZN',	'Jeff1969',	'E-commerce', 		'Large', 	'amazoncareers.ca'),
+('Google',    'GOOGL',	'ELGOOG321',	'Technology', 		'Large',	'careersgoogle.com'),
+('IBM',	      'IBMC',	'AK642020',	'Computer-Hardware', 	'Large',	'ibmrecruitment.ca'),
+('Tesla',     'TSLA',	'EMUSK420',	'Vehicle Manufacturer', 'Large',	'teslahires.com'),
+('Microsoft', 'MSFT',	'UEOQ234@',	'Technology', 		'Large',	'microsoftjobs.com');
