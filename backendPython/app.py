@@ -123,7 +123,21 @@ def jobPostings():
 def summarizedPopularSalaryInfo():
     pass
 
+@app.route('/api/summerizedSalaryInfo', methods=['GET'])
+def summerizedSalaryInfo():
+    pass
 
+@app.route('/api/addSalary', methods=['POST'])
+def addSalary():
+    pass
+
+@app.route('/api/learningResources', methods=['GET'])
+def learningResources():
+    pass
+
+@app.route('/api/exampleQuestionResources', methods=['GET'])
+def exampleQuestionResources():
+    pass
 
 
 if __name__ == "__main__":
