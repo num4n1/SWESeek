@@ -50,11 +50,25 @@ def signup():
     phoneNumber = request.json['phoneNumber']
     username = request.json['username']
     password = request.json['password']
+
+    cur0 = mysql.connection.cursor()
+    result = cur0.execute("Select * FROM accounts")
+
+    if (result > 0):
+        userDetails = cur0.fetchall()
+        for user in userDetails:
+            if (user[0] == email or user[4] == username):
+                return jsonify({'token':'failed'})
+
+    mysql.connection.commit()
+    cur0.close()
+
     cur = mysql.connection.cursor()
     cur.execute("""INSERT INTO accounts(email,firstName,lastName,phoneNumber,username,password) VALUES(%s,%s,%s,%s,%s,%s)""", (email,firstName,lastName,phoneNumber,username,password))
     mysql.connection.commit()
     cur.close()
-    return jsonify({'token':'success'})
+    token=email+":"+password
+    return jsonify({'token':token})
 
 @app.route('/api/login', methods=['GET'])
 def login():
