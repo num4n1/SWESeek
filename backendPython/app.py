@@ -59,7 +59,27 @@ def login():
 
 @app.route('/api/getLists', methods=['GET'])
 def getLists():
-    pass
+
+    token = request.args.get('token')
+    username = token.split(':')[0] # gives username
+
+    cur = mysql.connection.cursor()
+    result = cur.execute("""SELECT U.Username,T.ListId, T.ListName,M.Id, M.CompanyName, J.Position, J.Link, M.ApplicationDate, M.ApplicationStatus, J.StartDate, J.Description 
+    FROM JOBS AS J, MYJOBS AS M, USERCREDENTIALS AS U, COMPANYCREDENTIALS AS C, TRACKINGLIST AS T
+    WHERE J.CompanyId = C.CompanyId AND M.CompanyId = C.CompanyId AND U.UserName = M.userName AND T.Id = M.Id and U.userName = %s""", (username,))
+
+    if (result > 0):
+
+        row = cur.fetchall()
+        lists=[]
+
+        print(row[0])
+
+        lists.append({"listID" : row[0][1], "listName" : row[0][2], "jobs" : [{"id" : row[0][3], "companyName": row[0][4], "position": row[0][5], "link": row[0][6],
+                                                                    "applicationDate": row[0][6], "applicationStatus": row[0][7], "startDate" : row[0][8], "description": row[0][9]}]})
+        return jsonify(lists)
+
+    return jsonify({'token':'failure'})
 
 @app.route('/api/getTrackingList', methods=['GET'])
 def getTrackingList():
