@@ -58,28 +58,48 @@ def login():
     return jsonify({'token':'failure'})
 
 @app.route('/api/getLists', methods=['GET'])
-def getLists():
+def getLists():  ## numan's table is wrong
 
     token = request.args.get('token')
     username = token.split(':')[0] # gives username
 
     cur = mysql.connection.cursor()
-    result = cur.execute("""SELECT U.Username,T.ListId, T.ListName,M.Id, M.CompanyName, J.Position, J.Link, M.ApplicationDate, M.ApplicationStatus, J.StartDate, J.Description 
-    FROM JOBS AS J, MYJOBS AS M, USERCREDENTIALS AS U, COMPANYCREDENTIALS AS C, TRACKINGLIST AS T
-    WHERE J.CompanyId = C.CompanyId AND M.CompanyId = C.CompanyId AND U.UserName = M.userName AND T.Id = M.Id and U.userName = %s""", (username,))
+    result = cur.execute("""SELECT T.ListId, T.ListName FROM TRACKINGLIST AS T WHERE T.userName= %s""",(username,))
 
     if (result > 0):
 
-        row = cur.fetchall()
-        lists=[]
+        rows = cur.fetchall()
 
-        print(row[0])
+        lists = []
 
-        lists.append({"listID" : row[0][1], "listName" : row[0][2], "jobs" : [{"id" : row[0][3], "companyName": row[0][4], "position": row[0][5], "link": row[0][6],
-                                                                    "applicationDate": row[0][6], "applicationStatus": row[0][7], "startDate" : row[0][8], "description": row[0][9]}]})
+        for row in rows:
+
+            temp = {}
+            cur1 = mysql.connection.cursor()
+            cur1.execute("""SELECT t.listId,M.CompanyName,M.Position,J.link,M.applicationDate,M.applicationStatus,J.startDate,J.description
+            FROM TRACKINGLIST AS T ,MYJOBS AS M, JOBS AS J WHERE J.JobId = M.Id AND T.myJobId = M.Id AND T.listId= %s""", (row[0],))
+            temp["listID"] = row[0]
+            temp["listName"] = row[1]
+
+
+            allJob = cur1.fetchall()
+
+            temp["jobs"]=[]
+
+            for singleJob in allJob:
+
+                temp["jobs"].append(
+                    {"id": singleJob[0], "companyName": singleJob[1], "position": singleJob[2], "link": singleJob[3],
+                     "applicationDate": singleJob[4], "applicationStatus": singleJob[5], "startDate": singleJob[6],
+                     "description": singleJob[7]})
+
+
+            lists.append(temp)
+
         return jsonify(lists)
 
     return jsonify({'token':'failure'})
+
 
 @app.route('/api/getTrackingList', methods=['GET'])
 def getTrackingList():
