@@ -137,6 +137,35 @@ def savedResources():
 def setSavedLearningResources():
     pass
 
+@app.route('/api/deleteSavedResources', methods=['DELETE'])
+def deleteSavedResources():
+    pass
+
+@app.route('/api/savedPracticeResources', methods=['GET'])
+def savedPracticeResources():
+    pass
+
+@app.route('/api/setSavedPracticeResources', methods=['PUT'])
+def setSavedPracticeResources():
+    pass
+
+@app.route('/api/deleteSavedPracticeResources', methods=['DELETE'])
+def deleteSavedPracticeResources():
+    pass
+
+@app.route('/api/postJob', methods=['POST'])
+def postJob():
+    pass
+
+
+@app.route('/api/deleteJob', methods=['DELETE'])
+def deleteJob():
+    pass
+
+@app.route('/api/editJob', methods=['PUT'])
+def editJob():
+    pass
+
 if __name__ == "__main__":
     app.run(debug=True)
 
