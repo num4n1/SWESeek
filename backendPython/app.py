@@ -22,19 +22,21 @@ def signup():
     password = request.json['password']
 
     cur0 = mysql.connection.cursor()
-    result = cur0.execute("Select * FROM accounts")
+    result = cur0.execute("Select * FROM USERCREDENTIALS")
 
     if (result > 0):
         userDetails = cur0.fetchall()
         for user in userDetails:
             if (user[0] == email or user[4] == username):
+                print(email)
+                print(user[0])
                 return jsonify({'token':'failed'})
 
     mysql.connection.commit()
     cur0.close()
 
     cur = mysql.connection.cursor()
-    cur.execute("""INSERT INTO accounts(email,firstName,lastName,phoneNumber,username,password) VALUES(%s,%s,%s,%s,%s,%s)""", (email,firstName,lastName,phoneNumber,username,password))
+    cur.execute("""INSERT INTO USERCREDENTIALS(email,firstName,lastName,phoneNumber,username,password) VALUES(%s,%s,%s,%s,%s,%s)""", (email,firstName,lastName,phoneNumber,username,password))
     mysql.connection.commit()
     cur.close()
     token=username+":"+password
