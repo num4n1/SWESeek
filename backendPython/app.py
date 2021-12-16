@@ -119,7 +119,18 @@ def addJobToTrack():
 
 @app.route('/api/removeJobFromList', methods=['DELETE'])
 def removeJobFromList():
-    pass
+
+    token = request.args.get('token')
+    username = token.split(':')[0]  # gives username
+    listId = request.args.get('listId')
+    jobId = request.args.get('jobId')
+
+    cur = mysql.connection.cursor()
+    cur.execute("""DELETE FROM TRACKINGLIST WHERE listId=%s AND myJobId=%s AND userName=%s""", (listId,jobId,username))
+    mysql.connection.commit()
+    cur.close()
+
+    return "deleted sucessfully"
 
 @app.route('/api/jobPostings', methods=['GET'])
 def jobPostings():
