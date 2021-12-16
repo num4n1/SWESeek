@@ -25,11 +25,17 @@ Endpoint 10:
 SELECT company,companySize,industry
 FROM SALARY AS S, COMPANYCREDENTIALS AS C WHERE S.companyId = C.companyId;
 
-SELECT company,totalComp
-FROM SALARY AS S, COMPANYCREDENTIALS AS C WHERE S.companyId = C.companyId;
+SELECT company,role,totalComp
+FROM SALARY AS S, COMPANYCREDENTIALS AS C WHERE S.companyId = C.companyId
 
 Endpoint 11:
-SELECT company,companySize,industry,role,avg(totalComp) FROM SALARY AS S, COMPANYCREDENTIALS AS C WHERE S.companyId = C.companyId GROUP BY company; 
+SELECT company,companySize,industry
+FROM SALARY AS S, COMPANYCREDENTIALS AS C WHERE S.companyId = C.companyId;
+
+SELECT company,role,avg(totalComp) 
+FROM SALARY AS S, COMPANYCREDENTIALS AS C 
+WHERE S.companyId = C.companyId 
+GROUP BY company; 
 
 Endpoint 12:
 INSERT INTO SALARY (company, companySize, role, totalComp)
