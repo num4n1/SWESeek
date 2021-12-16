@@ -114,7 +114,14 @@ def jobPostings():
 
 @app.route('/api/jobPostings', methods=['GET'])
 def jobPostings():
-    pass
+    cur = mysql.connection.cursor()
+    cur.execute("SELECT J.companyId,companyName,position,size,industry,link,description FROM JOBS AS J, COMPANYCREDENTIALS AS C WHERE J.companyId = C.companyId")
+    rows = cur.fetchall()
+
+    list=[]
+    for row in rows:
+        list.append({"id":row[0], "company": row[1],"position": row[2], "companySize":row[3],"industry":row[4],"link":row[5], "description":row[6]})
+    return jsonify(list)
 
 @app.route('/api/summarizedPopularSalaryInfo', methods=['POST'])
 def summarizedPopularSalaryInfo():
