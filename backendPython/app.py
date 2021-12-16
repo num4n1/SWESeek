@@ -139,6 +139,21 @@ def learningResources():
 def exampleQuestionResources():
     pass
 
+@app.route('/api/companyreviews', methods=['GET'])
+def companyreviews():
+    pass
+
+@app.route('/api/addUserDocument', methods=['POST'])
+def addUserDocument():
+    pass
+
+@app.route('/api/learningResources', methods=['GET'])
+def learningResources():
+    pass
+
+@app.route('/api/getUserDocuments', methods=['GET'])
+def getUserDocuments():
+    pass
 
 if __name__ == "__main__":
     app.run(debug=True)
