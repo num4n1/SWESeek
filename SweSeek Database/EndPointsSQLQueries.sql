@@ -13,3 +13,6 @@ WHERE listName = 'N/A'AND listId='N/A'AND serial =3;
 
 Endpoint 7:
 DELETE FROM TRACKINGLIST WHERE listId='N/A' AND Serial=1;
+
+Endpoint 9:
+SELECT J.companyId,position,size,industry,link,description FROM JOBS AS J, COMPANYCREDENTIALS AS C WHERE J.companyId = C.companyId;
