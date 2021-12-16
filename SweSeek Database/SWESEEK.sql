@@ -43,6 +43,7 @@ VALUES
 
 DROP TABLE IF EXISTS JOBS;
 CREATE TABLE JOBS (
+	JobId			integer not null,
     Company			varchar(25) not null,
     Position			varchar(25) not null,
     StartDate			varchar(10) ,
@@ -52,17 +53,17 @@ CREATE TABLE JOBS (
     ListName			char(25) ,
     ListId			char(25) ,
     CompanyId			char(3) not null,
-    primary key (Company),
+    primary key (JobId),
     foreign key (CompanyId) references COMPANYCREDENTIALS(CompanyId) ON UPDATE CASCADE
 );
 
-INSERT INTO JOBS (CompanyId, Company, Position, StartDate, EndDate, Link, Description, ListName, ListId)
+INSERT INTO JOBS (JobId, CompanyId, Company, Position, StartDate, EndDate, Link, Description, ListName, ListId)
 VALUES
-('001','Amazon',	  'Back-End',			'15-01-2022',	'15-04-2022', 		'amazoncareers.ca', 	'N/A',	'N/A',	'N/A'),
-('002','Google',	  'Front-End',			'11-04-2022',	'11-04-2023', 		'careersgoogle.com', 	'N/A',	'N/A',	'N/A'),
-('003','IBM',		  'Devops',			'21-07-2022',	'21-01-2023',		'ibmrecruitment.ca', 	'N/A',	'N/A',	'N/A'),
-('004','Tesla',           'Machine Learning',	        '28-04-2022',	'15-01-2023', 		'teslahires.com', 	'N/A',	'N/A',	'N/A'),
-('005','Microsoft',       'Back-End',			'09-06-2022',	'09-10-2022', 		'microsoftjobs.com', 	'N/A',	'N/A',	'N/A');
+(1,'001','Amazon',	  'Back-End',			'15-01-2022',	'15-04-2022', 		'amazoncareers.ca', 	'N/A',	'N/A',	'N/A'),
+(2,'002','Google',	  'Front-End',			'11-04-2022',	'11-04-2023', 		'careersgoogle.com', 	'N/A',	'N/A',	'N/A'),
+(3,'003','IBM',		  'Devops',			'21-07-2022',	'21-01-2023',		'ibmrecruitment.ca', 	'N/A',	'N/A',	'N/A'),
+(4,'004','Tesla',           'Machine Learning',	        '28-04-2022',	'15-01-2023', 		'teslahires.com', 	'N/A',	'N/A',	'N/A'),
+(5,'005','Microsoft',       'Back-End',			'09-06-2022',	'09-10-2022', 		'microsoftjobs.com', 	'N/A',	'N/A',	'N/A');
 
 DROP TABLE IF EXISTS MYJOBS;
 CREATE TABLE MYJOBS (
@@ -75,6 +76,7 @@ CREATE TABLE MYJOBS (
         CompanyId		char(3) not null,
 	primary key (Serial),
         foreign key (CompanyId) references COMPANYCREDENTIALS(CompanyId) ON UPDATE CASCADE,
+        foreign key (Serial) references JOBS(JobId) ON UPDATE CASCADE,
         foreign key (userName) references USERCREDENTIALS(UserName) ON UPDATE CASCADE
 );
 
