@@ -101,6 +101,11 @@ export default function LearningPage() {
   const [modalData, setModalData] = useState(questionResources[0]);
 
   useEffect(() => {
+    // Checks for token in storage, indicating signed in.
+    if(localStorage.getItem("token") == null){
+      window.location.href = "http://localhost:3000/login";
+    }
+
     Axios.get("http://localhost:3000/api/learningResources", {})
     .then((res) => {
       //setLearningResources(res.data);

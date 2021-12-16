@@ -366,6 +366,16 @@ export default function TrackingPage() {
 
   function openStats(item) {}
 
+  function determineIcon(companyName){
+    console.log(companyName)
+    switch(companyName.toLowerCase()){
+      case "google":
+        return "/Assets/googleicon.png";
+      default:
+        return "/Assets/defaulticon.png";
+    }
+  }
+
   return (
     <Container fluid style={{ minHeight: `69.6vh`, xOverflow: `visible` }}>
       <Row style={{ marginTop: `2%` }}>
@@ -435,12 +445,79 @@ export default function TrackingPage() {
                                   <Card.Body>
                                     <Row>
                                       <Col xs={2}>
-                                        <img
+                                        {
+                                          /*Quick and dirty solution to not storing images with the job posting*/
+                                          item.companyName.toLowerCase() === "google" ? 
+                                          <img
+                                          style={{ marginTop: `15%` }}
+                                          className="JobCardImage"
+                                          src="/Assets/googleicon.png"
+                                          alt=""
+                                          />
+                                          :
+                                          item.companyName.toLowerCase() === "facebook" ?
+                                          <img
                                           style={{ marginTop: `15%` }}
                                           className="JobCardImage"
                                           src="/Assets/facebookicon.png"
                                           alt=""
-                                        />
+                                          />
+                                          :
+                                          item.companyName.toLowerCase() === "amazon" ?
+                                          <img
+                                          style={{ marginTop: `15%` }}
+                                          className="JobCardImage"
+                                          src="/Assets/amazonicon.png"
+                                          alt=""
+                                          />
+                                          :
+                                          item.companyName.toLowerCase() === "apple" ?
+                                          <img
+                                          style={{ marginTop: `15%` }}
+                                          className="JobCardImage"
+                                          src="/Assets/appleicon.png"
+                                          alt=""
+                                          />
+                                          :
+                                          item.companyName.toLowerCase() === "netflix" ?
+                                          <img
+                                          style={{ marginTop: `15%` }}
+                                          className="JobCardImage"
+                                          src="/Assets/netflixicon.png"
+                                          alt=""
+                                          />
+                                          :
+                                          item.companyName.toLowerCase() === "telsa" ?
+                                          <img
+                                          style={{ marginTop: `15%` }}
+                                          className="JobCardImage"
+                                          src="/Assets/teslaicon.png"
+                                          alt=""
+                                          />
+                                          :
+                                          item.companyName.toLowerCase() === "twitch" ?
+                                          <img
+                                          style={{ marginTop: `15%` }}
+                                          className="JobCardImage"
+                                          src="/Assets/twitchicon.png"
+                                          alt=""
+                                          />
+                                          :
+                                          item.companyName.toLowerCase() === "microsoft" ?
+                                          <img
+                                          style={{ marginTop: `15%` }}
+                                          className="JobCardImage"
+                                          src="/Assets/microsofticon.png"
+                                          alt=""
+                                          />
+                                          :
+                                          <img
+                                          style={{ marginTop: `15%` }}
+                                          className="JobCardImage"
+                                          src="/Assets/defaulticon.png"
+                                          alt=""
+                                          />
+                                        }
                                       </Col>
                                       <Col xs={10}>
                                         <Card.Title

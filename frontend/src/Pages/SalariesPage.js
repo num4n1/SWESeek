@@ -166,6 +166,11 @@ export default function SalariesPage() {
   const [showAddSalary, setShowAddSalary] = useState(false);
 
   useEffect(() => {
+        // Checks for token in storage, indicating signed in.
+    if(localStorage.getItem("token") == null){
+      window.location.href = "http://localhost:3000/login";
+    }
+
     Axios.get("http://localhost:3000/api/summerizedSalaryInfo", {})
     .then((res) => {
       setAllCompanys(res.data);
