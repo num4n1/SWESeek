@@ -84,14 +84,17 @@ VALUES
 DROP TABLE IF EXISTS TRACKING;
 CREATE TABLE TRACKING (
 	ListName			varchar(25) not null,
-	primary key (ListName)
+    	CompanyId			char(3) not null,
+	primary key (ListName),
+    	foreign key (CompanyId) references COMPANYCREDENTIALS(CompanyId) ON UPDATE CASCADE
 );
 
-INSERT INTO TRACKING (ListName)
+INSERT INTO TRACKING (ListName,CompanyId)
 VALUES
-('Amazon'),
-('IBM'),
-('Tesla');
+('Amazon','001'),
+('IBM','003'),
+('Tesla','004');
+
 
 DROP TABLE IF EXISTS COMPANY;
 CREATE TABLE COMPANY (
