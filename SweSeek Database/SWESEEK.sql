@@ -66,20 +66,22 @@ VALUES
 
 DROP TABLE IF EXISTS MYJOBS;
 CREATE TABLE MYJOBS (
+	userName		varchar(25) not null,
 	CompanyName		varchar(25) not null,
 	Position		varchar(25) not null,
 	ApplicationStatus	char(25) not null,
         ApplicationDate		char(25) ,
         CompanyId		char(3) not null,
 	primary key (CompanyName),
-        foreign key (CompanyId) references COMPANYCREDENTIALS(CompanyId) ON UPDATE CASCADE
+        foreign key (CompanyId) references COMPANYCREDENTIALS(CompanyId) ON UPDATE CASCADE,
+        foreign key (userName) references USERCREDENTIALS(UserName) ON UPDATE CASCADE
 );
 
-INSERT INTO MYJOBS (CompanyName, Position, ApplicationStatus, ApplicationDate,CompanyId)
+INSERT INTO MYJOBS (userName,CompanyName, Position, ApplicationStatus, ApplicationDate,CompanyId)
 VALUES
-('Amazon',    'Back-End',		'Offer Recieved',	'01-01-2022','001'),
-('IBM',	      'Devops',			'Under-Review',		'01-02-2022','003'),
-('Tesla',     'Machine Learning',	'Under-Review',		'02-01-2022','004');
+('nick_knapton',      'Amazon',    'Back-End',	       'Offer Recieved',	'01-01-2022','001'),
+('num4n',	      'IBM',	   'Devops',	       'Under-Review',		'01-02-2022','003'),
+('zeeshansalim',      'Tesla',     'Machine Learning', 'Under-Review',		'02-01-2022','004');
 
 DROP TABLE IF EXISTS TRACKING;
 CREATE TABLE TRACKING (
