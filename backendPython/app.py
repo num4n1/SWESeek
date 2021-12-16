@@ -56,10 +56,25 @@ def signup():
     cur.close()
     return jsonify({'token':'success'})
 
-
 @app.route('/api/login', methods=['GET'])
 def login():
-    pass
+
+    email = request.args.get('email')
+    password = request.args.get('password')
+    cur = mysql.connection.cursor()
+    result = cur.execute("Select * FROM accounts")
+
+    if(result>0):
+
+        userDetails = cur.fetchall()
+
+        for user in userDetails:
+            
+            if(user[0]==email and user[5]==password):
+                
+                return jsonify({'token':'success'})
+            
+    return jsonify({'token':'failure'})
 
 @app.route('/api/getLists', methods=['GET'])
 def getLists():
