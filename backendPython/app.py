@@ -245,7 +245,21 @@ def exampleQuestionResources():
 
 @app.route('/api/companyreviews', methods=['GET'])
 def companyreviews():
-    pass
+
+    companyName = request.args.get('companyName')
+
+    cur = mysql.connection.cursor()
+    cur.execute("""SELECT companyName,title,review, month, day, year
+            FROM REVIEWS WHERE companyName = %s""",(companyName,))
+
+    rows = cur.fetchall()
+
+    list = []
+    for row in rows:
+        list.append({"companyName": row[0], "title": row[1], "review": row[2], "month": row[3], "day": row[4],
+                     "year": row[5]})
+    return jsonify(list)
+
 
 @app.route('/api/addUserDocument', methods=['POST'])
 def addUserDocument():
