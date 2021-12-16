@@ -22,3 +22,7 @@ SELECT company,companySize,industry,role,totalComp FROM SALARY AS S, COMPANYCRED
 
 Endpoint 11:
 SELECT company,companySize,industry,role,avg(totalComp) FROM SALARY AS S, COMPANYCREDENTIALS AS C WHERE S.companyId = C.companyId GROUP BY company; 
+
+Endpoint 12:
+INSERT INTO SALARY (company, companySize, role, totalComp)
+VALUES ('CUSTOM', 'CUSTOM', 'CUSTOM', 9999);
