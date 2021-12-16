@@ -37,7 +37,7 @@ def signup():
     cur.execute("""INSERT INTO accounts(email,firstName,lastName,phoneNumber,username,password) VALUES(%s,%s,%s,%s,%s,%s)""", (email,firstName,lastName,phoneNumber,username,password))
     mysql.connection.commit()
     cur.close()
-    token=email+":"+password
+    token=username+":"+password
     return jsonify({'token':token})
 
 @app.route('/api/login', methods=['GET'])
@@ -52,7 +52,7 @@ def login():
         userDetails = cur.fetchall()
         for user in userDetails:
             if(user[0]==email and user[5]==password):
-                token = email + ":" + password
+                token = user[4] + ":" + password
                 return jsonify({'token':token})
 
     return jsonify({'token':'failure'})
