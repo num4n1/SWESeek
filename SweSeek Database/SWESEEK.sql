@@ -287,32 +287,42 @@ VALUES
 ('nick_knapton',2),
 ('zeeshansalim',3);
 
+DROP TABLE IF EXISTS USERDOCUMENTS;
+CREATE TABLE USERDOCUMENTS (
+	dNo						integer not null auto_increment,
+    username				varchar(25) not null,
+    fileName				varchar(25) not null,
+    file					varchar(25) not null,
+    type					varchar(25) not null,
+    primary key(dNo),
+    foreign key (username) references USERCREDENTIALS(userName) ON UPDATE CASCADE
+);
+
+INSERT INTO USERDOCUMENTS (username,fileName,file,type)
+VALUES
+('num4n','file1','path1','pdf'),
+('zeeshansalim','file2','path2', 'pdf'),
+('nick_knapton','file3','path3','png'),
+('zeeshansalim','file4','path4','pdf');
+
+
 DROP TABLE IF EXISTS APPLIED;
 CREATE TABLE APPLIED (
 	username				varchar(25) not null,
     JobId					integer not null,
-    primary key(username,JobId),
-	foreign key (JobId) references JOBS(JobId) ON UPDATE CASCADE
-
-);
-
-INSERT INTO APPLIED (username,JobId)
-VALUES
-('num4n',1),
-('num4n',2),
-('nick_knapton',2),
-('zeeshansalim',2);
-
-DROP TABLE IF EXISTS APPLIEDDOCUMENTS;
-CREATE TABLE APPLIEDDOCUMENTS (
-	username				varchar(25) not null,
     dNo						integer not null,
-    foreign key (username) references APPLIED(username) ON UPDATE CASCADE
+    primary key(username,JobId,dNo),
+	foreign key (JobId) references JOBS(JobId) ON UPDATE CASCADE,
+    foreign key (username) references USERCREDENTIALS(userName) ON UPDATE CASCADE,
+    foreign key (dNo) references USERDOCUMENTS(dNo) ON UPDATE CASCADE
+    
 );
-
-INSERT INTO APPLIEDDOCUMENTS (username,dNo)
+INSERT INTO APPLIED (username,JobId,dNo)
 VALUES
-('num4n',1),
-('num4n',2),
-('nick_knapton',2),
-('zeeshansalim',2);
+('num4n',1,1),
+('zeeshansalim',2,2),
+('nick_knapton',2,3),
+('zeeshansalim',2,4);
+
+
+
