@@ -197,7 +197,32 @@ def putTrackingList():
 
 @app.route('/api/addList', methods=['POST'])
 def addList():
-    pass
+
+    token = request.json['token']
+    username = token.split(':')[0]  # gives username
+    listName = request.json['listName']
+
+    cur = mysql.connection.cursor()
+    cur.execute(
+        """INSERT INTO TRACKINGLIST (username, listName) VALUES (%s, %s)""",
+        (username, listName,))
+    mysql.connection.commit()
+    cur.close()
+
+    cur1 = mysql.connection.cursor()
+    result = cur1.execute(
+        """SELECT listID FROM TRACKINGLIST WHERE listName = %s""",(listName,))
+
+
+    if(result>0):
+
+        answers = cur1.fetchall()
+        temp={}
+        for answer in answers:
+            temp['listID']=answer[0]
+            return jsonify(temp)
+
+    return "failure"
 
 
 
