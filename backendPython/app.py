@@ -195,7 +195,34 @@ def addList():
 
 @app.route('/api/addJobToTrack', methods=['POST'])
 def addJobToTrack():
-    pass
+
+    token = request.json['token']
+    username = token.split(':')[0]  # gives username
+    companyName = request.json['companyName']
+    position = request.json['position']
+    startDate = request.json['startDate']
+    link = request.json['link']
+    description = request.json['description']
+    listName = request.json['listName']
+    listId = request.json['listId']
+    applicationStatus = request.json['applicationStatus']
+    applicationDate = request.json['applicationDate']
+
+    cur0 = mysql.connection.cursor()
+    cur0.execute("""SELECT companyId FROM COMPANYCREDENTIALS WHERE companyName = %s""", (companyName,))
+
+    companyID = cur0.fetchall()[0][0]
+
+    mysql.connection.commit()
+    cur0.close()
+
+    cur = mysql.connection.cursor()
+    cur.execute("""INSERT INTO MYJOBS(userName,ApplicationStatus,ListId,ApplicationDate,companyName,position,startDate, link,description, CompanyId) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)""",(username, applicationStatus,listId
+                                                                         ,applicationDate,companyName,position,startDate,link,description, companyID))
+    mysql.connection.commit()
+    cur.close()
+
+    return "success"
 
 @app.route('/api/removeJobFromList', methods=['DELETE'])
 def removeJobFromList():
