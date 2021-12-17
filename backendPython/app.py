@@ -1,19 +1,21 @@
 from flask import Flask, request, jsonify
 from flask_mysqldb import MySQL
+from flask_cors import CORS
 import yaml
 
 app = Flask(__name__)
 
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'Zeemaan1234@'
-app.config['MYSQL_DB'] = 'flaskapp'
+app.config['MYSQL_PASSWORD'] = 'Whicket1'
+app.config['MYSQL_DB'] = 'sweseek'
 
+CORS(app)
 mysql = MySQL(app)
 
 @app.route('/api/signup', methods=['POST'])
 def signup():
-
+    print(request.json['email'])
     email = request.json['email']
     firstName = request.json['firstName']
     lastName = request.json['lastName']
