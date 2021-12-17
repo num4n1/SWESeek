@@ -86,3 +86,7 @@ Endpoint 22:
 SELECT JobId,position,startDate,link,description
 FROM JOBS
 WHERE company ='Microsoft'; 
+
+Endpoint 24:
+INSERT INTO COMPANYCREDENTIALS(companyName, username, industry, size, password)
+VALUES ('DoorDash','DDSH','food delivery','doordashjobs.ca','HDWO2347');
