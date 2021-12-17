@@ -69,7 +69,7 @@ def login():
 
 
 @app.route('/api/getLists', methods=['GET'])
-def getLists():  
+def getLists():
 
     token = request.args.get('token')
     username = token.split(':')[0] # gives username
@@ -87,8 +87,8 @@ def getLists():
 
             temp = {}
             cur1 = mysql.connection.cursor()
-            cur1.execute("""SELECT M.listId,J.company,J.Position,J.link,M.applicationDate,M.applicationStatus,J.startDate,J.description
-            FROM TRACKINGLIST AS T ,MYJOBS AS M, JOBS AS J WHERE J.JobId = M.JobId AND M.ListId = T.listId AND T.listId= %s""", (row[0],))
+            cur1.execute("""SELECT M.Id,M.companyName,M.Position,M.link,M.applicationDate,M.applicationStatus,M.startDate,M.description
+            FROM TRACKINGLIST AS T ,MYJOBS AS M WHERE M.ListId = T.listId and t.listId=%s""", (row[0],))
             temp["listID"] = row[0]
             temp["listName"] = row[1]
 
@@ -135,9 +135,8 @@ def getTrackingList():
 
             temp = {}
             cur1 = mysql.connection.cursor()
-            cur1.execute("""SELECT M.listId,J.company,J.Position,J.link,M.applicationDate,M.applicationStatus,J.startDate,J.description
-                FROM TRACKINGLIST AS T ,MYJOBS AS M, JOBS AS J WHERE J.JobId = M.JobId AND M.ListId = T.listId AND T.listId= %s""",
-                         (row[0],))
+            cur1.execute("""SELECT M.Id,M.companyName,M.Position,M.link,M.applicationDate,M.applicationStatus,M.startDate,M.description
+                        FROM TRACKINGLIST AS T ,MYJOBS AS M WHERE M.ListId = T.listId and t.listId=%s""", (row[0],))
             temp["listID"] = row[0]
             temp["listName"] = row[1]
 
@@ -156,7 +155,6 @@ def getTrackingList():
         return jsonify(lists)
 
     return jsonify({'token': 'failure'})
-
 
 @app.route('/api/putTrackingList', methods=['PUT'])
 def putTrackingList():
@@ -197,7 +195,34 @@ def addList():
 
 @app.route('/api/addJobToTrack', methods=['POST'])
 def addJobToTrack():
-    pass
+
+    token = request.json['token']
+    username = token.split(':')[0]  # gives username
+    companyName = request.json['companyName']
+    position = request.json['position']
+    startDate = request.json['startDate']
+    link = request.json['link']
+    description = request.json['description']
+    listName = request.json['listName']
+    listId = request.json['listId']
+    applicationStatus = request.json['applicationStatus']
+    applicationDate = request.json['applicationDate']
+
+    cur0 = mysql.connection.cursor()
+    cur0.execute("""SELECT companyId FROM COMPANYCREDENTIALS WHERE companyName = %s""", (companyName,))
+
+    companyID = cur0.fetchall()[0][0]
+
+    mysql.connection.commit()
+    cur0.close()
+
+    cur = mysql.connection.cursor()
+    cur.execute("""INSERT INTO MYJOBS(userName,ApplicationStatus,ListId,ApplicationDate,companyName,position,startDate, link,description, CompanyId) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)""",(username, applicationStatus,listId
+                                                                         ,applicationDate,companyName,position,startDate,link,description, companyID))
+    mysql.connection.commit()
+    cur.close()
+
+    return "success"
 
 @app.route('/api/removeJobFromList', methods=['DELETE'])
 def removeJobFromList():

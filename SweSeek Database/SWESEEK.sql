@@ -83,7 +83,6 @@ VALUES
 DROP TABLE IF EXISTS MYJOBS;
 CREATE TABLE MYJOBS (
 	Id			integer not null AUTO_INCREMENT,
-    JobId		integer not null,
 	userName		varchar(25) not null,
 	ApplicationStatus	char(25) not null,
     ListId				integer not null,
@@ -97,17 +96,16 @@ CREATE TABLE MYJOBS (
 	primary key (Id),
 		foreign key (ListId) references TRACKINGLIST(listId) ON UPDATE CASCADE,
         foreign key (CompanyId) references COMPANYCREDENTIALS(CompanyId) ON UPDATE CASCADE,
-        foreign key (JobId) references JOBS(JobId) ON UPDATE CASCADE,
         foreign key (userName) references USERCREDENTIALS(UserName) ON UPDATE CASCADE
 );
 
-INSERT INTO MYJOBS (JobId,userName,ApplicationStatus,ListId,ApplicationDate,companyName,position,startDate,CompanyId,link,description)
+INSERT INTO MYJOBS (userName,ApplicationStatus,ListId,ApplicationDate,companyName,position,startDate,CompanyId,link,description)
 VALUES
-(1,'nick_knapton',	'Offer Recieved', 1	,'01-01-2022','Amazon','Back-End','01-01-2021','001','amazoncareers.ca','N/A'),
-(2,'num4n',			'Under-Review',	2	,'01-02-2022','IBM','Devops','01-01-2021','003','ibmrecruitment.ca','N/A'),
-(3,'zeeshansalim',	'Under-Review',	3	,'02-01-2022','Tesla','Back-End','01-01-2021','004','teslahires.com','N/A'),
-(4,'zeeshansalim',	'Under-Review',3,'12-01-2022','IBM','DevOps','01-01-2021','003','ibmrecruitment.ca','N/A'),
-(5,'zeeshansalim',	'Under-Review',4,'12-04-2022','Google','Front-End','01-01-2021','002','careersgoogle.com','N/A');
+('nick_knapton',	'Offer Recieved', 1	,'01-01-2022','Amazon','Back-End','01-01-2021','001','amazoncareers.ca','N/A'),
+('num4n',			'Under-Review',	2	,'01-02-2022','IBM','Devops','01-01-2021','003','ibmrecruitment.ca','N/A'),
+('zeeshansalim',	'Under-Review',	3	,'02-01-2022','Tesla','Back-End','01-01-2021','004','teslahires.com','N/A'),
+('zeeshansalim',	'Under-Review',3,'12-01-2022','IBM','DevOps','01-01-2021','003','ibmrecruitment.ca','N/A'),
+('zeeshansalim',	'Under-Review',4,'12-04-2022','Google','Front-End','01-01-2021','002','careersgoogle.com','N/A');
 
 DROP TABLE IF EXISTS TRACKING;
 CREATE TABLE TRACKING (

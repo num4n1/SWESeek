@@ -32,6 +32,12 @@ VALUES (1,'nick_knapton',	'Offer Recieved', 1	,'01-01-2022','Google','Back-End',
 Endpoint 7: #corrected
 DELETE FROM TRACKINGLIST WHERE listId=%s AND myJobId=%s AND userName=%s
 
+Endpoint 8:
+INSERT INTO JOBS (CompanyId, company, position, StartDate, link, Description)
+VALUES ('003','IBM','Front-End','01-01-2022','ibmrecruitment.ca','N/A')
+
+SELECT JobId FROM JOBS WHERE company = 'IBM' AND position = 'Front-End';
+
 Endpoint 9: #correct
 SELECT J.companyId,position,size,industry,link,description FROM JOBS AS J, COMPANYCREDENTIALS AS C WHERE J.companyId = C.companyId;
 
@@ -61,3 +67,17 @@ Endpoint 14:
 
 Endpoint 15:  #correct
 SELECT * FROM REVIEWS WHERE companyName ='CUSTOM';
+
+Endpoint 21.1: First get CompanyId using companyName, then use that CompanyId to add to JOBS along with the provided data.
+SELECT CompanyId FROM COMPANYCREDENTIALS WHERE companyName = 'Blizzard';
+INSERT INTO JOBS (CompanyId, company, position, StartDate, link, Description)
+VALUES ('006','Blizzard',	'Back-End','11-02-2020','blizzardhiring.ca','N/A');
+
+Endpoint 21.2: First get the JobId using the companyName and position, then delete the row in JOBS using the JobId
+SELECT JobId FROM JOBS WHERE company ='Amazon' AND position ='Back-End';
+DELETE FROM JOBS WHERE JobId=1;
+
+Endpoint 21.3: considering that we know the JobId from before.
+UPDATE JOBS
+SET startdate = '09-09-2029',description='very long', link = 'newmicro.com'
+WHERE company = 'Microsoft'AND JobId=7 AND position='Full-Stack';
