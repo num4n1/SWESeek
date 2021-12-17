@@ -85,6 +85,11 @@ Endpoint 16:
 INSERT INTO USERDOCUMENTS (username,fileName,file,type)
 VALUES('zeeshansalim','file 6','path6','pdf');
 
+Endpoint 17:
+SELECT fileName,dNo,file,type 
+FROM USERDOCUMENTS
+WHERE username='num4n' and fileName = 'file1'
+
 Endpoint 18:
 INSERT INTO APPLIED(username,JobId)
 VALUES ('zeeshansalim','5');
