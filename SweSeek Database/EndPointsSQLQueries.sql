@@ -3,18 +3,18 @@ SELECT T.ListId, T.ListName
 FROM TRACKINGLIST AS T
 WHERE T.userName='CUSTOM'; 
 
-SELECT M.listId,J.company,J.Position,J.link,M.applicationDate,M.applicationStatus,J.startDate,J.description
-FROM TRACKINGLIST AS T ,MYJOBS AS M, JOBS AS J
-WHERE T.listId=CUSTOM AND J.JobId = M.JobId AND M.ListId = T.listId; 
+SELECT M.Id,M.companyName,M.Position,M.link,M.applicationDate,M.applicationStatus,M.startDate,M.description
+FROM TRACKINGLIST AS T ,MYJOBS AS M
+WHERE M.ListId = T.listId; 
 
 Endpoint 4: #correct
 SELECT T.ListId, T.ListName
 FROM TRACKINGLIST AS T
 WHERE T.userName='CUSTOM' AND T.listName = 'CUSTOM'; 
 
-SELECT M.listId,J.company,J.Position,J.link,M.applicationDate,M.applicationStatus,J.startDate,J.description
-FROM TRACKINGLIST AS T ,MYJOBS AS M, JOBS AS J
-WHERE T.listId=CUSTOM AND J.JobId = M.JobId AND M.ListId = T.listId; 
+SELECT M.Id,M.companyName,M.Position,M.link,M.applicationDate,M.applicationStatus,M.startDate,M.description
+FROM TRACKINGLIST AS T ,MYJOBS AS M
+WHERE T.listId=CUSTOM AND M.ListId = T.listId;  
 
 Endpoint 4.1: 
 UPDATE TRACKINGLIST AS T, MYJOBS AS M
