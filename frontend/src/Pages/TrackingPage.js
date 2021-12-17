@@ -126,10 +126,10 @@ export default function TrackingPage() {
   const [currentList, setCurrentList] = useState(lists[0]);
 
   const [wishListItems, setWishListItems] = useState([]);
-  const [appliedItems, setAppliedItems] = useState(exampleApplied);
-  const [interviewItems, setInterviewItems] = useState(exampleInterview);
+  const [appliedItems, setAppliedItems] = useState([]);
+  const [interviewItems, setInterviewItems] = useState([]);
   const [offerItems, setOfferItems] = useState([]);
-  const [regectedItems, setRegectedItems] = useState(exampleRegected);
+  const [regectedItems, setRegectedItems] = useState([]);
   const [addJobColumn, setAddJobColumn] = useState();
 
   const [addCompanyValid, setCompanyValid] = useState(false);
@@ -155,7 +155,7 @@ export default function TrackingPage() {
     let appliedList = [];
     let interviewList = [];
     let offerList = [];
-    let regectedList = [];
+    let rejectedList = [];
     let list;
     await Axios.get("http://127.0.0.1:5000/api/getLists", {
       params: {
@@ -163,50 +163,41 @@ export default function TrackingPage() {
       },
     })
       .then((res) => {
-        console.log("test");
         console.log(res);
         list = res.data[0];
         setLists(res.data);
         list.jobs.forEach((job) => {
           job.id = String(job.id);
-          if (job.applicationStatus === "Wish") {
+          if (job.applicationStatus === "Wishlist") {
             wishList.push(job);
           } else if (job.applicationStatus === "Applied") {
             appliedList.push(job);
           } else if (job.applicationStatus === "Interview") {
             interviewList.push(job);
-          } else if (job.applicationStatus === "Offer Recieved") {
+          } else if (job.applicationStatus === "Offer") {
             offerList.push(job);
-            console.log(offerList);
           } else if (job.applicationStatus === "Regected") {
-            regectedList.push(job);
+            rejectedList.push(job);
           }
+          setCurrentList(list);
+          setWishListItems(wishList);
+          setAppliedItems(appliedList);
+          setInterviewItems(interviewList);
+          setOfferItems(offerList);
+          setRegectedItems(rejectedList);
+          setColumnsData(
+            wishList,
+            appliedList,
+            interviewList,
+            offerList,
+            rejectedList
+          );
         });
-        setCurrentList(list);
-        setWishListItems(wishList);
-        setAppliedItems(appliedList);
-        setInterviewItems(interviewList);
-        setOfferItems(offerList);
-        setRegectedItems(regectedList);
-        let temp = columns;
-        let temp1 = columns[4];
-        temp1.items = offerList;
-        temp1.count = offerList.length;
-        temp[4] = temp1;
-
-
-        
-        setColumns(temp);
       })
       .catch((res) => {
         console.log(res);
       });
   }
-
-  useEffect(() => {
-    console.log("change");
-    console.log(offerItems);
-  }, [offerItems]);
 
   const handleClose = () => setShow(false);
   const handleShow = (item) => {
@@ -245,7 +236,58 @@ export default function TrackingPage() {
   });
 
   function changeList(list) {
+    console.log(list);
+    let wishList = [];
+    let appliedList = [];
+    let interviewList = [];
+    let offerList = [];
+    let rejectedList = [];
+
     setCurrentList(list);
+    if(list.jobs.length === 0){
+      setCurrentList(list);
+      setWishListItems(wishList);
+      setAppliedItems(appliedList);
+      setInterviewItems(interviewList);
+      setOfferItems(offerList);
+      setRegectedItems(rejectedList);
+      setColumnsData(
+        wishList,
+        appliedList,
+        interviewList,
+        offerList,
+        rejectedList
+      );
+    }
+    list.jobs.forEach((job) => {
+      job.id = String(job.id);
+      if (job.applicationStatus === "Wishlist") {
+        wishList.push(job);
+      } else if (job.applicationStatus === "Applied") {
+        appliedList.push(job);
+      } else if (job.applicationStatus === "Interview") {
+        interviewList.push(job);
+      } else if (job.applicationStatus === "Offer") {
+        offerList.push(job);
+      } else if (job.applicationStatus === "Rejected") {
+        rejectedList.push(job);
+      }
+      setCurrentList(list);
+      setWishListItems(wishList);
+      setAppliedItems(appliedList);
+      setInterviewItems(interviewList);
+      setOfferItems(offerList);
+      setRegectedItems(rejectedList);
+      setColumnsData(
+        wishList,
+        appliedList,
+        interviewList,
+        offerList,
+        rejectedList
+      );
+      console.log("test");
+      console.log(columns)
+    });
   }
 
   function handleOnDragEnd(result) {
@@ -325,6 +367,7 @@ export default function TrackingPage() {
     ) {
       column.count++;
       handleCloseAdd();
+      console.log(currentList)
       Axios.post("http://127.0.0.1:5000/api/addJobToTrack", {
         token: localStorage.getItem("token"),
         companyName: company,
@@ -332,8 +375,8 @@ export default function TrackingPage() {
         startDate: startDate,
         link: link,
         description: description,
-        listName: currentList.name,
-        listId: currentList.id,
+        listName: currentList.listName,
+        listId: currentList.listID,
         applicationStatus: applicationStatus,
         applicationDate: applicationDate,
       }).then((res) => {
@@ -351,6 +394,37 @@ export default function TrackingPage() {
         description: description,
       });
     }
+  }
+
+  function setColumnsData(
+    wishList,
+    appliedList,
+    interviewList,
+    offerList,
+    rejectedList
+  ) {
+    let temp = columns;
+    let temp1 = columns[1];
+    temp1.items = wishList;
+    temp1.count = wishList.length;
+    temp[1] = temp1;
+    temp1 = columns[2];
+    temp1.items = appliedList;
+    temp1.count = appliedList.length;
+    temp[2] = temp1;
+    temp1 = columns[3];
+    temp1.items = interviewList;
+    temp1.count = interviewList.length;
+    temp[3] = temp1;
+    temp1 = columns[4];
+    temp1.items = offerList;
+    temp1.count = offerList.length;
+    temp[4] = temp1;
+    temp1 = columns[5];
+    temp1.items = rejectedList;
+    temp1.count = rejectedList.length;
+    temp[5] = temp1;
+    setColumns(temp);
   }
 
   function deleteJob() {
@@ -382,43 +456,52 @@ export default function TrackingPage() {
     setShowAdd(true);
   }
 
-  function openStats(item) {}
-
-  function determineIcon(companyName) {
-    console.log(companyName);
-    switch (companyName.toLowerCase()) {
-      case "google":
-        return "/Assets/googleicon.png";
-      default:
-        return "/Assets/defaulticon.png";
-    }
+  function addList() {
+    Axios.post("http://127.0.0.1:5000/api/addList", {
+      token: localStorage.getItem("token"),
+      listName: document.getElementById("addList").value,
+    });
   }
 
   return (
     <Container fluid style={{ minHeight: `69.6vh`, xOverflow: `visible` }}>
       <Row style={{ marginTop: `2%` }}>
         <Col style={{ alignSelf: `center` }}>
-          <Dropdown as={ButtonGroup}>
-            <Dropdown.Toggle size="lg" className="ListSelectButton">
-              Job List
-            </Dropdown.Toggle>
-            <Dropdown.Menu>
-              {lists.map((element) => {
-                return (
-                  <Dropdown.Item
-                    onClick={() => {
-                      changeList(element);
-                    }}
-                  >
-                    {element.name}
-                  </Dropdown.Item>
-                );
-              })}
-            </Dropdown.Menu>
-          </Dropdown>{" "}
+          <Row>
+            <Col>
+              <Dropdown as={ButtonGroup}>
+                <Dropdown.Toggle size="lg" className="ListSelectButton">
+                  Job List
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
+                  {lists.map((element) => {
+                    return (
+                      <Dropdown.Item
+                        onClick={() => {
+                          changeList(element);
+                        }}
+                      >
+                        {element.listName}
+                      </Dropdown.Item>
+                    );
+                  })}
+                </Dropdown.Menu>
+              </Dropdown>{" "}
+            </Col>
+            <Col>
+              <Form.Control id="addList" type="text" placeholder="New List" />
+              <h2
+                onClick={addList}
+                className="ColumnHeader"
+                style={{ cursor: `pointer`, width: `10px` }}
+              >
+                +
+              </h2>
+            </Col>
+          </Row>
         </Col>
         <Col>
-          <h1 className="TrackingHeader">{currentList.name}</h1>
+          <h1 className="TrackingHeader">{currentList.listName}</h1>
         </Col>
         <Col></Col>
       </Row>
