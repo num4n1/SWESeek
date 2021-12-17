@@ -158,9 +158,9 @@ def getTrackingList(): #correct
 
             lists.append(temp)
 
-        return jsonify(lists)
+        return jsonify(lists), 200
 
-    return jsonify({'token': 'failure'})
+    return jsonify({'Error':'No lists available'}), 500
 
 
 @app.route('/api/putTrackingList', methods=['PUT'])
