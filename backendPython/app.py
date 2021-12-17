@@ -450,12 +450,28 @@ def deleteSavedPracticeResources():
 def postJob():
     pass
 
-
-"""
-
 @app.route('/api/deleteJob', methods=['DELETE'])
 def deleteJob():
-    pass
+
+    companyName = request.args.get('companyName')
+    position = request.args.get('position')
+
+    cur = mysql.connection.cursor()
+    result = cur.execute("""SELECT JobId FROM JOBS WHERE company =%s AND position =%s""",(companyName,position))
+
+    if(result>0):
+
+        jobID = cur.fetchall()[0][0]
+        print(jobID)
+        cur1 = mysql.connection.cursor()
+        cur1.execute("""DELETE FROM JOBS WHERE JobId=%s""", (jobID,))
+        mysql.connection.commit()
+        cur1.close()
+        return "success"
+
+    return "nothing deleted"
+
+"""
 
 @app.route('/api/editJob', methods=['PUT'])
 def editJob():
