@@ -87,8 +87,13 @@ CREATE TABLE MYJOBS (
 	userName		varchar(25) not null,
 	ApplicationStatus	char(25) not null,
     ListId				integer not null,
-        ApplicationDate		char(25) ,
-        CompanyId		char(3) not null,
+	ApplicationDate		char(25) ,
+    companyName		varchar(25) not null,
+    position		varchar(25) not null,
+    startDate		varchar(25) not null,
+    link			varchar(25) not null,
+    description		varchar(25) not null,
+    CompanyId		char(3) not null,
 	primary key (Id),
 		foreign key (ListId) references TRACKINGLIST(listId) ON UPDATE CASCADE,
         foreign key (CompanyId) references COMPANYCREDENTIALS(CompanyId) ON UPDATE CASCADE,
@@ -96,13 +101,13 @@ CREATE TABLE MYJOBS (
         foreign key (userName) references USERCREDENTIALS(UserName) ON UPDATE CASCADE
 );
 
-INSERT INTO MYJOBS (JobId,userName,ApplicationStatus,ListId,ApplicationDate,CompanyId)
+INSERT INTO MYJOBS (JobId,userName,ApplicationStatus,ListId,ApplicationDate,companyName,position,startDate,CompanyId,link,description)
 VALUES
-(1,'nick_knapton',	'Offer Recieved', 1	,'01-01-2022','001'),
-(2,'num4n',			'Under-Review',	2	,'01-02-2022','003'),
-(3,'zeeshansalim',	'Under-Review',	3	,'02-01-2022','004'),
-(4,'zeeshansalim',	'Under-Review',3,'12-01-2022','003'),
-(5,'zeeshansalim',	'Under-Review',4,'12-04-2022','002');
+(1,'nick_knapton',	'Offer Recieved', 1	,'01-01-2022','Amazon','Back-End','01-01-2021','001','amazoncareers.ca','N/A'),
+(2,'num4n',			'Under-Review',	2	,'01-02-2022','IBM','Devops','01-01-2021','003','ibmrecruitment.ca','N/A'),
+(3,'zeeshansalim',	'Under-Review',	3	,'02-01-2022','Tesla','Back-End','01-01-2021','004','teslahires.com','N/A'),
+(4,'zeeshansalim',	'Under-Review',3,'12-01-2022','IBM','DevOps','01-01-2021','003','ibmrecruitment.ca','N/A'),
+(5,'zeeshansalim',	'Under-Review',4,'12-04-2022','Google','Front-End','01-01-2021','002','careersgoogle.com','N/A');
 
 DROP TABLE IF EXISTS TRACKING;
 CREATE TABLE TRACKING (
