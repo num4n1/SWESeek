@@ -207,7 +207,7 @@ DROP TABLE IF EXISTS LEARNINGRESOURCES;
 CREATE TABLE LEARNINGRESOURCES (
 	Id				integer not null auto_increment,
 	tags			integer not null,
-    topic		varchar(50) not null,
+    topic			varchar(50) not null,
     link			varchar(255) not null,
     primary key (Id),
     foreign key (tags) references RESOURCESTAG(tags) ON UPDATE CASCADE
@@ -239,4 +239,51 @@ VALUES
 ('nick_knapton',1),
 ('nick_knapton',4),
 ('num4n',4);
+
+DROP TABLE IF EXISTS QUESTIONTAGS;
+CREATE TABLE QUESTIONTAGS (
+	tags			integer not null,
+    value			varchar(50) not null,
+    primary key(tags,value)
+);
+
+INSERT INTO QUESTIONTAGS (tags,value)
+VALUES
+(1,'#leetcode hard'),
+(1,'#challenging'),
+(2,'#leetcode mediun'),
+(3,'#leetcode easy');
+
+DROP TABLE IF EXISTS QUESTIONRESOURCES;
+CREATE TABLE QUESTIONRESOURCES (
+	Id				integer not null auto_increment,
+	tags			integer not null,
+    qPrompt			varchar(255) not null,
+    questionNum			varchar(50) not null,
+    link			varchar(255) not null,
+    description			varchar(50) not null,
+    primary key (Id),
+    foreign key (tags) references QUESTIONTAGS(tags) ON UPDATE CASCADE
+);
+
+INSERT INTO QUESTIONRESOURCES (tags,qPrompt,questionNum,link,description)
+VALUES
+(1,'What’s an algorithm?','Q1'	,'https://www.youtube.com/watch?v=JJmcL1N2KQs&t=284s','N/A'),
+(2,'How to check if two String are Anagram?','Q2'	,	'https://www.youtube.com/watch?v=7S_tz1z_5bA','N/A'),
+(3,'How to convert numeric String to int in Java','Q3'	,  'https://www.youtube.com/watch?v=vtPkZShrvXQ&t=5650s','N/A');
+
+DROP TABLE IF EXISTS MYQUESTIONRESOURCES;
+CREATE TABLE MYQUESTIONRESOURCES (
+	username			varchar(25) not null,
+    id					integer not null,
+    primary key(username,id),
+    foreign key (id) references QUESTIONRESOURCES(Id) ON UPDATE CASCADE
+);
+
+INSERT INTO MYQUESTIONRESOURCES (username,id)
+VALUES
+('num4n',1),
+('nick_knapton',2),
+('zeeshansalim',3)
+
 
