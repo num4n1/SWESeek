@@ -62,6 +62,12 @@ INSERT INTO SALARY (company, companySize, role, totalComp)
 VALUES ('CUSTOM', 'CUSTOM', 'CUSTOM', 9999);
 
 Endpoint 13:
+SELECT id,tags,topic,link
+FROM LEARNINGRESOURCES;
+
+SELECT tags,value
+FROM RESOURCESTAG 
+WHERE tags=1;
 
 Endpoint 14:
 
