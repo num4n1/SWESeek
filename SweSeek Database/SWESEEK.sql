@@ -45,18 +45,16 @@ CREATE TABLE TRACKINGLIST (
 	listId			integer not null AUTO_INCREMENT,
     userName		varchar(25) not null,
     listName		varchar(25) not null,
-	CompanyId		char(3),
 	primary key (listId),
-        foreign key (CompanyId) references COMPANYCREDENTIALS(CompanyId) ON UPDATE CASCADE,
         foreign key (userName) references USERCREDENTIALS(userName) ON UPDATE CASCADE
 );
 
-INSERT INTO TRACKINGLIST (userName,listName,CompanyId)
+INSERT INTO TRACKINGLIST (userName,listName)
 VALUES
-('nick_knapton','Back-End','001'),
-('num4n','Front-End','002'),
-('zeeshansalim','Back-End','004'),
-('zeeshansalim','Front-End','003');
+('nick_knapton','Back-End'),
+('num4n','Front-End'),
+('zeeshansalim','Back-End'),
+('zeeshansalim','Front-End');
 
 DROP TABLE IF EXISTS JOBS;
 CREATE TABLE JOBS (
