@@ -92,7 +92,7 @@ WHERE username='num4n' and fileName = 'file1'
 
 Endpoint 18:
 INSERT INTO APPLIED(username,JobId)
-VALUES ('zeeshansalim','5');
+VALUES ('zeeshansalim','5','2');
 
 Endpoint 19: first get the tags(id) from learningresources table then use that to find the value from resourcestag
 SELECT M.username,L.tags,L.topic,L.link
