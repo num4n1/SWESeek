@@ -21,6 +21,10 @@ UPDATE TRACKINGLIST AS T, MYJOBS AS M
 SET applicationStatus = 'Offer Recieved'
 WHERE listName = 'N/A'AND listId='N/A'AND T.Id =3 AND T.Id=M.Id; 
 
+Endpoint 5:
+INSERT INTO TRACKINGLIST (username, listName)
+VALUES ('num4n', 'DataScience');
+
 Endpoint 7: #corrected
 DELETE FROM TRACKINGLIST WHERE listId=%s AND myJobId=%s AND userName=%s
 
