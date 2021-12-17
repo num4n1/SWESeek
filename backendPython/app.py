@@ -242,7 +242,32 @@ def removeJobFromList():
 
 @app.route('/api/addJobPosting', methods=['POST'])
 def addJobPosting():
-    pass
+
+    token = request.json['token']
+    company = request.json['company']
+    position = request.json['position']
+    startDate = request.json['startDate']
+    link = request.json['link']
+    description = request.json['description']
+
+    cur0 = mysql.connection.cursor()
+    cur0.execute("""SELECT companyId FROM COMPANYCREDENTIALS WHERE companyName = %s""", (company,))
+
+    companyID = cur0.fetchall()[0][0]
+
+    mysql.connection.commit()
+    cur0.close()
+
+    cur = mysql.connection.cursor()
+    cur.execute("""INSERT INTO JOBS (CompanyId, company, position, StartDate, link, Description)
+    VALUES (%s,%s,%s,%s,%s,%s)""",(companyID, company, position,startDate,link,description))
+    mysql.connection.commit()
+    cur.close()
+
+    cur1 = mysql.connection.cursor()
+    cur1.execute("""SELECT JobId FROM JOBS WHERE company = %s AND position = %s""", (company, position,))
+    result = cur1.fetchall()[0][0]
+    return jsonify({"jobID":result})
 
 
 @app.route('/api/jobPostings', methods=['GET'])
