@@ -15,37 +15,6 @@ app.config['SECRET_KEY'] = 'MySecretKey'
 CORS(app)
 mysql = MySQL(app)
 
-"""
-@app.route('/', methods=['GET','POST'])
-def index():
-    cur = mysql.connection.cursor()
-    cur.execute("INSERT INTO users(name, email) VALUES(%s,%s)", (name,email))
-    mysql.connection.commit()
-    cur.close()
-    return 'success'
-
-@app.route('/users')
-def users():
-    cur = mysql.connection.cursor()
-    result = cur.execute("Select * FROM users")
-    if result>0:
-        userDetails = cur.fetchall()
-
-        temp={}
-        i=0
-        for user in userDetails:
-            temp[i] = user
-            i+=1
-
-        return temp
-
-
-for i in range(2):
-    name = "name "+str(i+2)
-    email = "email"+" "+str(i+2)
-
-"""
-
 @app.route('/api/signup', methods=['POST'])
 def signup():
     print(request.json['email'])
@@ -197,7 +166,32 @@ def putTrackingList():
 
 @app.route('/api/addList', methods=['POST'])
 def addList():
-    pass
+
+    token = request.json['token']
+    username = token.split(':')[0]  # gives username
+    listName = request.json['listName']
+
+    cur = mysql.connection.cursor()
+    cur.execute(
+        """INSERT INTO TRACKINGLIST (username, listName) VALUES (%s, %s)""",
+        (username, listName,))
+    mysql.connection.commit()
+    cur.close()
+
+    cur1 = mysql.connection.cursor()
+    result = cur1.execute(
+        """SELECT listID FROM TRACKINGLIST WHERE listName = %s""",(listName,))
+
+
+    if(result>0):
+
+        answers = cur1.fetchall()
+        temp={}
+        for answer in answers:
+            temp['listID']=answer[0]
+            return jsonify(temp)
+
+    return "failure"
 
 
 
