@@ -73,6 +73,7 @@ def login(): #correct
     return jsonify({'error':'No valid account found!'}), 401
 
 
+
 @app.route('/api/getLists', methods=['GET'])
 def getLists(): # correct
 
@@ -182,7 +183,9 @@ def putTrackingList():  # jobId is Id of MyJob Table
     mysql.connection.commit()
     cur.close()
 
-    return "successful"
+    return jsonify({'Status':'Request Successful'}), 200
+
+
 
 
 
@@ -211,9 +214,9 @@ def addList(): #correct
         temp={}
         for answer in answers:
             temp['listID']=answer[0]
-            return jsonify(temp)
+            return jsonify(temp), 200
 
-    return "failure"
+    return jsonify({'Message':'No suitable listID found'}), 500
 
 
 @app.route('/api/addJobToTrack', methods=['POST'])
@@ -245,7 +248,7 @@ def addJobToTrack():
     mysql.connection.commit()
     cur.close()
 
-    return "success"
+    return jsonify({'Status':'Request Successful'}), 200
 
 
 
@@ -261,7 +264,7 @@ def removeJobFromList(): # correct
     mysql.connection.commit()
     cur.close()
 
-    return "deleted sucessfully"
+    return jsonify({'Status':'Request Successful'}), 200
 
 
 @app.route('/api/addJobPosting', methods=['POST'])
@@ -291,7 +294,8 @@ def addJobPosting(): # correct
     cur1 = mysql.connection.cursor()
     cur1.execute("""SELECT JobId FROM JOBS WHERE company = %s AND position = %s""", (company, position,))
     result = cur1.fetchall()[0][0]
-    return jsonify({"jobID":result})
+    
+    return jsonify({"jobID":result}), 200
 
 
 @app.route('/api/jobPostings', methods=['GET'])
@@ -304,7 +308,7 @@ def jobPostings():  #  correct
     list=[]
     for row in rows:
         list.append({"id":row[0], "company": row[1],"position": row[2], "companySize":row[3],"industry":row[4],"link":row[5], "description":row[6]})
-    return jsonify(list)
+    return jsonify(list), 200
 
 
 @app.route('/api/summarizedPopularSalaryInfo', methods=['GET'])
@@ -339,10 +343,9 @@ def summarizedPopularSalaryInfo(): #  correct
 
             lists.append(temp)
 
-        return jsonify(lists)
+        return jsonify(lists), 200
 
-    return jsonify({'token': 'failure'})
-
+    return jsonify({'Message':'No suitable records found'}), 500
 
 
 
@@ -380,9 +383,9 @@ def summerizedSalaryInfo(): #  correct
 
             lists.append(temp)
 
-        return jsonify(lists)
+        return jsonify(lists), 200
 
-    return jsonify({'token': 'failure'})
+    return jsonify({'Message':'No suitable records found'}), 500
 
 @app.route('/api/addSalary', methods=['POST'])
 def addSalary():  ## correct
@@ -407,7 +410,7 @@ def addSalary():  ## correct
     mysql.connection.commit()
     cur.close()
 
-    return "success"
+    return jsonify({'Status':'Request Successful'}), 200
 
 
 @app.route('/api/learningResources', methods=['GET'])
@@ -439,9 +442,10 @@ def learningResources(): #correct
 
             lists.append(temp)
 
-        return jsonify(lists)
+        return jsonify(lists), 200
 
-    return jsonify({'token': 'failure'})
+    return jsonify({'Message':'No suitable record found'}), 500
+
 
 @app.route('/api/exampleQuestionResources', methods=['GET'])
 def exampleQuestionResources():
@@ -462,9 +466,7 @@ def companyreviews(): #correct
     for row in rows:
         list.append({"companyName": row[0], "title": row[1], "review": row[2], "month": row[3], "day": row[4],
                      "year": row[5]})
-    return jsonify(list)
-
-
+    return jsonify(list), 200
 
 
 @app.route('/api/addUserDocument', methods=['POST'])
@@ -519,9 +521,10 @@ def savedResources(): #correct
 
             lists.append(temp)
 
-        return jsonify(lists)
+        return jsonify(lists), 20
 
-    return jsonify({'token': 'failure'})
+    return jsonify({'Message': 'No suitable record found'}), 500
+
 
 @app.route('/api/setSavedLearningResources', methods=['POST'])
 def setSavedLearningResources():
@@ -535,22 +538,23 @@ def setSavedLearningResources():
     mysql.connection.commit()
     cur.close()
 
-    return "success"
+    return jsonify({'Status':'Request Successful'}), 200
 
 
-@app.route('/api/deleteSavedPracticeResources', methods=['DELETE'])
-def deleteSavedPracticeResources():
+@app.route('/api/deleteSavedResources', methods=['DELETE'])
+def deleteSavedResources():
 
     token = request.args.get('token')
     username = token.split(':')[0]  # gives username
     id = request.args.get('id')
 
     cur = mysql.connection.cursor()
-    cur.execute("""DELETE FROM MYQUESTIONRESOURCES WHERE username =%s AND id =%s""", (username, id))
+    cur.execute("""DELETE FROM MYLEARNINGRESOURCES WHERE username =%s AND learningId =%s""", (username, id))
     mysql.connection.commit()
     cur.close()
 
-    return "deleted"
+    return jsonify({'Status':'Request Successful'}), 200
+
 
 @app.route('/api/savedPracticeResources', methods=['GET'])
 def savedPracticeResources():
@@ -591,7 +595,10 @@ def savedPracticeResources():
 
         return jsonify(lists)
 
-    return jsonify({'token': 'failure'})
+    return jsonify({'Message':'No suitable record found'}), 500
+
+
+
 
 @app.route('/api/setSavedPracticeResources', methods=['PUT'])
 def setSavedPracticeResources():
@@ -605,21 +612,22 @@ def setSavedPracticeResources():
     mysql.connection.commit()
     cur.close()
 
-    return "success"
+    return jsonify({'Status':'Request Successful'}), 200
 
-@app.route('/api/deleteSavedResources', methods=['DELETE'])
-def deleteSavedResources():
+
+@app.route('/api/deleteSavedPracticeResources', methods=['DELETE'])
+def deleteSavedPracticeResources():
 
     token = request.args.get('token')
     username = token.split(':')[0]  # gives username
     id = request.args.get('id')
 
     cur = mysql.connection.cursor()
-    cur.execute("""DELETE FROM MYLEARNINGRESOURCES WHERE username =%s AND learningId =%s""", (username, id))
+    cur.execute("""DELETE FROM MYQUESTIONRESOURCES WHERE username =%s AND id =%s""", (username, id))
     mysql.connection.commit()
     cur.close()
 
-    return "deleted"
+    return jsonify({'Status':'Request Successful'}), 200
 
 
 @app.route('/api/deleteJob', methods=['DELETE'])
@@ -639,14 +647,14 @@ def deleteJob(): #correct
         cur1.execute("""DELETE FROM JOBS WHERE JobId=%s""", (jobID,))
         mysql.connection.commit()
         cur1.close()
-        return "success"
+        return jsonify({'Status':'Request Successful'}), 200
 
-    return "nothing deleted"
-
+    return jsonify({'Message':'No suitable record found'}), 500
 
 
 @app.route('/api/editJob', methods=['PUT'])
 def editJob():
+
     pass
 
 
@@ -671,11 +679,9 @@ def getCompanyJobs(): #correct
                         "link" : row[3],
                         "description": row[4]})
 
-        return jsonify(lists)
+        return jsonify(lists), 200
 
-    return "failed"
-
-
+    return jsonify({'Message':'No suitable record found'}), 500
 
 
 
@@ -701,7 +707,7 @@ def signupcompany(): #correct
     mysql.connection.commit()
     cur.close()
 
-    return "added"
+    return jsonify({'Status':'Request Successful'}), 200
 
 
 if __name__ == "__main__":
