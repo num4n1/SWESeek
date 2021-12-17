@@ -186,28 +186,11 @@ VALUES
 ('IBM','Interview Review','Very Tough',	'March','5','2020'),
 ('Tesla','Electrical','Chip glitches',  'June','11','2021');
 
-DROP TABLE IF EXISTS LEARNINGRESOURCES;
-CREATE TABLE LEARNINGRESOURCES (
-	tags			integer not null,
-    topic		varchar(50) not null,
-    link			varchar(255) not null,
-    primary key (tags,link)
-);
-
-INSERT INTO LEARNINGRESOURCES (tags,topic,link)
-VALUES
-(1,'Python Beginner Crash Course',	'https://www.youtube.com/watch?v=JJmcL1N2KQs&t=284s'),
-(1,'MySQL tutorial',	'https://www.youtube.com/watch?v=7S_tz1z_5bA'),
-(2,'Java Springboot',  'https://www.youtube.com/watch?v=vtPkZShrvXQ&t=5650s'),
-(3,'C++ coding challenge',  'https://www.youtube.com/watch?v=vtPkZShrvXQ&t=5650s'),
-(2,'Basics of coding',  'https://www.youtube.com/watch?v=I-k-iTUMQAY'),
-(4,'HTML crash course',  'https://www.youtube.com/watch?v=UB1O30fR-EE');
-
 DROP TABLE IF EXISTS RESOURCESTAG;
 CREATE TABLE RESOURCESTAG (
 	tags			integer not null,
     value			varchar(50) not null,
-    foreign key (tags) references LEARNINGRESOURCES(tags) ON UPDATE CASCADE
+    primary key(tags,value)
 );
 
 INSERT INTO RESOURCESTAG (tags,value)
@@ -220,12 +203,31 @@ VALUES
 (4,'#frontend'),
 (3,'#challenge');
 
+DROP TABLE IF EXISTS LEARNINGRESOURCES;
+CREATE TABLE LEARNINGRESOURCES (
+	Id				integer not null auto_increment,
+	tags			integer not null,
+    topic		varchar(50) not null,
+    link			varchar(255) not null,
+    primary key (Id),
+    foreign key (tags) references RESOURCESTAG(tags) ON UPDATE CASCADE
+);
+
+INSERT INTO LEARNINGRESOURCES (tags,topic,link)
+VALUES
+(1,'Python Beginner Crash Course',	'https://www.youtube.com/watch?v=JJmcL1N2KQs&t=284s'),
+(1,'MySQL tutorial',	'https://www.youtube.com/watch?v=7S_tz1z_5bA'),
+(2,'Java Springboot',  'https://www.youtube.com/watch?v=vtPkZShrvXQ&t=5650s'),
+(3,'C++ coding challenge',  'https://www.youtube.com/watch?v=vtPkZShrvXQ&t=5650s'),
+(2,'Basics of coding',  'https://www.youtube.com/watch?v=I-k-iTUMQAY'),
+(4,'HTML crash course',  'https://www.youtube.com/watch?v=UB1O30fR-EE');
+
 DROP TABLE IF EXISTS MYLEARNINGRESOURCES;
 CREATE TABLE MYLEARNINGRESOURCES (
 	username			varchar(25) not null,
     learningId			integer not null,
     primary key(username,learningId),
-    foreign key (learningId) references LEARNINGRESOURCES(tags) ON UPDATE CASCADE
+    foreign key (learningId) references LEARNINGRESOURCES(Id) ON UPDATE CASCADE
 );
 
 INSERT INTO MYLEARNINGRESOURCES (username,learningId)
