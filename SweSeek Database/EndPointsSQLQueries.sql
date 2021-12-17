@@ -32,6 +32,12 @@ VALUES (1,'nick_knapton',	'Offer Recieved', 1	,'01-01-2022','Google','Back-End',
 Endpoint 7: #corrected
 DELETE FROM TRACKINGLIST WHERE listId=%s AND myJobId=%s AND userName=%s
 
+Endpoint 8:
+INSERT INTO JOBS (CompanyId, company, position, StartDate, link, Description)
+VALUES ('003','IBM','Front-End','01-01-2022','ibmrecruitment.ca','N/A')
+
+SELECT JobId FROM JOBS WHERE company = 'IBM' AND position = 'Front-End';
+
 Endpoint 9: #correct
 SELECT J.companyId,position,size,industry,link,description FROM JOBS AS J, COMPANYCREDENTIALS AS C WHERE J.companyId = C.companyId;
 
