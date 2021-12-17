@@ -1,15 +1,47 @@
 from flask import Flask, request, jsonify
 from flask_mysqldb import MySQL
-import yaml
+import jwt, datetime
 
 app = Flask(__name__)
 
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
 app.config['MYSQL_PASSWORD'] = 'Zeemaan1234@'
-app.config['MYSQL_DB'] = 'flaskapp'
+app.config['MYSQL_DB'] = 'SWESEEK'
+app.config['SECRET_KEY'] = 'MySecretKey'
 
 mysql = MySQL(app)
+
+"""
+@app.route('/', methods=['GET','POST'])
+def index():
+    cur = mysql.connection.cursor()
+    cur.execute("INSERT INTO users(name, email) VALUES(%s,%s)", (name,email))
+    mysql.connection.commit()
+    cur.close()
+    return 'success'
+
+@app.route('/users')
+def users():
+    cur = mysql.connection.cursor()
+    result = cur.execute("Select * FROM users")
+    if result>0:
+        userDetails = cur.fetchall()
+
+        temp={}
+        i=0
+        for user in userDetails:
+            temp[i] = user
+            i+=1
+
+        return temp
+
+
+for i in range(2):
+    name = "name "+str(i+2)
+    email = "email"+" "+str(i+2)
+
+"""
 
 @app.route('/api/signup', methods=['POST'])
 def signup():
@@ -63,8 +95,9 @@ def login():
 
     return jsonify({'token':'failure'})
 
+
 @app.route('/api/getLists', methods=['GET'])
-def getLists():  ## numan's table is wrong
+def getLists():  
 
     token = request.args.get('token')
     username = token.split(':')[0] # gives username
@@ -82,8 +115,8 @@ def getLists():  ## numan's table is wrong
 
             temp = {}
             cur1 = mysql.connection.cursor()
-            cur1.execute("""SELECT t.listId,M.CompanyName,M.Position,J.link,M.applicationDate,M.applicationStatus,J.startDate,J.description
-            FROM TRACKINGLIST AS T ,MYJOBS AS M, JOBS AS J WHERE J.JobId = M.Id AND T.myJobId = M.Id AND T.listId= %s""", (row[0],))
+            cur1.execute("""SELECT M.listId,J.company,J.Position,J.link,M.applicationDate,M.applicationStatus,J.startDate,J.description
+            FROM TRACKINGLIST AS T ,MYJOBS AS M, JOBS AS J WHERE J.JobId = M.JobId AND M.ListId = T.listId AND T.listId= %s""", (row[0],))
             temp["listID"] = row[0]
             temp["listName"] = row[1]
 
@@ -107,17 +140,63 @@ def getLists():  ## numan's table is wrong
     return jsonify({'token':'failure'})
 
 
+
+
 @app.route('/api/getTrackingList', methods=['GET'])
 def getTrackingList():
-    pass
+
+    token = request.args.get('token')
+    username = token.split(':')[0]  # gives username
+    listName = request.args.get('listName')
+
+
+    cur = mysql.connection.cursor()
+    result = cur.execute("""SELECT T.ListId, T.ListName FROM TRACKINGLIST AS T WHERE T.userName= %s AND T.ListName=%s""", (username,listName,))
+
+    if (result > 0):
+
+        rows = cur.fetchall()
+
+        lists = []
+
+        for row in rows:
+
+            temp = {}
+            cur1 = mysql.connection.cursor()
+            cur1.execute("""SELECT M.listId,J.company,J.Position,J.link,M.applicationDate,M.applicationStatus,J.startDate,J.description
+                FROM TRACKINGLIST AS T ,MYJOBS AS M, JOBS AS J WHERE J.JobId = M.JobId AND M.ListId = T.listId AND T.listId= %s""",
+                         (row[0],))
+            temp["listID"] = row[0]
+            temp["listName"] = row[1]
+
+            allJob = cur1.fetchall()
+
+            temp["jobs"] = []
+
+            for singleJob in allJob:
+                temp["jobs"].append(
+                    {"id": singleJob[0], "companyName": singleJob[1], "position": singleJob[2], "link": singleJob[3],
+                     "applicationDate": singleJob[4], "applicationStatus": singleJob[5], "startDate": singleJob[6],
+                     "description": singleJob[7]})
+
+            lists.append(temp)
+
+        return jsonify(lists)
+
+    return jsonify({'token': 'failure'})
+
 
 @app.route('/api/putTrackingList', methods=['PUT'])
 def putTrackingList():
     pass
 
+
+
 @app.route('/api/addList', methods=['POST'])
 def addList():
     pass
+
+
 
 @app.route('/api/addJobToTrack', methods=['POST'])
 def addJobToTrack():
@@ -138,8 +217,15 @@ def removeJobFromList():
 
     return "deleted sucessfully"
 
+
+@app.route('/api/addJobPosting', methods=['POST'])
+def addJobPosting():
+    pass
+
+
 @app.route('/api/jobPostings', methods=['GET'])
-def jobPostings():
+def jobPostings():  # check again
+
     cur = mysql.connection.cursor()
     cur.execute("SELECT J.companyId,companyName,position,size,industry,link,description FROM JOBS AS J, COMPANYCREDENTIALS AS C WHERE J.companyId = C.companyId")
     rows = cur.fetchall()
@@ -185,6 +271,8 @@ def summarizedPopularSalaryInfo():
 
     return jsonify({'token': 'failure'})
 
+
+
 @app.route('/api/summerizedSalaryInfo', methods=['GET'])
 def summerizedSalaryInfo():
 
@@ -223,14 +311,12 @@ def summerizedSalaryInfo():
     return jsonify({'token': 'failure'})
 
 @app.route('/api/addSalary', methods=['POST'])
-def addSalary():
-    
+def addSalary():  ## auto increment needs to be added
+
     company = request.json['company']
     companySize = request.json['companySize']
     role = request.json['role']
     totalComp = request.json['totalComp']
-
-    print(company)
 
     cur = mysql.connection.cursor()
     cur.execute(
@@ -240,6 +326,8 @@ def addSalary():
     cur.close()
 
     return "success"
+
+
 
 @app.route('/api/learningResources', methods=['GET'])
 def learningResources():
@@ -267,9 +355,13 @@ def companyreviews():
     return jsonify(list)
 
 
+
+
 @app.route('/api/addUserDocument', methods=['POST'])
 def addUserDocument():
     pass
+
+
 
 @app.route('/api/getUserDocuments', methods=['GET'])
 def getUserDocuments():
@@ -312,6 +404,8 @@ def postJob():
     pass
 
 
+"""
+
 @app.route('/api/deleteJob', methods=['DELETE'])
 def deleteJob():
     pass
@@ -319,6 +413,7 @@ def deleteJob():
 @app.route('/api/editJob', methods=['PUT'])
 def editJob():
     pass
+
 
 @app.route('/api/getCompanyJobs', methods=['GET'])
 def getCompanyJobs():
@@ -334,6 +429,7 @@ def removeUserDocuments():
 def signupcompany():
     pass
 
+"""
 if __name__ == "__main__":
     app.run(debug=True)
 
