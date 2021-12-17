@@ -111,6 +111,10 @@ SELECT value
 FROM QUESTIONTAGS
 WHERE tags=3;
 
+Endpoint 20.1:
+INSERT INTO MYQUESTIONRESOURCES(username,id)
+VALUES ('num4n', id);
+
 Endpoint 21.1: First get CompanyId using companyName, then use that CompanyId to add to JOBS along with the provided data.
 SELECT CompanyId FROM COMPANYCREDENTIALS WHERE companyName = 'Blizzard';
 INSERT INTO JOBS (CompanyId, company, position, StartDate, link, Description)
