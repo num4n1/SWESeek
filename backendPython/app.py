@@ -503,7 +503,6 @@ def getCompanyJobs():
 
     return "failed"
 
-"""
 
 @app.route('/api/removeUserDocuments', methods=['DELETE'])
 def removeUserDocuments():
@@ -512,9 +511,23 @@ def removeUserDocuments():
 
 @app.route('/api/signupcompany', methods=['POST'])
 def signupcompany():
-    pass
 
-"""
+    companyName = request.json['companyName']
+    username = request.json['username']
+    industry = request.json['industry']
+    size = request.json['size']
+    password = request.json['password']
+
+    cur = mysql.connection.cursor()
+    cur.execute(
+        """INSERT INTO COMPANYCREDENTIALS(companyName, username, industry, size, password) VALUES(%s,%s,%s,%s,%s)""",
+        (companyName, username, industry, size,password))
+    mysql.connection.commit()
+    cur.close()
+
+    return "added"
+
+
 if __name__ == "__main__":
     app.run(debug=True)
 
