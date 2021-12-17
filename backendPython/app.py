@@ -383,7 +383,7 @@ def summerizedSalaryInfo(): #  correct
             temp["payInfo"] = []
 
             for singleJob in allJob:
-                temp["payInfo"].append({"position": singleJob[0], "averageTotalComp": singleJob[1]})
+                temp["payInfo"].append({"position": singleJob[0], "totalComp": singleJob[1]})
 
             lists.append(temp)
 
