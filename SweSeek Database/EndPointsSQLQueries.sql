@@ -30,7 +30,7 @@ INSERT INTO MYJOBS (JobId,userName,ApplicationStatus,ListId,ApplicationDate,comp
 VALUES (1,'nick_knapton',	'Offer Recieved', 1	,'01-01-2022','Google','Back-End','01-01-2021','002','amazoncareers.ca','N/A')
 
 Endpoint 7: #corrected
-DELETE FROM TRACKINGLIST WHERE listId=%s AND myJobId=%s AND userName=%s
+DELETE FROM MYJOBS WHERE listId=%s AND myJobId=%s AND userName=%s
 
 Endpoint 8:
 INSERT INTO JOBS (CompanyId, company, position, StartDate, link, Description)
