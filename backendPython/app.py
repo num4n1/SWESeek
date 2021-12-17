@@ -317,6 +317,8 @@ def jobPostings():  #  correct
 
 @app.route('/api/summarizedPopularSalaryInfo', methods=['GET'])
 def summarizedPopularSalaryInfo(): #  correct
+    
+    popularCompanys = ["Facebook", "Amazon", "Apple", "Netflix", "Google"] # These are companys that should be in the return for "popular" companys
 
     cur = mysql.connection.cursor()
     result = cur.execute("""SELECT company,companySize,industry
@@ -421,7 +423,7 @@ def addSalary():  ## correct
 def learningResources(): #correct
 
     cur = mysql.connection.cursor()
-    result = cur.execute("""SELECT tags,topic,link FROM LEARNINGRESOURCES""")
+    result = cur.execute("""SELECT Id,tags,topic,link FROM LEARNINGRESOURCES""")
 
     if (result > 0):
 
@@ -435,9 +437,11 @@ def learningResources(): #correct
             cur1 = mysql.connection.cursor()
             cur1.execute("""SELECT tags,value FROM RESOURCESTAG WHERE tags = %s""",(row[0],))
 
+            temp["id"] = row[0]
             temp["tags"] = []
             temp["topic"] = row[1]
             temp["link"] = row[2]
+            
 
             all_tags = cur1.fetchall()
 
