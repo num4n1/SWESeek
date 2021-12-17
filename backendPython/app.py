@@ -259,9 +259,6 @@ def removeJobFromList(): # correct
     username = token.split(':')[0]  # gives username
     listId = request.args.get('listId')
     jobId = request.args.get('jobId')
-    
-    print(username)
-    print(listId)
 
     cur = mysql.connection.cursor()
     cur.execute("""DELETE FROM MYJOBS WHERE listId=%s AND userName=%s AND Id=%s""", (listId,username, jobId))
@@ -435,13 +432,12 @@ def learningResources(): #correct
 
             temp = {}
             cur1 = mysql.connection.cursor()
-            cur1.execute("""SELECT tags,value FROM RESOURCESTAG WHERE tags = %s""",(row[0],))
+            cur1.execute("""SELECT tags,value FROM RESOURCESTAG WHERE tags = %s""",(row[1],))
 
-            temp["id"] = row[0]
+            temp["rId"] = row[0]
             temp["tags"] = []
-            temp["topic"] = row[1]
-            temp["link"] = row[2]
-            
+            temp["topic"] = row[2]
+            temp["link"] = row[3]            
 
             all_tags = cur1.fetchall()
 
@@ -459,9 +455,8 @@ def learningResources(): #correct
 def exampleQuestionResources():
 
     cur = mysql.connection.cursor()
-    result = cur.execute("""SELECT M.id,Q.tags,Q.qPrompt,Q.questionNum,Q.link,Q.description
-        FROM MYQUESTIONRESOURCES AS M, QUESTIONRESOURCES AS Q
-        WHERE M.id = Q.Id""")
+    result = cur.execute("""SELECT Q.id,Q.tags,Q.qPrompt,Q.questionNum,Q.link,Q.description
+        FROM QUESTIONRESOURCES AS Q""")
 
     if (result > 0):
 
@@ -476,7 +471,7 @@ def exampleQuestionResources():
             cur1.execute("""SELECT tags,value FROM QUESTIONTAGS WHERE tags = %s""", (row[1],))
 
             temp["tags"] = []
-            temp["id"] = row[0]
+            temp["qId"] = row[0]
             temp["qPrompt"] = row[2]
             temp["questionNum"] = row[3]
             temp["solutionVideo"] = {"link": row[4], "description": row[5]}
@@ -534,14 +529,13 @@ def savedResources(): #correct
     username = token.split(':')[0]  # gives username
 
     cur = mysql.connection.cursor()
-    result = cur.execute("""SELECT M.username,L.tags,L.topic,L.link
+    result = cur.execute("""SELECT M.learningId, M.username,L.tags,L.topic,L.link
     FROM LEARNINGRESOURCES AS L, MYLEARNINGRESOURCES AS M
     WHERE M.learningId = L.Id AND M.username =%s""", (username,))
 
     if (result > 0):
 
         temp = cur.fetchall()
-        print(temp)
         rows = [t for t in (set(tuple(i) for i in temp))]
         lists = []
 
@@ -549,11 +543,12 @@ def savedResources(): #correct
 
             temp = {}
             cur1 = mysql.connection.cursor()
-            cur1.execute("""SELECT tags,value FROM RESOURCESTAG WHERE tags = %s""", (row[1],))
+            cur1.execute("""SELECT tags,value FROM RESOURCESTAG WHERE tags = %s""", (row[2],))
 
             temp["tags"] = []
-            temp["topic"] = row[2]
-            temp["link"] = row[3]
+            temp["rId"] = row[0]
+            temp["topic"] = row[3]
+            temp["link"] = row[4]
 
             all_tags = cur1.fetchall()
 
@@ -588,6 +583,7 @@ def deleteSavedResources():
     token = request.args.get('token')
     username = token.split(':')[0]  # gives username
     id = request.args.get('id')
+    print(id)
 
     cur = mysql.connection.cursor()
     cur.execute("""DELETE FROM MYLEARNINGRESOURCES WHERE username =%s AND learningId =%s""", (username, id))
@@ -621,7 +617,7 @@ def savedPracticeResources():
             cur1.execute("""SELECT tags,value FROM QUESTIONTAGS WHERE tags = %s""", (row[1],))
 
             temp["tags"] = []
-            temp["id"] = row[0]
+            temp["qId"] = row[0]
             temp["qPrompt"] = row[2]
             temp["questionNum"] = row[3]
             temp["solutionVideo"] = {"link": row[4], "description": row[5]}
@@ -641,7 +637,7 @@ def savedPracticeResources():
 
 
 
-@app.route('/api/setSavedPracticeResources', methods=['PUT'])
+@app.route('/api/setSavedPracticeResources', methods=['POST'])
 def setSavedPracticeResources():
 
     token = request.json['token']
@@ -662,6 +658,7 @@ def deleteSavedPracticeResources():
     token = request.args.get('token')
     username = token.split(':')[0]  # gives username
     id = request.args.get('id')
+    print(id)
 
     cur = mysql.connection.cursor()
     cur.execute("""DELETE FROM MYQUESTIONRESOURCES WHERE username =%s AND id =%s""", (username, id))
@@ -683,7 +680,6 @@ def deleteJob(): #correct
     if(result>0):
 
         jobID = cur.fetchall()[0][0]
-        print(jobID)
         cur1 = mysql.connection.cursor()
         cur1.execute("""DELETE FROM JOBS WHERE JobId=%s""", (jobID,))
         mysql.connection.commit()

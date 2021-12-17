@@ -57,6 +57,7 @@ export default function LoginPage() {
             size="lg"
             className="SignupButton"
             type="submit"
+            onClick={login}
           >
             Submit
           </Button>

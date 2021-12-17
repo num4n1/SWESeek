@@ -330,15 +330,13 @@ export default function TrackingPage() {
       });
     }
 
-    /*
-    Axios.put("http://127.0.0.1:5000/api/putTrackingList", {
+    Axios.put("http://127.0.0.1:5000/api/updateTrackingList", {
         token: localStorage.getItem("token"),
-        listName: currentList.name,
-        listId: currentList.id,
+        listName: currentList.listName,
+        listId: currentList.listID,
         jobId: removed.id,
         applicationStatus: removed.applicationStatus,
     })
-    */
   }
 
   function addJob() {
@@ -430,11 +428,12 @@ export default function TrackingPage() {
   function deleteJob() {
     let status = modalInfo.applicationStatus;
     let column;
+    console.log(modalInfo)
     if (status === "Wishlist") column = 1;
     if (status === "Applied") column = 2;
     if (status === "Interview") column = 3;
     if (status === "Offer") column = 4;
-    if (status === "Regected") column = 5;
+    if (status === "Rejected") column = 5;
     let theColumn = columns[column];
 
     theColumn.items.splice(
@@ -444,10 +443,12 @@ export default function TrackingPage() {
     theColumn.count--;
     handleClose();
 
+    console.log(currentList);
+
     Axios.delete("http://127.0.0.1:5000/api/removeJobFromList", {
       params: {
         token: localStorage.getItem("token"),
-        listId: currentList.id,
+        listId: currentList.listID,
         jobId: modalInfo.id,
       }
     });

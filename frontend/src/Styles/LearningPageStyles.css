@@ -5,6 +5,11 @@
     width: 32%;
 }
 
+.card-header{
+    background-color: white;
+    border-bottom: 0cm;
+}
+
 .star{
     color: white;
     -webkit-text-stroke: 1px black;

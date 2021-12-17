@@ -195,8 +195,9 @@ export default function SalariesPage() {
   function handleSearch(e) {
     if (e === "Enter") {
       let query = document.getElementById("searchBar").value;
+      console.log(allCompanys)
       let result = allCompanys.find(
-        ({ companyName }) => companyName.toLowerCase() === query.toLowerCase()
+        ({ company }) => company.toLowerCase() === query.toLowerCase()
       );
       if (result !== undefined) {
         document.getElementById("errorMessage").classList.remove("ShowError");
@@ -351,7 +352,7 @@ export default function SalariesPage() {
           <Row>
             <Col>
               <FormLabel style={{marginTop:`3%`}} className="SearchLabel">Rough Size: </FormLabel>
-              <Form.Control style={{width:`100%`}} placeholder="10000+" id="addCompanySize" />
+              <Form.Control style={{width:`100%`}} placeholder="Small/Medium/Large" id="addCompanySize" />
             </Col>
           </Row>
           <Row>
