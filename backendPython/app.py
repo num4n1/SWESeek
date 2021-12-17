@@ -554,7 +554,7 @@ def savedResources(): #correct
 
             lists.append(temp)
 
-        return jsonify(lists), 20
+        return jsonify(lists), 200
 
     return jsonify({'Message': 'No suitable record found'}), 500
 
