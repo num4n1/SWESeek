@@ -480,8 +480,43 @@ def apply():
     pass
 
 @app.route('/api/savedResources', methods=['GET'])
-def savedResources():
-    pass
+def savedResources(): #correct
+
+    token = request.args.get('token')
+    username = token.split(':')[0]  # gives username
+
+    cur = mysql.connection.cursor()
+    result = cur.execute("""SELECT M.username,L.tags,L.topic,L.link
+    FROM LEARNINGRESOURCES AS L, MYLEARNINGRESOURCES AS M
+    WHERE M.learningId = L.tags AND M.username =%s""", (username,))
+
+    if (result > 0):
+
+        temp = cur.fetchall()
+        print(temp)
+        rows = [t for t in (set(tuple(i) for i in temp))]
+        lists = []
+
+        for row in rows:
+
+            temp = {}
+            cur1 = mysql.connection.cursor()
+            cur1.execute("""SELECT tags,value FROM RESOURCESTAG WHERE tags = %s""", (row[1],))
+
+            temp["tags"] = []
+            temp["topic"] = row[2]
+            temp["link"] = row[3]
+
+            all_tags = cur1.fetchall()
+
+            for singleTag in all_tags:
+                temp["tags"].append(singleTag[1])
+
+            lists.append(temp)
+
+        return jsonify(lists)
+
+    return jsonify({'token': 'failure'})
 
 @app.route('/api/setSavedLearningResources', methods=['PUT'])
 def setSavedLearningResources():
