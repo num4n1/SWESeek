@@ -185,3 +185,38 @@ VALUES
 ('Amazon','Product Review','Satisfactory','January','3','2021'),
 ('IBM','Interview Review','Very Tough',	'March','5','2020'),
 ('Tesla','Electrical','Chip glitches',  'June','11','2021');
+
+DROP TABLE IF EXISTS LEARNINGRESOURCES;
+CREATE TABLE LEARNINGRESOURCES (
+	id			integer not null AUTO_INCREMENT,
+	tags			integer not null,
+    topic		varchar(50) not null,
+    link			varchar(255) not null,
+    primary key (id)
+);
+
+INSERT INTO LEARNINGRESOURCES (tags,topic,link)
+VALUES
+(1,'Python Beginner Crash Course',	'https://www.youtube.com/watch?v=JJmcL1N2KQs&t=284s'),
+(1,'MySQL tutorial',	'https://www.youtube.com/watch?v=7S_tz1z_5bA'),
+(2,'Java Springboot',  'https://www.youtube.com/watch?v=vtPkZShrvXQ&t=5650s'),
+(3,'C++ coding challenge',  'https://www.youtube.com/watch?v=vtPkZShrvXQ&t=5650s'),
+(2,'Basics of coding',  'https://www.youtube.com/watch?v=I-k-iTUMQAY'),
+(4,'HTML crash course',  'https://www.youtube.com/watch?v=UB1O30fR-EE');
+
+DROP TABLE IF EXISTS RESOURCESTAG;
+CREATE TABLE RESOURCESTAG (
+	tags			integer not null,
+    value			varchar(50) not null,
+    primary key(tags,value)
+);
+
+INSERT INTO RESOURCESTAG (tags,value)
+VALUES
+(1,'#coding'),
+(1,'#compsci'),
+(2,'#java'),
+(3,'#c++'),
+(3,'#coding'),
+(4,'#frontend'),
+(3,'#challenge');
