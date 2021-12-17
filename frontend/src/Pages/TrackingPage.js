@@ -159,8 +159,10 @@ export default function TrackingPage() {
     let offerList = [];
     let regectedList = [];
     let list;
-    await Axios.post("http://127.0.0.1:5000/api/getLists", {
-      token: localStorage.getItem("token"),
+    await Axios.get("http://127.0.0.1:5000/api/getLists", {
+      params: {
+        token: localStorage.getItem("token"),
+      }
     })
     .then((res) =>{
         list = res.data[0];

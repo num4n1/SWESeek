@@ -131,7 +131,9 @@ export default function JobsPage() {
     })
 
     Axios.get("http://127.0.0.1:5000/api/getUserDocuments", {
-      token: localStorage.getItem("token"),
+      params: {
+        token: localStorage.getItem("token"),
+      }
     })
     .then((res) => {
       setDocuments(res.data);

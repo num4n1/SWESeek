@@ -51,7 +51,9 @@ export default function EmployerDashboardPage() {
 
   useEffect(() => {
     /*Axios.get("http://127.0.0.1:5000/api/getCompanyJobs", {
-      token: localStorage.getItem("token"),
+      params:{
+        token: localStorage.getItem("token"),
+      }
     })
     .then((res) => {
       setJobs(res.data);
@@ -110,8 +112,10 @@ export default function EmployerDashboardPage() {
 
   function downloadJobApplicants(jobId){
     Axios.get("http://127.0.0.1:5000/api/getUsersWhoApplied", {
-      token: localStorage.getItem("token"),
-      JobID: jobId,
+      params: {
+        token: localStorage.getItem("token"),
+        JobID: jobId,
+      }
     })
     .then((res) => {
       //download files https://medium.com/yellowcode/download-api-files-with-react-fetch-393e4dae0d9e

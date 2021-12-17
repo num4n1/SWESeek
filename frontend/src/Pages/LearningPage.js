@@ -118,14 +118,18 @@ export default function LearningPage() {
 
     let temp = [];
     Axios.get("http://127.0.0.1:5000/api/savedResources", {
-      token: localStorage.getItem("token"),
+      params: {
+        token: localStorage.getItem("token"),
+      }
     })
     .then((res) => {
       temp = res.data;
     })
 
     Axios.get("http://127.0.0.1:5000/api/savedPracticeResources", {
-      token: localStorage.getItem("token"),
+      params: {
+        token: localStorage.getItem("token"),
+      }
     })
     .then((res) => {
       temp.push(...res.data);
