@@ -69,7 +69,14 @@ SELECT tags,value
 FROM RESOURCESTAG 
 WHERE tags=1;
 
-Endpoint 14:
+Endpoint 14: first get the tags(id) from learningresources table then use that to find the value from resourcestag
+SELECT M.username,L.tags,L.topic,L.link
+FROM LEARNINGRESOURCES AS L, MYLEARNINGRESOURCES AS M
+WHERE M.username = 'zeeshansalim' AND M.learningId = L.tag
+
+SELECT value
+FROM RESOURCESTAG
+WHERE tags=3;
 
 Endpoint 15:  #correct
 SELECT * FROM REVIEWS WHERE companyName ='CUSTOM';
