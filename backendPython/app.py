@@ -471,7 +471,7 @@ def deleteJob():
 
     return "nothing deleted"
 
-"""
+
 
 @app.route('/api/editJob', methods=['PUT'])
 def editJob():
@@ -480,8 +480,30 @@ def editJob():
 
 @app.route('/api/getCompanyJobs', methods=['GET'])
 def getCompanyJobs():
-    pass
 
+    companyName = request.args.get('token')
+
+    cur = mysql.connection.cursor()
+    result = cur.execute("""SELECT JobId,position,startDate,link,description
+    FROM JOBS WHERE company =%s""",(companyName,))
+
+    if (result > 0):
+
+        rows = cur.fetchall()
+        lists = []
+
+        for row in rows:
+           lists.append({"JobID": row[0],
+                        "position": row[1],
+                        "startDate": row[2],
+                        "link" : row[3],
+                        "description": row[4]})
+
+        return jsonify(lists)
+
+    return "failed"
+
+"""
 
 @app.route('/api/removeUserDocuments', methods=['DELETE'])
 def removeUserDocuments():
