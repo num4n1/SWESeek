@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, make_response
 from flask_mysqldb import MySQL
 from flask_cors import CORS
 import yaml
@@ -14,6 +14,14 @@ app.config['SECRET_KEY'] = 'MySecretKey'
 
 CORS(app)
 mysql = MySQL(app)
+
+@app.errorhandler(404)
+def handle_404_error(_error):
+    return make_response(jsonify({'error': 'Not Found!'}), 404)
+
+@app.errorhandler(500)
+def handle_404_error(_error):
+    return make_response(jsonify({'error': 'Internal Server Error Occured'}), 500)
 
 @app.route('/api/signup', methods=['POST'])
 def signup(): # correct
