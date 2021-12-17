@@ -488,7 +488,7 @@ def savedResources(): #correct
     cur = mysql.connection.cursor()
     result = cur.execute("""SELECT M.username,L.tags,L.topic,L.link
     FROM LEARNINGRESOURCES AS L, MYLEARNINGRESOURCES AS M
-    WHERE M.learningId = L.tags AND M.username =%s""", (username,))
+    WHERE M.learningId = L.Id AND M.username =%s""", (username,))
 
     if (result > 0):
 
