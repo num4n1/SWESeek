@@ -430,7 +430,7 @@ export default function TrackingPage() {
   function deleteJob() {
     let status = modalInfo.applicationStatus;
     let column;
-    if (status === "Wish List") column = 1;
+    if (status === "Wishlist") column = 1;
     if (status === "Applied") column = 2;
     if (status === "Interview") column = 3;
     if (status === "Offer") column = 4;
@@ -445,9 +445,11 @@ export default function TrackingPage() {
     handleClose();
 
     Axios.delete("http://127.0.0.1:5000/api/removeJobFromList", {
-      token: localStorage.getItem("token"),
-      listId: currentList.id,
-      jobId: modalInfo.id,
+      params: {
+        token: localStorage.getItem("token"),
+        listId: currentList.id,
+        jobId: modalInfo.id,
+      }
     });
   }
 

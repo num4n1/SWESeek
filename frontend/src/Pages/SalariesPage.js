@@ -179,6 +179,7 @@ export default function SalariesPage() {
     Axios.get("http://127.0.0.1:5000/api/summarizedPopularSalaryInfo", {})
     .then((res) => {
       setPopularCompanys(res.data);
+      console.log(res);
     });
   }, []);
 
@@ -262,12 +263,12 @@ export default function SalariesPage() {
             <Card onClick={() => openCard(company)} className="CompanyCard">
               <Card.Header>
                 <Card.Title style={{ fontSize: `22px` }}>
-                  {company.companyName}
+                  {company.company}
                 </Card.Title>
                 <Card.Subtitle
                   style={{ fontSize: `12px`, color: `rgb(100, 100, 100)` }}
                 >
-                  Size: {company.size}
+                  Size: {company.companySize}
                 </Card.Subtitle>
               </Card.Header>
             </Card>
@@ -281,12 +282,12 @@ export default function SalariesPage() {
             <Card onClick={() => openCard(company)} className="CompanyCard">
               <Card.Header>
                 <Card.Title style={{ fontSize: `22px` }}>
-                  {company.companyName}
+                  {company.company}
                 </Card.Title>
                 <Card.Subtitle
                   style={{ fontSize: `12px`, color: `rgb(100, 100, 100)` }}
                 >
-                  Size: {company.size}
+                  Size: {company.companySize}
                 </Card.Subtitle>
               </Card.Header>
             </Card>
@@ -295,7 +296,7 @@ export default function SalariesPage() {
       </Row>
       <Modal centered show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>{modalInfo.companyName}</Modal.Title>
+          <Modal.Title>{modalInfo.company}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Card.Title style={{ fontSize: `18px`, textAlign: `start` }}>
@@ -306,7 +307,7 @@ export default function SalariesPage() {
           </Card.Title>
           <Card.Title style={{ fontSize: `18px`, textAlign: `start` }}>
             <span style={{ fontSize: `20px`, fontWeight: `bold` }}>Size: </span>
-            {modalInfo.size}
+            {modalInfo.companySize}
           </Card.Title>
           <Row
             style={{
