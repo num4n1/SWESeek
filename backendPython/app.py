@@ -449,7 +449,40 @@ def learningResources(): #correct
 
 @app.route('/api/exampleQuestionResources', methods=['GET'])
 def exampleQuestionResources():
-    pass
+
+    cur = mysql.connection.cursor()
+    result = cur.execute("""SELECT M.id,Q.tags,Q.qPrompt,Q.questionNum,Q.link,Q.description
+        FROM MYQUESTIONRESOURCES AS M, QUESTIONRESOURCES AS Q
+        WHERE M.id = Q.Id""")
+
+    if (result > 0):
+
+        temp = cur.fetchall()
+        rows = [t for t in (set(tuple(i) for i in temp))]
+        lists = []
+
+        for row in rows:
+
+            temp = {}
+            cur1 = mysql.connection.cursor()
+            cur1.execute("""SELECT tags,value FROM QUESTIONTAGS WHERE tags = %s""", (row[1],))
+
+            temp["tags"] = []
+            temp["id"] = row[0]
+            temp["qPrompt"] = row[2]
+            temp["questionNum"] = row[3]
+            temp["solutionVideo"] = {"link": row[4], "description": row[5]}
+
+            all_tags = cur1.fetchall()
+
+            for singleTag in all_tags:
+                temp["tags"].append(singleTag[1])
+
+            lists.append(temp)
+
+        return jsonify(lists)
+
+    return jsonify({'Message': 'No suitable record found'}), 500
 
 @app.route('/api/companyreviews', methods=['GET'])
 def companyreviews(): #correct
