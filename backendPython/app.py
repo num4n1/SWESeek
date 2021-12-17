@@ -8,8 +8,8 @@ app = Flask(__name__)
 
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'Zeemaan1234@'
-app.config['MYSQL_DB'] = 'SWESEEK'
+app.config['MYSQL_PASSWORD'] = 'Whicket1'
+app.config['MYSQL_DB'] = 'sweseek'
 app.config['SECRET_KEY'] = 'MySecretKey'
 
 CORS(app)
@@ -349,7 +349,7 @@ def summerizedSalaryInfo():
             temp["payInfo"] = []
 
             for singleJob in allJob:
-                temp["payInfo"].append({"position": singleJob[0], "averageTotalComp": singleJob[1]})
+                temp["payInfo"].append({"position": singleJob[0], "totalComp": singleJob[1]})
 
             lists.append(temp)
 
