@@ -81,3 +81,8 @@ Endpoint 21.3: considering that we know the JobId from before.
 UPDATE JOBS
 SET startdate = '09-09-2029',description='very long', link = 'newmicro.com'
 WHERE company = 'Microsoft'AND JobId=7 AND position='Full-Stack';
+
+Endpoint 22:
+SELECT JobId,position,startDate,link,description
+FROM JOBS
+WHERE company ='Microsoft'; 
