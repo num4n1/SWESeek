@@ -16,8 +16,8 @@ CORS(app)
 mysql = MySQL(app)
 
 @app.route('/api/signup', methods=['POST'])
-def signup():
-    print(request.json['email'])
+def signup(): # correct
+
     email = request.json['email']
     firstName = request.json['firstName']
     lastName = request.json['lastName']
@@ -34,7 +34,7 @@ def signup():
             if (user[0] == email or user[4] == username):
                 print(email)
                 print(user[0])
-                return jsonify({'token':'failed'})
+                return jsonify({'token':'user alraedy exists.'})
 
     mysql.connection.commit()
     cur0.close()
@@ -48,14 +48,13 @@ def signup():
 
 
 @app.route('/api/login', methods=['GET'])
-def login():
+def login(): #correct
 
     email = request.args.get('email')
     password = request.args.get('password')
 
     cur = mysql.connection.cursor()
     result = cur.execute("Select * FROM USERCREDENTIALS")
-
 
     if(result>0):
 
@@ -69,13 +68,14 @@ def login():
 
 
 @app.route('/api/getLists', methods=['GET'])
-def getLists():
+def getLists(): # correct
 
     token = request.args.get('token')
     username = token.split(':')[0] # gives username
 
     cur = mysql.connection.cursor()
     result = cur.execute("""SELECT T.ListId, T.ListName FROM TRACKINGLIST AS T WHERE T.userName= %s""",(username,))
+
 
     if (result > 0):
 
@@ -91,6 +91,7 @@ def getLists():
             FROM TRACKINGLIST AS T ,MYJOBS AS M WHERE M.ListId = T.listId and t.listId=%s""", (row[0],))
             temp["listID"] = row[0]
             temp["listName"] = row[1]
+
 
 
             allJob = cur1.fetchall()
@@ -115,7 +116,7 @@ def getLists():
 
 
 @app.route('/api/getTrackingList', methods=['GET'])
-def getTrackingList():
+def getTrackingList(): #correct
 
     token = request.args.get('token')
     username = token.split(':')[0]  # gives username
@@ -156,6 +157,7 @@ def getTrackingList():
 
     return jsonify({'token': 'failure'})
 
+
 @app.route('/api/putTrackingList', methods=['PUT'])
 def putTrackingList():
     pass
@@ -163,7 +165,7 @@ def putTrackingList():
 
 
 @app.route('/api/addList', methods=['POST'])
-def addList():
+def addList(): #correct
 
     token = request.json['token']
     username = token.split(':')[0]  # gives username
@@ -190,7 +192,6 @@ def addList():
             return jsonify(temp)
 
     return "failure"
-
 
 
 @app.route('/api/addJobToTrack', methods=['POST'])
@@ -224,16 +225,17 @@ def addJobToTrack():
 
     return "success"
 
+
+
 @app.route('/api/removeJobFromList', methods=['DELETE'])
-def removeJobFromList():
+def removeJobFromList(): # correct
 
     token = request.args.get('token')
     username = token.split(':')[0]  # gives username
     listId = request.args.get('listId')
-    jobId = request.args.get('jobId')
 
     cur = mysql.connection.cursor()
-    cur.execute("""DELETE FROM TRACKINGLIST WHERE listId=%s AND myJobId=%s AND userName=%s""", (listId,jobId,username))
+    cur.execute("""DELETE FROM MYJOBS WHERE listId=%s AND userName=%s""", (listId,username))
     mysql.connection.commit()
     cur.close()
 
@@ -241,7 +243,7 @@ def removeJobFromList():
 
 
 @app.route('/api/addJobPosting', methods=['POST'])
-def addJobPosting():
+def addJobPosting(): # correct
 
     token = request.json['token']
     company = request.json['company']
@@ -271,7 +273,7 @@ def addJobPosting():
 
 
 @app.route('/api/jobPostings', methods=['GET'])
-def jobPostings():  # check again
+def jobPostings():  #  correct
 
     cur = mysql.connection.cursor()
     cur.execute("SELECT J.companyId,companyName,position,size,industry,link,description FROM JOBS AS J, COMPANYCREDENTIALS AS C WHERE J.companyId = C.companyId")
@@ -284,7 +286,7 @@ def jobPostings():  # check again
 
 
 @app.route('/api/summarizedPopularSalaryInfo', methods=['GET'])
-def summarizedPopularSalaryInfo():
+def summarizedPopularSalaryInfo(): #  correct
 
     cur = mysql.connection.cursor()
     result = cur.execute("""SELECT company,companySize,industry
@@ -321,7 +323,7 @@ def summarizedPopularSalaryInfo():
 
 
 @app.route('/api/summerizedSalaryInfo', methods=['GET'])
-def summerizedSalaryInfo():
+def summerizedSalaryInfo(): #  correct
 
     cur = mysql.connection.cursor()
     result = cur.execute("""SELECT company,companySize,industry
@@ -349,7 +351,7 @@ def summerizedSalaryInfo():
             temp["payInfo"] = []
 
             for singleJob in allJob:
-                temp["payInfo"].append({"position": singleJob[0], "totalComp": singleJob[1]})
+                temp["payInfo"].append({"position": singleJob[0], "averageTotalComp": singleJob[1]})
 
             lists.append(temp)
 
@@ -358,7 +360,7 @@ def summerizedSalaryInfo():
     return jsonify({'token': 'failure'})
 
 @app.route('/api/addSalary', methods=['POST'])
-def addSalary():  ## auto increment needs to be added
+def addSalary():  ## correct
 
     company = request.json['company']
     companySize = request.json['companySize']
@@ -375,7 +377,6 @@ def addSalary():  ## auto increment needs to be added
     return "success"
 
 
-
 @app.route('/api/learningResources', methods=['GET'])
 def learningResources():
     pass
@@ -385,7 +386,7 @@ def exampleQuestionResources():
     pass
 
 @app.route('/api/companyreviews', methods=['GET'])
-def companyreviews():
+def companyreviews(): #correct
 
     companyName = request.args.get('companyName')
 
@@ -407,7 +408,6 @@ def companyreviews():
 @app.route('/api/addUserDocument', methods=['POST'])
 def addUserDocument():
     pass
-
 
 
 @app.route('/api/getUserDocuments', methods=['GET'])
@@ -446,12 +446,9 @@ def setSavedPracticeResources():
 def deleteSavedPracticeResources():
     pass
 
-@app.route('/api/postJob', methods=['POST'])
-def postJob():
-    pass
 
 @app.route('/api/deleteJob', methods=['DELETE'])
-def deleteJob():
+def deleteJob(): #correct
 
     companyName = request.args.get('companyName')
     position = request.args.get('position')
@@ -479,7 +476,7 @@ def editJob():
 
 
 @app.route('/api/getCompanyJobs', methods=['GET'])
-def getCompanyJobs():
+def getCompanyJobs(): #correct
 
     companyName = request.args.get('token')
 
@@ -504,13 +501,17 @@ def getCompanyJobs():
     return "failed"
 
 
+
+
+
 @app.route('/api/removeUserDocuments', methods=['DELETE'])
 def removeUserDocuments():
+
     pass
 
 
 @app.route('/api/signupcompany', methods=['POST'])
-def signupcompany():
+def signupcompany(): #correct
 
     companyName = request.json['companyName']
     username = request.json['username']
@@ -530,5 +531,3 @@ def signupcompany():
 
 if __name__ == "__main__":
     app.run(debug=True)
-
-
