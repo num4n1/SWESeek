@@ -258,9 +258,13 @@ def removeJobFromList(): # correct
     token = request.args.get('token')
     username = token.split(':')[0]  # gives username
     listId = request.args.get('listId')
+    jobId = request.args.get('jobId')
+    
+    print(username)
+    print(listId)
 
     cur = mysql.connection.cursor()
-    cur.execute("""DELETE FROM MYJOBS WHERE listId=%s AND userName=%s""", (listId,username))
+    cur.execute("""DELETE FROM MYJOBS WHERE listId=%s AND userName=%s AND Id=%s""", (listId,username, jobId))
     mysql.connection.commit()
     cur.close()
 
