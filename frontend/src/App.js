@@ -14,6 +14,11 @@ import EmployerSignupPage from "./Pages/EmployerSignupPage";
 
 
 function App() {
+  function signOut(){
+    localStorage.removeItem("token");
+    window.location.href = "http://localhost:3000/"
+  }
+
   return (
     <Router>
       <Navbar collapseOnSelect expand="lg">
@@ -28,6 +33,21 @@ function App() {
               <Nav.Link href="/learning">Learning</Nav.Link>
             </Nav>
             <Nav>
+              {
+                localStorage.getItem("token") !== null ? 
+                <Button
+                className="navButton"
+                style={{
+                  backgroundColor: `white`,
+                  color: `#264653`,
+                  borderColor: `white`,
+                }}
+                onClick={signOut}
+              >
+                Sign out
+              </Button>
+              :
+              <div>
               <Button
                 className="navButton"
                 style={{
@@ -50,6 +70,8 @@ function App() {
               >
                 Sign in
               </Button>
+              </div>
+              }
             </Nav>
           </Navbar.Collapse>
         </Container>
