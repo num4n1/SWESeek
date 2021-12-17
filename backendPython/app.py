@@ -370,10 +370,18 @@ def addSalary():  ## correct
     role = request.json['role']
     totalComp = request.json['totalComp']
 
+    cur0 = mysql.connection.cursor()
+    cur0.execute("""SELECT companyId FROM COMPANYCREDENTIALS WHERE companyName = %s""", (company,))
+
+    companyId = cur0.fetchall()[0][0]
+
+    mysql.connection.commit()
+    cur0.close()
+
     cur = mysql.connection.cursor()
     cur.execute(
-        """INSERT INTO SALARY (company, companySize, role, totalComp) VALUES(%s,%s,%s,%s)""",
-        (company, companySize, role, totalComp))
+        """INSERT INTO SALARY (company, companySize, role, totalComp, companyId) VALUES(%s,%s,%s,%s,%s)""",
+        (company, companySize, role, totalComp, companyId))
     mysql.connection.commit()
     cur.close()
 
