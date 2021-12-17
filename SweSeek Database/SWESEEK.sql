@@ -283,7 +283,36 @@ CREATE TABLE MYQUESTIONRESOURCES (
 INSERT INTO MYQUESTIONRESOURCES (username,id)
 VALUES
 ('num4n',1),
+('num4n',2),
 ('nick_knapton',2),
-('zeeshansalim',3)
+('zeeshansalim',3);
 
+DROP TABLE IF EXISTS APPLIED;
+CREATE TABLE APPLIED (
+	username				varchar(25) not null,
+    JobId					integer not null,
+    primary key(username,JobId),
+	foreign key (JobId) references JOBS(JobId) ON UPDATE CASCADE
 
+);
+
+INSERT INTO APPLIED (username,JobId)
+VALUES
+('num4n',1),
+('num4n',2),
+('nick_knapton',2),
+('zeeshansalim',2);
+
+DROP TABLE IF EXISTS APPLIEDDOCUMENTS;
+CREATE TABLE APPLIEDDOCUMENTS (
+	username				varchar(25) not null,
+    dNo						integer not null,
+    foreign key (username) references APPLIED(username) ON UPDATE CASCADE
+);
+
+INSERT INTO APPLIEDDOCUMENTS (username,dNo)
+VALUES
+('num4n',1),
+('num4n',2),
+('nick_knapton',2),
+('zeeshansalim',2);
