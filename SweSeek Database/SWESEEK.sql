@@ -40,9 +40,27 @@ VALUES
 ('004', 'Tesla',      'TSLA',	'Vehicle Manufacturer', 'Large',	'EMUSK420'),
 ('005',	'Microsoft',  'MSFT',	'Technology', 			'Large',	'UEOQ234@');
 
+DROP TABLE IF EXISTS TRACKINGLIST;
+CREATE TABLE TRACKINGLIST (
+	listId			integer not null AUTO_INCREMENT,
+    userName		varchar(25) not null,
+    listName		varchar(25) not null,
+	CompanyId		char(3),
+	primary key (listId),
+        foreign key (CompanyId) references COMPANYCREDENTIALS(CompanyId) ON UPDATE CASCADE,
+        foreign key (userName) references USERCREDENTIALS(userName) ON UPDATE CASCADE
+);
+
+INSERT INTO TRACKINGLIST (userName,listName,CompanyId)
+VALUES
+('nick_knapton','Back-End','001'),
+('num4n','Front-End','002'),
+('zeeshansalim','Back-End','004'),
+('zeeshansalim','Front-End','003');
+
 DROP TABLE IF EXISTS JOBS;
 CREATE TABLE JOBS (
-	JobId				integer not null,
+	JobId				integer not null AUTO_INCREMENT,
     company				varchar(25) not null,
     position			varchar(25) not null,
     startDate			varchar(10) ,
@@ -53,58 +71,40 @@ CREATE TABLE JOBS (
     foreign key (CompanyId) references COMPANYCREDENTIALS(CompanyId) ON UPDATE CASCADE
 );
 
-INSERT INTO JOBS (JobId,CompanyId, Company, Position, StartDate, link, Description)
+INSERT INTO JOBS (CompanyId, company, position, StartDate, link, Description)
 VALUES
-(1,'001','Amazon',	  'Back-End',			'15-01-2022',	'amazoncareers.ca', 'N/A'),
-(2,'002','Google',	  'Front-End',			'11-04-2022',	'careersgoogle.com','N/A'),
-(3,'003','IBM',		  'Devops',				'21-07-2022',	'ibmrecruitment.ca','N/A'),
-(4,'004','Tesla',       'Machine Learning',	'15-01-2023', 	'teslahires.com',	'N/A'),
-(5,'005','Microsoft',   'Back-End',			'09-06-2022',	'microsoftjobs.com','N/A');
+('001','Amazon',	  'Back-End',			'15-01-2022',	'amazoncareers.ca', 'N/A'),
+('002','Google',	  'Front-End',			'11-04-2022',	'careersgoogle.com','N/A'),
+('003','IBM',		  'Devops',				'21-07-2022',	'ibmrecruitment.ca','N/A'),
+('004','Tesla',       'Machine Learning',	'15-01-2023', 	'teslahires.com',	'N/A'),
+('005','Microsoft',   'Back-End',			'19-06-2022',	'microsoftjobs.com','N/A'),
+('005','Microsoft',   'Front-End',			'21-05-2022',	'microsoftjobs.com','N/A'),
+('005','Microsoft',   'Full-Stack',			'04-07-2022',	'microsoftjobs.com','N/A'),
+('005','Microsoft',   'Back-End',			'01-02-2022',	'microsoftjobs.com','N/A');
 
 DROP TABLE IF EXISTS MYJOBS;
 CREATE TABLE MYJOBS (
-	Id			integer not null,
+	Id			integer not null AUTO_INCREMENT,
+    JobId		integer not null,
 	userName		varchar(25) not null,
-	CompanyName		varchar(25) not null,
-	Position		varchar(25) not null,
 	ApplicationStatus	char(25) not null,
+    ListId				integer not null,
         ApplicationDate		char(25) ,
         CompanyId		char(3) not null,
 	primary key (Id),
+		foreign key (ListId) references TRACKINGLIST(listId) ON UPDATE CASCADE,
         foreign key (CompanyId) references COMPANYCREDENTIALS(CompanyId) ON UPDATE CASCADE,
-        foreign key (Id) references JOBS(JobId) ON UPDATE CASCADE,
+        foreign key (JobId) references JOBS(JobId) ON UPDATE CASCADE,
         foreign key (userName) references USERCREDENTIALS(UserName) ON UPDATE CASCADE
 );
 
-INSERT INTO MYJOBS (Id,userName,CompanyName, Position, ApplicationStatus, ApplicationDate,CompanyId)
+INSERT INTO MYJOBS (JobId,userName,ApplicationStatus,ListId,ApplicationDate,CompanyId)
 VALUES
-(1,'nick_knapton','Amazon',    'Back-End',		'Offer Recieved',	'01-01-2022','001'),
-(2,'num4n','IBM',	      'Devops',			'Under-Review',		'01-02-2022','003'),
-(3,'zeeshansalim','Tesla',     'Machine Learning',	'Under-Review',		'02-01-2022','004'),
-(4,'zeeshansalim','IBM',     'Devops',	'Under-Review',		'12-01-2022','003');
-
-DROP TABLE IF EXISTS TRACKINGLIST;
-CREATE TABLE TRACKINGLIST (
-	Id			integer not null,
-    myjobId			integer not null,
-    userName		varchar(25) not null,
-    listName		varchar(25) not null,
-    listId			varchar(25) not null,
-	CompanyId		char(3) not null,
-	primary key (Id),
-        foreign key (CompanyId) references COMPANYCREDENTIALS(CompanyId) ON UPDATE CASCADE,
-        foreign key (Id) references JOBS(JobId) ON UPDATE CASCADE,
-        foreign key (myjobId) references MYJOBS(Id) ON UPDATE CASCADE,
-        foreign key (userName) references USERCREDENTIALS(userName) ON UPDATE CASCADE
-);
-
-INSERT INTO TRACKINGLIST (Id,myjobId,userName,listName,listId,CompanyId)
-VALUES
-(1,2,'nick_knapton','Back-End','001' ,'001'),
-(2,2,'num4n','Front-End','002','002'),
-(3,1,'zeeshansalim','Back-End','003','004'),
-(4,4,'zeeshansalim','Front-End','003','003');
-
+(1,'nick_knapton',	'Offer Recieved', 1	,'01-01-2022','001'),
+(2,'num4n',			'Under-Review',	2	,'01-02-2022','003'),
+(3,'zeeshansalim',	'Under-Review',	3	,'02-01-2022','004'),
+(4,'zeeshansalim',	'Under-Review',3,'12-01-2022','003'),
+(5,'zeeshansalim',	'Under-Review',4,'12-04-2022','002');
 
 DROP TABLE IF EXISTS TRACKING;
 CREATE TABLE TRACKING (
