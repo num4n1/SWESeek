@@ -102,6 +102,15 @@ VALUES(4,'#easycode');
 Endpoint 19.2:
 DELETE FROM MYLEARNINGRESOURCES WHERE username ='num4n' AND learningId =2; 
 
+Endpoint 20:
+SELECT M.id,Q.tags,Q.qPrompt,Q.questionNum,Q.link,Q.description
+FROM MYQUESTIONRESOURCES AS M, QUESTIONRESOURCES AS Q
+WHERE username = 'num4n' AND M.id = Q.Id;
+
+SELECT value
+FROM QUESTIONTAGS
+WHERE tags=3;
+
 Endpoint 21.1: First get CompanyId using companyName, then use that CompanyId to add to JOBS along with the provided data.
 SELECT CompanyId FROM COMPANYCREDENTIALS WHERE companyName = 'Blizzard';
 INSERT INTO JOBS (CompanyId, company, position, StartDate, link, Description)
