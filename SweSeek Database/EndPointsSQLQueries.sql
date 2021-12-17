@@ -81,6 +81,21 @@ WHERE tags=3;
 Endpoint 15:  #correct
 SELECT * FROM REVIEWS WHERE companyName ='CUSTOM';
 
+Endpoint 19: first get the tags(id) from learningresources table then use that to find the value from resourcestag
+SELECT M.username,L.tags,L.topic,L.link
+FROM LEARNINGRESOURCES AS L, MYLEARNINGRESOURCES AS M
+WHERE M.username = 'zeeshansalim' AND M.learningId = L.tag
+
+Endpoint 19.1: first add the topic and link using tags(id) from input, then use the same tag(id) and username to add to MYLEARNINGRESOURCES
+INSERT INTO LEARNINGRESOURCES(tags,topic,link)
+VALUES 
+(4, 'jello','mello'),
+(4, 'jye','mye'),
+(4, 'gi','ji');
+
+INSERT INTO MYLEARNINGRESOURCES (username,learningId)
+VALUES ('zeeshansalim', 4);
+
 Endpoint 21.1: First get CompanyId using companyName, then use that CompanyId to add to JOBS along with the provided data.
 SELECT CompanyId FROM COMPANYCREDENTIALS WHERE companyName = 'Blizzard';
 INSERT INTO JOBS (CompanyId, company, position, StartDate, link, Description)
@@ -103,3 +118,4 @@ WHERE company ='Microsoft';
 Endpoint 24:
 INSERT INTO COMPANYCREDENTIALS(companyName, username, industry, size, password)
 VALUES ('DoorDash','DDSH','food delivery','doordashjobs.ca','HDWO2347');
+
