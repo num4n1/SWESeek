@@ -580,7 +580,17 @@ def savedPracticeResources():
 
 @app.route('/api/setSavedPracticeResources', methods=['PUT'])
 def setSavedPracticeResources():
-    pass
+
+    token = request.json['token']
+    username = token.split(':')[0]  # gives username
+    id = request.json['id']
+
+    cur = mysql.connection.cursor()
+    cur.execute("""INSERT INTO MYQUESTIONRESOURCES (username, id) VALUES (%s,%s)""", (username, id))
+    mysql.connection.commit()
+    cur.close()
+
+    return "success"
 
 @app.route('/api/deleteSavedResources', methods=['DELETE'])
 def deleteSavedResources():
