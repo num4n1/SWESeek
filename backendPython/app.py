@@ -242,7 +242,32 @@ def removeJobFromList():
 
 @app.route('/api/addJobPosting', methods=['POST'])
 def addJobPosting():
-    pass
+
+    token = request.json['token']
+    company = request.json['company']
+    position = request.json['position']
+    startDate = request.json['startDate']
+    link = request.json['link']
+    description = request.json['description']
+
+    cur0 = mysql.connection.cursor()
+    cur0.execute("""SELECT companyId FROM COMPANYCREDENTIALS WHERE companyName = %s""", (company,))
+
+    companyID = cur0.fetchall()[0][0]
+
+    mysql.connection.commit()
+    cur0.close()
+
+    cur = mysql.connection.cursor()
+    cur.execute("""INSERT INTO JOBS (CompanyId, company, position, StartDate, link, Description)
+    VALUES (%s,%s,%s,%s,%s,%s)""",(companyID, company, position,startDate,link,description))
+    mysql.connection.commit()
+    cur.close()
+
+    cur1 = mysql.connection.cursor()
+    cur1.execute("""SELECT JobId FROM JOBS WHERE company = %s AND position = %s""", (company, position,))
+    result = cur1.fetchall()[0][0]
+    return jsonify({"jobID":result})
 
 
 @app.route('/api/jobPostings', methods=['GET'])
@@ -425,12 +450,28 @@ def deleteSavedPracticeResources():
 def postJob():
     pass
 
-
-"""
-
 @app.route('/api/deleteJob', methods=['DELETE'])
 def deleteJob():
-    pass
+
+    companyName = request.args.get('companyName')
+    position = request.args.get('position')
+
+    cur = mysql.connection.cursor()
+    result = cur.execute("""SELECT JobId FROM JOBS WHERE company =%s AND position =%s""",(companyName,position))
+
+    if(result>0):
+
+        jobID = cur.fetchall()[0][0]
+        print(jobID)
+        cur1 = mysql.connection.cursor()
+        cur1.execute("""DELETE FROM JOBS WHERE JobId=%s""", (jobID,))
+        mysql.connection.commit()
+        cur1.close()
+        return "success"
+
+    return "nothing deleted"
+
+
 
 @app.route('/api/editJob', methods=['PUT'])
 def editJob():
@@ -439,7 +480,28 @@ def editJob():
 
 @app.route('/api/getCompanyJobs', methods=['GET'])
 def getCompanyJobs():
-    pass
+
+    companyName = request.args.get('token')
+
+    cur = mysql.connection.cursor()
+    result = cur.execute("""SELECT JobId,position,startDate,link,description
+    FROM JOBS WHERE company =%s""",(companyName,))
+
+    if (result > 0):
+
+        rows = cur.fetchall()
+        lists = []
+
+        for row in rows:
+           lists.append({"JobID": row[0],
+                        "position": row[1],
+                        "startDate": row[2],
+                        "link" : row[3],
+                        "description": row[4]})
+
+        return jsonify(lists)
+
+    return "failed"
 
 
 @app.route('/api/removeUserDocuments', methods=['DELETE'])
@@ -449,9 +511,23 @@ def removeUserDocuments():
 
 @app.route('/api/signupcompany', methods=['POST'])
 def signupcompany():
-    pass
 
-"""
+    companyName = request.json['companyName']
+    username = request.json['username']
+    industry = request.json['industry']
+    size = request.json['size']
+    password = request.json['password']
+
+    cur = mysql.connection.cursor()
+    cur.execute(
+        """INSERT INTO COMPANYCREDENTIALS(companyName, username, industry, size, password) VALUES(%s,%s,%s,%s,%s)""",
+        (companyName, username, industry, size,password))
+    mysql.connection.commit()
+    cur.close()
+
+    return "added"
+
+
 if __name__ == "__main__":
     app.run(debug=True)
 
