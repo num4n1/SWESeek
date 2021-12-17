@@ -159,8 +159,25 @@ def getTrackingList(): #correct
 
 
 @app.route('/api/putTrackingList', methods=['PUT'])
-def putTrackingList():
-    pass
+def putTrackingList():  # jobId is Id of MyJob Table
+
+    token = request.json['token']
+    username = token.split(':')[0]  # gives username
+    listName = request.json['listName']
+    listId = request.json['listId']
+    jobId = request.json['jobId']
+    applicationStatus = request.json['applicationStatus']
+
+    cur = mysql.connection.cursor()
+    cur.execute(
+        """UPDATE TRACKINGLIST AS T, MYJOBS AS M
+        SET applicationStatus = %s
+        WHERE listName = %s AND T.listId= %s AND M.Id =%s AND T.listId=M.ListId AND M.userName = %s""",
+        (applicationStatus,listName,listId,jobId,username))
+    mysql.connection.commit()
+    cur.close()
+
+    return "successful"
 
 
 
