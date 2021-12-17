@@ -12,7 +12,7 @@ import {
 import { useState, useEffect } from "react";
 import "../Styles/TrackingPageStyles.css";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
-import Axios from 'axios';
+import Axios from "axios";
 const uuidv4 = require("uuid/v4");
 
 const exampleWishList = [
@@ -125,10 +125,10 @@ export default function TrackingPage() {
   ]);
   const [currentList, setCurrentList] = useState(lists[0]);
 
-  const [wishListItems, setWishListItems] = useState(exampleWishList);
+  const [wishListItems, setWishListItems] = useState([]);
   const [appliedItems, setAppliedItems] = useState(exampleApplied);
   const [interviewItems, setInterviewItems] = useState(exampleInterview);
-  const [offerItems, setOfferItems] = useState(exampleOffer);
+  const [offerItems, setOfferItems] = useState([]);
   const [regectedItems, setRegectedItems] = useState(exampleRegected);
   const [addJobColumn, setAddJobColumn] = useState();
 
@@ -144,15 +144,13 @@ export default function TrackingPage() {
 
   useEffect(() => {
     // Checks for token in storage, indicating signed in.
-    if(localStorage.getItem("token") == null){
+    if (localStorage.getItem("token") == null) {
       window.location.href = "http://localhost:3000/login";
     }
     getLists();
-    
   }, []);
 
-  async function getLists(){
-    /*
+  async function getLists() {
     let wishList = [];
     let appliedList = [];
     let interviewList = [];
@@ -162,37 +160,53 @@ export default function TrackingPage() {
     await Axios.get("http://127.0.0.1:5000/api/getLists", {
       params: {
         token: localStorage.getItem("token"),
-      }
+      },
     })
-    .then((res) =>{
+      .then((res) => {
+        console.log("test");
+        console.log(res);
         list = res.data[0];
         setLists(res.data);
         list.jobs.forEach((job) => {
-          if(job.applicationStatus === "Wish"){
+          job.id = String(job.id);
+          if (job.applicationStatus === "Wish") {
             wishList.push(job);
-          }else if (job.applicationStatus === "Applied"){
+          } else if (job.applicationStatus === "Applied") {
             appliedList.push(job);
-          }else if (job.applicationStatus === "Interview"){
+          } else if (job.applicationStatus === "Interview") {
             interviewList.push(job);
-          }else if (job.applicationStatus === "Offer"){
+          } else if (job.applicationStatus === "Offer Recieved") {
             offerList.push(job);
-          }else if (job.applicationStatus === "Regected"){
+            console.log(offerList);
+          } else if (job.applicationStatus === "Regected") {
             regectedList.push(job);
           }
-        })
-    })
-    .catch((res) => {
-      console.log(res);
-    });
-    
-    setCurrentList(list);
-    setWishListItems(wishList);
-    setAppliedItems(appliedList);
-    setInterviewItems(interviewList);
-    setOfferItems(offerList);
-    setRegectedItems(regectedList);
-    */
+        });
+        setCurrentList(list);
+        setWishListItems(wishList);
+        setAppliedItems(appliedList);
+        setInterviewItems(interviewList);
+        setOfferItems(offerList);
+        setRegectedItems(regectedList);
+        let temp = columns;
+        let temp1 = columns[4];
+        temp1.items = offerList;
+        temp1.count = offerList.length;
+        temp[4] = temp1;
+
+
+        
+        setColumns(temp);
+      })
+      .catch((res) => {
+        console.log(res);
+      });
   }
+
+  useEffect(() => {
+    console.log("change");
+    console.log(offerItems);
+  }, [offerItems]);
 
   const handleClose = () => setShow(false);
   const handleShow = (item) => {
@@ -235,6 +249,7 @@ export default function TrackingPage() {
   }
 
   function handleOnDragEnd(result) {
+    console.log(offerItems);
     if (!result.destination) return;
     const { source, destination } = result;
     let removed = [];
@@ -273,15 +288,15 @@ export default function TrackingPage() {
       });
     }
 
-    console.log(removed.applicationStatus)
-
-    Axios.put("http://127.0.0.1:5000/api/updateTrackingList", {
+    /*
+    Axios.put("http://127.0.0.1:5000/api/putTrackingList", {
         token: localStorage.getItem("token"),
         listName: currentList.name,
         listId: currentList.id,
         jobId: removed.id,
         applicationStatus: removed.applicationStatus,
     })
+    */
   }
 
   function addJob() {
@@ -294,13 +309,13 @@ export default function TrackingPage() {
     let applicationStatus = column.name;
     let applicationDate = new Date().toDateString();
     let id; //= uuidv4();
-    
-    if(company === "") setCompanyValid(true);
-    if(position === "") setPositionValid(true);
-    if(startDate === "") setStartDateValid(true);
-    if(link === "") setLinkValid(true);
-    if(description === "") setDescriptionValid(true);
-    
+
+    if (company === "") setCompanyValid(true);
+    if (position === "") setPositionValid(true);
+    if (startDate === "") setStartDateValid(true);
+    if (link === "") setLinkValid(true);
+    if (description === "") setDescriptionValid(true);
+
     if (
       company !== "" &&
       position !== "" &&
@@ -308,7 +323,6 @@ export default function TrackingPage() {
       link !== "" &&
       description !== ""
     ) {
-
       column.count++;
       handleCloseAdd();
       Axios.post("http://127.0.0.1:5000/api/addJobToTrack", {
@@ -322,10 +336,9 @@ export default function TrackingPage() {
         listId: currentList.id,
         applicationStatus: applicationStatus,
         applicationDate: applicationDate,
-      })
-      .then((res) => {
+      }).then((res) => {
         id = res.data.jobId;
-      })
+      });
 
       column.items.push({
         id: id,
@@ -340,17 +353,20 @@ export default function TrackingPage() {
     }
   }
 
-  function deleteJob(){
+  function deleteJob() {
     let status = modalInfo.applicationStatus;
     let column;
-    if(status === "Wish List" ) column = 1;
-    if(status === "Applied" ) column = 2;
-    if(status === "Interview" ) column = 3;
-    if(status === "Offer" ) column = 4;
-    if(status === "Regected" ) column = 5;
+    if (status === "Wish List") column = 1;
+    if (status === "Applied") column = 2;
+    if (status === "Interview") column = 3;
+    if (status === "Offer") column = 4;
+    if (status === "Regected") column = 5;
     let theColumn = columns[column];
 
-    theColumn.items.splice(theColumn.items.findIndex(item => item.id === modalInfo.id), 1);
+    theColumn.items.splice(
+      theColumn.items.findIndex((item) => item.id === modalInfo.id),
+      1
+    );
     theColumn.count--;
     handleClose();
 
@@ -368,9 +384,9 @@ export default function TrackingPage() {
 
   function openStats(item) {}
 
-  function determineIcon(companyName){
-    console.log(companyName)
-    switch(companyName.toLowerCase()){
+  function determineIcon(companyName) {
+    console.log(companyName);
+    switch (companyName.toLowerCase()) {
       case "google":
         return "/Assets/googleicon.png";
       default:
@@ -449,76 +465,78 @@ export default function TrackingPage() {
                                       <Col xs={2}>
                                         {
                                           /*Quick and dirty solution to not storing images with the job posting*/
-                                          item.companyName.toLowerCase() === "google" ? 
-                                          <img
-                                          style={{ marginTop: `15%` }}
-                                          className="JobCardImage"
-                                          src="/Assets/googleicon.png"
-                                          alt=""
-                                          />
-                                          :
-                                          item.companyName.toLowerCase() === "facebook" ?
-                                          <img
-                                          style={{ marginTop: `15%` }}
-                                          className="JobCardImage"
-                                          src="/Assets/facebookicon.png"
-                                          alt=""
-                                          />
-                                          :
-                                          item.companyName.toLowerCase() === "amazon" ?
-                                          <img
-                                          style={{ marginTop: `15%` }}
-                                          className="JobCardImage"
-                                          src="/Assets/amazonicon.png"
-                                          alt=""
-                                          />
-                                          :
-                                          item.companyName.toLowerCase() === "apple" ?
-                                          <img
-                                          style={{ marginTop: `15%` }}
-                                          className="JobCardImage"
-                                          src="/Assets/appleicon.png"
-                                          alt=""
-                                          />
-                                          :
-                                          item.companyName.toLowerCase() === "netflix" ?
-                                          <img
-                                          style={{ marginTop: `15%` }}
-                                          className="JobCardImage"
-                                          src="/Assets/netflixicon.png"
-                                          alt=""
-                                          />
-                                          :
-                                          item.companyName.toLowerCase() === "tesla" ?
-                                          <img
-                                          style={{ marginTop: `15%` }}
-                                          className="JobCardImage"
-                                          src="/Assets/teslaicon.png"
-                                          alt=""
-                                          />
-                                          :
-                                          item.companyName.toLowerCase() === "twitch" ?
-                                          <img
-                                          style={{ marginTop: `15%` }}
-                                          className="JobCardImage"
-                                          src="/Assets/twitchicon.png"
-                                          alt=""
-                                          />
-                                          :
-                                          item.companyName.toLowerCase() === "microsoft" ?
-                                          <img
-                                          style={{ marginTop: `15%` }}
-                                          className="JobCardImage"
-                                          src="/Assets/microsofticon.png"
-                                          alt=""
-                                          />
-                                          :
-                                          <img
-                                          style={{ marginTop: `15%` }}
-                                          className="JobCardImage"
-                                          src="/Assets/defaulticon.png"
-                                          alt=""
-                                          />
+                                          item.companyName.toLowerCase() ===
+                                          "google" ? (
+                                            <img
+                                              style={{ marginTop: `15%` }}
+                                              className="JobCardImage"
+                                              src="/Assets/googleicon.png"
+                                              alt=""
+                                            />
+                                          ) : item.companyName.toLowerCase() ===
+                                            "facebook" ? (
+                                            <img
+                                              style={{ marginTop: `15%` }}
+                                              className="JobCardImage"
+                                              src="/Assets/facebookicon.png"
+                                              alt=""
+                                            />
+                                          ) : item.companyName.toLowerCase() ===
+                                            "amazon" ? (
+                                            <img
+                                              style={{ marginTop: `15%` }}
+                                              className="JobCardImage"
+                                              src="/Assets/amazonicon.png"
+                                              alt=""
+                                            />
+                                          ) : item.companyName.toLowerCase() ===
+                                            "apple" ? (
+                                            <img
+                                              style={{ marginTop: `15%` }}
+                                              className="JobCardImage"
+                                              src="/Assets/appleicon.png"
+                                              alt=""
+                                            />
+                                          ) : item.companyName.toLowerCase() ===
+                                            "netflix" ? (
+                                            <img
+                                              style={{ marginTop: `15%` }}
+                                              className="JobCardImage"
+                                              src="/Assets/netflixicon.png"
+                                              alt=""
+                                            />
+                                          ) : item.companyName.toLowerCase() ===
+                                            "tesla" ? (
+                                            <img
+                                              style={{ marginTop: `15%` }}
+                                              className="JobCardImage"
+                                              src="/Assets/teslaicon.png"
+                                              alt=""
+                                            />
+                                          ) : item.companyName.toLowerCase() ===
+                                            "twitch" ? (
+                                            <img
+                                              style={{ marginTop: `15%` }}
+                                              className="JobCardImage"
+                                              src="/Assets/twitchicon.png"
+                                              alt=""
+                                            />
+                                          ) : item.companyName.toLowerCase() ===
+                                            "microsoft" ? (
+                                            <img
+                                              style={{ marginTop: `15%` }}
+                                              className="JobCardImage"
+                                              src="/Assets/microsofticon.png"
+                                              alt=""
+                                            />
+                                          ) : (
+                                            <img
+                                              style={{ marginTop: `15%` }}
+                                              className="JobCardImage"
+                                              src="/Assets/defaulticon.png"
+                                              alt=""
+                                            />
+                                          )
                                         }
                                       </Col>
                                       <Col xs={10}>
@@ -629,7 +647,12 @@ export default function TrackingPage() {
             <Row>
               <Col xs={3}>Position</Col>
               <Col xs={9}>
-                <Form.Control id="addPosition" type="text" placeholder="SDE1" isInvalid={addPositionValid} />
+                <Form.Control
+                  id="addPosition"
+                  type="text"
+                  placeholder="SDE1"
+                  isInvalid={addPositionValid}
+                />
               </Col>
             </Row>
           </Card.Title>
