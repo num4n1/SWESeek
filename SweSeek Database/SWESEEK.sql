@@ -188,11 +188,10 @@ VALUES
 
 DROP TABLE IF EXISTS LEARNINGRESOURCES;
 CREATE TABLE LEARNINGRESOURCES (
-	id			integer not null AUTO_INCREMENT,
 	tags			integer not null,
     topic		varchar(50) not null,
     link			varchar(255) not null,
-    primary key (id)
+    primary key (tags,link)
 );
 
 INSERT INTO LEARNINGRESOURCES (tags,topic,link)
@@ -208,7 +207,7 @@ DROP TABLE IF EXISTS RESOURCESTAG;
 CREATE TABLE RESOURCESTAG (
 	tags			integer not null,
     value			varchar(50) not null,
-    primary key(tags,value)
+    foreign key (tags) references LEARNINGRESOURCES(tags) ON UPDATE CASCADE
 );
 
 INSERT INTO RESOURCESTAG (tags,value)
@@ -220,3 +219,22 @@ VALUES
 (3,'#coding'),
 (4,'#frontend'),
 (3,'#challenge');
+
+DROP TABLE IF EXISTS MYLEARNINGRESOURCES;
+CREATE TABLE MYLEARNINGRESOURCES (
+	username			varchar(25) not null,
+    learningId			integer not null,
+    primary key(username,learningId),
+    foreign key (learningId) references LEARNINGRESOURCES(tags) ON UPDATE CASCADE
+);
+
+INSERT INTO MYLEARNINGRESOURCES (username,learningId)
+VALUES
+('num4n',1),
+('num4n',2),
+('nick_knapton',2),
+('zeeshansalim',3),
+('nick_knapton',1),
+('nick_knapton',4),
+('num4n',4);
+
