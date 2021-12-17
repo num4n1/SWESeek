@@ -81,6 +81,10 @@ WHERE tags=3;
 Endpoint 15:  #correct
 SELECT * FROM REVIEWS WHERE companyName ='CUSTOM';
 
+Endpoint 18:
+INSERT INTO APPLIED(username,JobId)
+VALUES ('zeeshansalim','5');
+
 Endpoint 19: first get the tags(id) from learningresources table then use that to find the value from resourcestag
 SELECT M.username,L.tags,L.topic,L.link
 FROM LEARNINGRESOURCES AS L, MYLEARNINGRESOURCES AS M
