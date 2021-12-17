@@ -81,6 +81,10 @@ WHERE tags=3;
 Endpoint 15:  #correct
 SELECT * FROM REVIEWS WHERE companyName ='CUSTOM';
 
+Endpoint 16:
+INSERT INTO USERDOCUMENTS (username,file,type)
+VALUES('zeeshansalim','path6','pdf');
+
 Endpoint 18:
 INSERT INTO APPLIED(username,JobId)
 VALUES ('zeeshansalim','5');
