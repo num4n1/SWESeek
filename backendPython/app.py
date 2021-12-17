@@ -684,11 +684,24 @@ def deleteJob(): #correct
 
     return jsonify({'Message':'No suitable record found'}), 500
 
-
 @app.route('/api/editJob', methods=['PUT'])
 def editJob():
 
-    pass
+    companyName = request.json['companyName']
+    JobID = request.json['JobID']
+    startdate = request.json['startdate']
+    position = request.json['position']
+    description = request.json['description']
+    jobURL = request.json['jobURL']
+
+    cur = mysql.connection.cursor()
+    cur.execute("""UPDATE JOBS
+    SET startdate = %s ,description= %s, link = %s
+    WHERE company = %s AND JobId= %s AND position= %s """, (startdate, description, jobURL, companyName, JobID, position))
+    mysql.connection.commit()
+    cur.close()
+
+    return jsonify({'Status': 'Request Successful'}), 200
 
 
 @app.route('/api/getCompanyJobs', methods=['GET'])
