@@ -22,7 +22,7 @@ import {
       if (
         validateFields()
       ) {
-        Axios.post("", {
+        Axios.post("http://127.0.0.1:5000/api/signupcompany", {
           companyName: document.getElementById("companyName").value,
           username: document.getElementById("username").value,
           industry: document.getElementById("industry").value,

@@ -5,7 +5,7 @@ import Axios from 'axios';
 export default function LoginPage() {
   
     function login(){
-        Axios.get("http://localhost:3000/api/login", {
+        Axios.get("http://127.0.0.1:5000/api/login", {
             "email": document.getElementById("email").value,
             "password": document.getElementById("password").value,
         })

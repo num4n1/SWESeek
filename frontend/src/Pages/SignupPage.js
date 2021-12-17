@@ -21,17 +21,19 @@ export default function SignupPage() {
 
   function signup() {
     if (validateFields()) {
-      Axios.post("http://localhost:3000/api/signup", {
+      Axios.post("http://127.0.0.1:5000/api/signup", {
         email: document.getElementById("email").value,
         firstName: document.getElementById("firstName").value,
         lastName: document.getElementById("lastName").value,
         phoneNumber: document.getElementById("phone").value,
-        userName: document.getElementById("userName").value,
+        username: document.getElementById("username").value,
         password: document.getElementById("password").value,
+      }, {
+        headers: {'Access-Control-Allow-Origin': '*'},
       })
         .then((res) => {
           localStorage.setItem("token", res.data.token);
-          window.location.href = "http://localhost:3000/tracking";
+          window.location.href = "http://127.0.0.1:5000/tracking";
         })
         .catch((res) => {
           console.log(res);
@@ -69,8 +71,9 @@ export default function SignupPage() {
     }
     if (
       document.getElementById("password").value !==
-      document.getElementById("confirmPassword")
+      document.getElementById("confirmPassword").value
     ) {
+      console.log("test")
       returnVal = false;
       setConfirmPasswordValidity(true);
     }

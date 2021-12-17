@@ -159,7 +159,7 @@ export default function TrackingPage() {
     let offerList = [];
     let regectedList = [];
     let list;
-    await Axios.post("http://localhost:3000/api/getLists", {
+    await Axios.post("http://127.0.0.1:5000/api/getLists", {
       token: localStorage.getItem("token"),
     })
     .then((res) =>{
@@ -273,7 +273,7 @@ export default function TrackingPage() {
 
     console.log(removed.applicationStatus)
 
-    Axios.put("http://localhost:3000/api/updateTrackingList", {
+    Axios.put("http://127.0.0.1:5000/api/updateTrackingList", {
         token: localStorage.getItem("token"),
         listName: currentList.name,
         listId: currentList.id,
@@ -309,7 +309,7 @@ export default function TrackingPage() {
 
       column.count++;
       handleCloseAdd();
-      Axios.post("http://localhost:3000/api/addJobToTrack", {
+      Axios.post("http://127.0.0.1:5000/api/addJobToTrack", {
         token: localStorage.getItem("token"),
         companyName: company,
         position: position,
@@ -352,7 +352,7 @@ export default function TrackingPage() {
     theColumn.count--;
     handleClose();
 
-    Axios.delete("http://localhost:3000/api/removeJobFromList", {
+    Axios.delete("http://127.0.0.1:5000/api/removeJobFromList", {
       token: localStorage.getItem("token"),
       listId: currentList.id,
       jobId: modalInfo.id,

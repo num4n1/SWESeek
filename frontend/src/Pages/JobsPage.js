@@ -125,12 +125,12 @@ export default function JobsPage() {
       window.location.href = "http://localhost:3000/login";
     }
 
-    Axios.get("http://localhost:3000/api/jobPostings", {})
+    Axios.get("http://127.0.0.1:5000/api/jobPostings", {})
     .then((res) => {
       setJobsToShow(res);
     })
 
-    Axios.get("http://localhost:3000/api/getUserDocuments", {
+    Axios.get("http://127.0.0.1:5000/api/getUserDocuments", {
       token: localStorage.getItem("token"),
     })
     .then((res) => {
@@ -184,7 +184,7 @@ export default function JobsPage() {
     if(coverDno !== undefined){
       temp.push(coverDno);
     }
-    Axios.post("http://localhost:3000/api/apply", {
+    Axios.post("http://127.0.0.1:5000/api/apply", {
       token: localStorage.getItem("token"),
       JobID: id,
       dNo:  temp,
@@ -193,12 +193,12 @@ export default function JobsPage() {
   
   function submitDocuments(resume, coverLetter){
     console.log(resume, coverLetter)
-    Axios.post("http://localhost:3000/api/addUserDocument", {
+    Axios.post("http://127.0.0.1:5000/api/addUserDocument", {
       token: localStorage.getItem("token"),
       file: resume,
       type: "resume",
     })
-    Axios.post("http://localhost:3000/api/addUserDocument", {
+    Axios.post("http://127.0.0.1:5000/api/addUserDocument", {
       token: localStorage.getItem("token"),
       file: coverLetter,
       type: "coverLetter",

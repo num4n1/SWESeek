@@ -106,25 +106,25 @@ export default function LearningPage() {
       window.location.href = "http://localhost:3000/login";
     }
 
-    Axios.get("http://localhost:3000/api/learningResources", {})
+    Axios.get("http://127.0.0.1:5000/api/learningResources", {})
     .then((res) => {
       //setLearningResources(res.data);
     })
 
-    Axios.get("http://localhost:3000/api/exampleQuestionResources", {})
+    Axios.get("http://127.0.0.1:5000/api/exampleQuestionResources", {})
     .then((res) => {
       //setQuestionResources(res.data);
     })
 
     let temp = [];
-    Axios.get("http://localhost:3000/api/savedResources", {
+    Axios.get("http://127.0.0.1:5000/api/savedResources", {
       token: localStorage.getItem("token"),
     })
     .then((res) => {
       temp = res.data;
     })
 
-    Axios.get("http://localhost:3000/api/savedPracticeResources", {
+    Axios.get("http://127.0.0.1:5000/api/savedPracticeResources", {
       token: localStorage.getItem("token"),
     })
     .then((res) => {
@@ -159,7 +159,7 @@ export default function LearningPage() {
           else return false;
         })
         setQuestionResources(a);
-        Axios.put("http://localhost:3000/api/setSavedPracticeResources", {
+        Axios.put("http://127.0.0.1:5000/api/setSavedPracticeResources", {
           token: localStorage.getItem("token"),
           tags: res[0].tag,
           qPrompt: res[0].qPrompt,
@@ -172,7 +172,7 @@ export default function LearningPage() {
           else return false;
         })
         setLearningResources(a);
-        Axios.put("http://localhost:3000/api/setSavedLearningResources", {
+        Axios.put("http://127.0.0.1:5000/api/setSavedLearningResources", {
           token: localStorage.getItem("token"),
           id: res[0].id,
           tags: res[0].tag,
@@ -194,7 +194,7 @@ export default function LearningPage() {
       setStarredResources(res);
       if("qPrompt" in a[0]){
         setQuestionResources([...questionResources, a[0]]);
-        Axios.delete("http://localhost:3000/api/deleteSavedPracticeResources", {
+        Axios.delete("http://127.0.0.1:5000/api/deleteSavedPracticeResources", {
           token: localStorage.getItem("token"),
           id: res[0].id,
           tags: res[0].tag,

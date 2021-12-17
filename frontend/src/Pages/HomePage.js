@@ -8,7 +8,6 @@ export default function HomePage() {
 
   function typingLoop() {
     typingStatus === 0 ? setTypingStatus(1) : setTypingStatus(0);
-    console.log("Done");
   }
 
   return (

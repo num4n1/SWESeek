@@ -168,15 +168,15 @@ export default function SalariesPage() {
   useEffect(() => {
         // Checks for token in storage, indicating signed in.
     if(localStorage.getItem("token") == null){
-      window.location.href = "http://localhost:3000/login";
+      window.location.href = "http://127.0.0.1:5000/login";
     }
 
-    Axios.get("http://localhost:3000/api/summerizedSalaryInfo", {})
+    Axios.get("http://127.0.0.1:5000/api/summerizedSalaryInfo", {})
     .then((res) => {
       setAllCompanys(res.data);
     });
 
-    Axios.get("http://localhost:3000/api/summarizedPopularSalaryInfo", {})
+    Axios.get("http://127.0.0.1:5000/api/summarizedPopularSalaryInfo", {})
     .then((res) => {
       setPopularCompanys(res.data);
     });
@@ -220,7 +220,7 @@ export default function SalariesPage() {
     let role = document.getElementById("addRole").value;
     let comp = document.getElementById("addComp").value;
 
-    Axios.post("http://localhost:3000/api/addSalary", {
+    Axios.post("http://127.0.0.1:5000/api/addSalary", {
       company: company,
       companySize: size,
       role: role,

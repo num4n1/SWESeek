@@ -50,7 +50,7 @@ export default function EmployerDashboardPage() {
   const [applicants, setApplicants] = useState();
 
   useEffect(() => {
-    /*Axios.get("http://localhost:3000/api/getCompanyJobs", {
+    /*Axios.get("http://127.0.0.1:5000/api/getCompanyJobs", {
       token: localStorage.getItem("token"),
     })
     .then((res) => {
@@ -78,7 +78,7 @@ export default function EmployerDashboardPage() {
       let day = date[1];
       let year = date[2];
 
-      Axios.post("http://localhost:3000/api/postJob", {
+      Axios.post("http://127.0.0.1:5000/api/postJob", {
         token: localStorage.getItem("token"),
         year: year,
         month: month,
@@ -102,14 +102,14 @@ export default function EmployerDashboardPage() {
       else return false;
     });
     setJobs(newJobs);
-    Axios.delete("http://localhost:3000/api/deleteJob", {
+    Axios.delete("http://127.0.0.1:5000/api/deleteJob", {
       token: localStorage.getItem("token"),
       jobId: id,
     })
   }
 
   function downloadJobApplicants(jobId){
-    Axios.get("http://localhost:3000/api/getUsersWhoApplied", {
+    Axios.get("http://127.0.0.1:5000/api/getUsersWhoApplied", {
       token: localStorage.getItem("token"),
       JobID: jobId,
     })
