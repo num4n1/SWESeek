@@ -82,8 +82,8 @@ Endpoint 15:  #correct
 SELECT * FROM REVIEWS WHERE companyName ='CUSTOM';
 
 Endpoint 16:
-INSERT INTO USERDOCUMENTS (username,file,type)
-VALUES('zeeshansalim','path6','pdf');
+INSERT INTO USERDOCUMENTS (username,fileName,file,type)
+VALUES('zeeshansalim','file 6','path6','pdf');
 
 Endpoint 18:
 INSERT INTO APPLIED(username,JobId)
