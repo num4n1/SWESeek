@@ -518,9 +518,20 @@ def savedResources(): #correct
 
     return jsonify({'token': 'failure'})
 
-@app.route('/api/setSavedLearningResources', methods=['PUT'])
+@app.route('/api/setSavedLearningResources', methods=['POST'])
 def setSavedLearningResources():
-    pass
+
+    token = request.json['token']
+    username = token.split(':')[0]  # gives username
+    id = request.json['id']
+
+    cur = mysql.connection.cursor()
+    cur.execute("""INSERT INTO MYLEARNINGRESOURCES (username, learningId) VALUES (%s,%s)""", (username, id))
+    mysql.connection.commit()
+    cur.close()
+
+    return "success"
+
 
 @app.route('/api/deleteSavedResources', methods=['DELETE'])
 def deleteSavedResources():
