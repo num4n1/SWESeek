@@ -294,7 +294,8 @@ def summarizedPopularSalaryInfo(): #  correct
 
     if (result > 0):
 
-        rows = cur.fetchall()
+        temp = cur.fetchall()
+        rows = [t for t in (set(tuple(i) for i in temp))]
         lists = []
 
         for row in rows:
@@ -302,7 +303,7 @@ def summarizedPopularSalaryInfo(): #  correct
             temp = {}
             cur1 = mysql.connection.cursor()
             cur1.execute("""SELECT role,totalComp
-            FROM SALARY AS S, COMPANYCREDENTIALS AS C WHERE S.companyId = C.companyId""")
+            FROM SALARY AS S, COMPANYCREDENTIALS AS C WHERE S.companyId = C.companyId AND C.companyName = %s""",(row[0],))
             temp["company"] = row[0]
             temp["companySize"] = row[1]
             temp["industry"] = row[2]
@@ -319,6 +320,7 @@ def summarizedPopularSalaryInfo(): #  correct
         return jsonify(lists)
 
     return jsonify({'token': 'failure'})
+
 
 
 
