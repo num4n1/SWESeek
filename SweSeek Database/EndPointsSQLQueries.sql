@@ -67,3 +67,17 @@ Endpoint 14:
 
 Endpoint 15:  #correct
 SELECT * FROM REVIEWS WHERE companyName ='CUSTOM';
+
+Endpoint 21.1: First get CompanyId using companyName, then use that CompanyId to add to JOBS along with the provided data.
+SELECT CompanyId FROM COMPANYCREDENTIALS WHERE companyName = 'Blizzard';
+INSERT INTO JOBS (CompanyId, company, position, StartDate, link, Description)
+VALUES ('006','Blizzard',	'Back-End','11-02-2020','blizzardhiring.ca','N/A');
+
+Endpoint 21.2: First get the JobId using the companyName and position, then delete the row in JOBS using the JobId
+SELECT JobId FROM JOBS WHERE company ='Amazon' AND position ='Back-End';
+DELETE FROM JOBS WHERE JobId=1;
+
+Endpoint 21.3:
+UPDATE JOBS
+SET startdate = '09-09-2029',description='very long', link = 'newmicro.com'
+WHERE company = 'Microsoft'AND JobId=7 AND position='Full-Stack';
