@@ -6,8 +6,8 @@ export default function LoginPage() {
   
     function login(){
         Axios.get("http://127.0.0.1:5000/api/login", {
-            "email": document.getElementById("email").value,
-            "password": document.getElementById("password").value,
+            email: document.getElementById("email").value,
+            password: document.getElementById("password").value,
         })
         .then((res) => {
             localStorage.setItem("token", res.data.token);
@@ -35,7 +35,7 @@ export default function LoginPage() {
                     <FloatingLabel controlId="floatingInput" label="Password" className="mb-3">
                         <Form.Control id="password" onKeyPress={ keyPress } type="password" placeholder="password" />
                     </FloatingLabel>
-                    <Button size="lg" className="SignupButton" type="submit">
+                    <Button size="lg" onClick={login} className="SignupButton" type="submit">
                         Submit
                     </Button>
                 </Form>

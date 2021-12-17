@@ -33,7 +33,7 @@ export default function SignupPage() {
       })
         .then((res) => {
           localStorage.setItem("token", res.data.token);
-          window.location.href = "http://127.0.0.1:5000/tracking";
+          window.location.href = "http://localhost:3000/tracking";
         })
         .catch((res) => {
           console.log(res);
