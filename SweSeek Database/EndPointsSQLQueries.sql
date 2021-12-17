@@ -26,19 +26,8 @@ INSERT INTO TRACKINGLIST (username, listName)
 VALUES ('num4n', 'DataScience');
 
 Endpoint 6:
-INSERT INTO TRACKINGLIST (username, listName)
-VALUES('num4n','Machine Learning');
-
-SELECT companyId FROM COMPANYCREDENTIALS WHERE companyName='IBM';
-
-INSERT INTO JOBS (CompanyId, company, position, StartDate, link, Description)
-VALUES('003','IBM','Back-End','01-01-2021','ibmrecruitment.ca','N/A');
-
-SELECT JobId FROM JOBS WHERE CompanyId='003' AND position='Back-End';
-SELECT ListId FROM TRACKINGLIST WHERE Username='num4n' AND listName='Machine Learning';
-
-INSERT INTO MYJOBS (JobId,userName,ApplicationStatus,ListId,ApplicationDate,CompanyId)
-VALUES('9','num4n','Offer Recieved',5,'09-09-2021','003');
+INSERT INTO MYJOBS (JobId,userName,ApplicationStatus,ListId,ApplicationDate,companyName,position,startDate,CompanyId,link,description)
+VALUES (1,'nick_knapton',	'Offer Recieved', 1	,'01-01-2022','Google','Back-End','01-01-2021','002','amazoncareers.ca','N/A')
 
 Endpoint 7: #corrected
 DELETE FROM TRACKINGLIST WHERE listId=%s AND myJobId=%s AND userName=%s
