@@ -329,11 +329,12 @@ def summerizedSalaryInfo(): #  correct
 
     cur = mysql.connection.cursor()
     result = cur.execute("""SELECT company,companySize,industry
-        FROM SALARY AS S, COMPANYCREDENTIALS AS C WHERE S.companyId = C.companyId""")
+        FROM SALARY AS S, COMPANYCREDENTIALS AS C WHERE S.companyId = C.companyId """)
 
     if (result > 0):
 
-        rows = cur.fetchall()
+        temp = cur.fetchall()
+        rows = [t for t in (set(tuple(i) for i in temp))]
         lists = []
 
         for row in rows:
@@ -342,8 +343,8 @@ def summerizedSalaryInfo(): #  correct
             cur1 = mysql.connection.cursor()
             cur1.execute("""SELECT role,avg(totalComp) 
             FROM SALARY AS S, COMPANYCREDENTIALS AS C 
-            WHERE S.companyId = C.companyId 
-            GROUP BY company; """)
+            WHERE S.companyId = C.companyId AND C.companyName = %s
+            GROUP BY role; """,(row[0],))
             temp["company"] = row[0]
             temp["companySize"] = row[1]
             temp["industry"] = row[2]
