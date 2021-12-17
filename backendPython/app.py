@@ -406,8 +406,37 @@ def addSalary():  ## correct
 
 
 @app.route('/api/learningResources', methods=['GET'])
-def learningResources():
-    pass
+def learningResources(): #correct
+
+    cur = mysql.connection.cursor()
+    result = cur.execute("""SELECT tags,topic,link FROM LEARNINGRESOURCES""")
+
+    if (result > 0):
+
+        temp = cur.fetchall()
+        rows = [t for t in (set(tuple(i) for i in temp))]
+        lists = []
+
+        for row in rows:
+
+            temp = {}
+            cur1 = mysql.connection.cursor()
+            cur1.execute("""SELECT tags,value FROM RESOURCESTAG WHERE tags = %s""",(row[0],))
+
+            temp["tags"] = []
+            temp["topic"] = row[1]
+            temp["link"] = row[2]
+
+            all_tags = cur1.fetchall()
+
+            for singleTag in all_tags:
+                temp["tags"].append(singleTag[1])
+
+            lists.append(temp)
+
+        return jsonify(lists)
+
+    return jsonify({'token': 'failure'})
 
 @app.route('/api/exampleQuestionResources', methods=['GET'])
 def exampleQuestionResources():
