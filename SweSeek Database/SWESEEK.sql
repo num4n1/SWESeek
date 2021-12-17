@@ -102,11 +102,11 @@ CREATE TABLE MYJOBS (
 
 INSERT INTO MYJOBS (userName,ApplicationStatus,ListId,ApplicationDate,companyName,position,startDate,CompanyId,link,description)
 VALUES
-('nick_knapton',	'Offer Recieved', 1	,'01-01-2022','Amazon','Back-End','01-01-2021',1,'amazoncareers.ca','N/A'),
-('num4n',			'Under-Review',	2	,'01-02-2022','IBM','Devops','01-01-2021',3,'ibmrecruitment.ca','N/A'),
-('zeeshansalim',	'Under-Review',	3	,'02-01-2022','Tesla','Back-End','01-01-2021',4,'teslahires.com','N/A'),
-('zeeshansalim',	'Under-Review',3,'12-01-2022','IBM','DevOps','01-01-2021',3,'ibmrecruitment.ca','N/A'),
-('zeeshansalim',	'Under-Review',4,'12-04-2022','Google','Front-End','01-01-2021',2,'careersgoogle.com','N/A');
+('nick_knapton',	'Offer', 1	,'01-01-2022','Amazon','Back-End','01-01-2021',1,'amazoncareers.ca','N/A'),
+('num4n',			'Applied',	2	,'01-02-2022','IBM','Devops','01-01-2021',3,'ibmrecruitment.ca','N/A'),
+('zeeshansalim',	'Interview',	3	,'02-01-2022','Tesla','Back-End','01-01-2021',4,'teslahires.com','N/A'),
+('zeeshansalim',	'Rejected',3,'12-01-2022','IBM','DevOps','01-01-2021',3,'ibmrecruitment.ca','N/A'),
+('zeeshansalim',	'Wishlist',4,'12-04-2022','Google','Front-End','01-01-2021',2,'careersgoogle.com','N/A');
 
 DROP TABLE IF EXISTS TRACKING;
 CREATE TABLE TRACKING (
