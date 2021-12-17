@@ -164,7 +164,7 @@ def getTrackingList(): #correct
     return jsonify({'Error':'No lists available'}), 500
 
 
-@app.route('/api/putTrackingList', methods=['PUT'])
+@app.route('/api/updateTrackingList', methods=['PUT'])
 def putTrackingList():  # jobId is Id of MyJob Table
 
     token = request.json['token']
