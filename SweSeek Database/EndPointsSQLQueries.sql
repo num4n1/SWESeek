@@ -3,9 +3,9 @@ SELECT T.ListId, T.ListName
 FROM TRACKINGLIST AS T
 WHERE T.userName='CUSTOM'; 
 
-SELECT t.listId,M.CompanyName,M.Position,J.link,M.applicationDate,M.applicationStatus,J.startDate,J.description
+SELECT M.listId,J.company,J.Position,J.link,M.applicationDate,M.applicationStatus,J.startDate,J.description
 FROM TRACKINGLIST AS T ,MYJOBS AS M, JOBS AS J
-WHERE T.listId='003' AND J.JobId = M.Id AND T.myjobId = M.Id; 
+WHERE T.listId=CUSTOM AND J.JobId = M.JobId AND M.ListId = T.listId; 
 
 Endpoint 4: #wrong
 SELECT Serial,companyName,position,link,applicationDate,applicationStatus,startDate,description FROM TRACKINGLIST;
