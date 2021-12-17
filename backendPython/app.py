@@ -32,9 +32,7 @@ def signup(): # correct
         userDetails = cur0.fetchall()
         for user in userDetails:
             if (user[0] == email or user[4] == username):
-                print(email)
-                print(user[0])
-                return jsonify({'token':'user alraedy exists.'})
+                return jsonify({'error':'user already exists.'}), 500
 
     mysql.connection.commit()
     cur0.close()
@@ -44,7 +42,7 @@ def signup(): # correct
     mysql.connection.commit()
     cur.close()
     token=username+":"+password
-    return jsonify({'token':token})
+    return jsonify({'token':token}), 201
 
 
 @app.route('/api/login', methods=['GET'])
@@ -62,9 +60,9 @@ def login(): #correct
         for user in userDetails:
             if(user[0]==email and user[5]==password):
                 token = user[4] + ":" + password
-                return jsonify({'token':token})
+                return jsonify({'token':token}), 200
 
-    return jsonify({'token':'failure'})
+    return jsonify({'error':'No valid account found!'}), 401
 
 
 @app.route('/api/getLists', methods=['GET'])
