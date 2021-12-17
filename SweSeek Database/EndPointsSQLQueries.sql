@@ -86,15 +86,18 @@ SELECT M.username,L.tags,L.topic,L.link
 FROM LEARNINGRESOURCES AS L, MYLEARNINGRESOURCES AS M
 WHERE M.username = 'zeeshansalim' AND M.learningId = L.tag
 
-Endpoint 19.1: first add the topic and link using tags(id) from input, then use the same tag(id) and username to add to MYLEARNINGRESOURCES
-INSERT INTO LEARNINGRESOURCES(tags,topic,link)
-VALUES 
-(4, 'jello','mello'),
-(4, 'jye','mye'),
-(4, 'gi','ji');
+Endpoint 19.1: first insert into LEARNINGRESOURCES, then get the auto generated Id, use that Id along with username to insert into MYLEARNINGRESOURCES
+                use the tag to add to RESOURCESTAG
+INSERT INTO LEARNINGRESOURCES (tags,topic,link)
+VALUES (4,'coding tutorials','hackthechallenge.com');
+
+SELECT Id FROM LEARNINGRESOURCES WHERE tags=4 AND topic ='coding tutorials';
 
 INSERT INTO MYLEARNINGRESOURCES (username,learningId)
-VALUES ('zeeshansalim', 4);
+VALUES ('zeeshansalim', 7);
+
+INSERT INTO RESOURCESTAG (tags,value)
+VALUES(4,'#easycode');
 
 Endpoint 21.1: First get CompanyId using companyName, then use that CompanyId to add to JOBS along with the provided data.
 SELECT CompanyId FROM COMPANYCREDENTIALS WHERE companyName = 'Blizzard';
