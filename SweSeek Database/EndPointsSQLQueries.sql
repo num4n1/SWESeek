@@ -77,7 +77,7 @@ Endpoint 21.2: First get the JobId using the companyName and position, then dele
 SELECT JobId FROM JOBS WHERE company ='Amazon' AND position ='Back-End';
 DELETE FROM JOBS WHERE JobId=1;
 
-Endpoint 21.3:
+Endpoint 21.3: considering that we know the JobId from before.
 UPDATE JOBS
 SET startdate = '09-09-2029',description='very long', link = 'newmicro.com'
 WHERE company = 'Microsoft'AND JobId=7 AND position='Full-Stack';
