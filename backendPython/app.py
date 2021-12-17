@@ -533,9 +533,19 @@ def setSavedLearningResources():
     return "success"
 
 
-@app.route('/api/deleteSavedResources', methods=['DELETE'])
-def deleteSavedResources():
-    pass
+@app.route('/api/deleteSavedPracticeResources', methods=['DELETE'])
+def deleteSavedPracticeResources():
+
+    token = request.args.get('token')
+    username = token.split(':')[0]  # gives username
+    id = request.args.get('id')
+
+    cur = mysql.connection.cursor()
+    cur.execute("""DELETE FROM MYQUESTIONRESOURCES WHERE username =%s AND id =%s""", (username, id))
+    mysql.connection.commit()
+    cur.close()
+
+    return "deleted"
 
 @app.route('/api/savedPracticeResources', methods=['GET'])
 def savedPracticeResources():
