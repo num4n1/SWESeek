@@ -11,6 +11,7 @@ import LoginPage from "./Pages/LoginPage";
 import SignupPage from "./Pages/SignupPage";
 import EmployerDashboardPage from "./Pages/EmployerDashboardPage";
 import EmployerSignupPage from "./Pages/EmployerSignupPage";
+import EmployerLoginPage from "./Pages/EmployerLoginPage";
 
 
 function App() {
@@ -102,6 +103,9 @@ function App() {
         </Route>
         <Route path="/login" exact>
           <LoginPage />
+        </Route>
+        <Route path="/employerlogin" exact>
+          <EmployerLoginPage />
         </Route>
         <Route path="/employerdashboard" exact>
           <EmployerDashboardPage />

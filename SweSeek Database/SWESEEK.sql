@@ -63,7 +63,7 @@ CREATE TABLE JOBS (
     company				varchar(25) not null,
     position			varchar(25) not null,
     startDate			varchar(10) ,
-    link				char(25) not null,
+    link				char(100) not null,
     description			char(255) ,
     CompanyId			integer not null,
     primary key (JobId),

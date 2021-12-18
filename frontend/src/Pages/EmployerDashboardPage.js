@@ -43,14 +43,14 @@ const exampleJobsPosted = [
 ];
 
 export default function EmployerDashboardPage() {
-  const companyName = "Google";
+  const companyName = localStorage.getItem("token");
   const [showAddJob, setShowAddJob] = useState(false);
   const [jobs, setJobs] = useState(exampleJobsPosted);
   const [showApplicants, setShowApplicants] = useState(false);
   const [applicants, setApplicants] = useState();
 
   useEffect(() => {
-    /*Axios.get("http://127.0.0.1:5000/api/getCompanyJobs", {
+    Axios.get("http://127.0.0.1:5000/api/getCompanyJobs", {
       params:{
         token: localStorage.getItem("token"),
       }
@@ -60,7 +60,7 @@ export default function EmployerDashboardPage() {
     })
     .catch((res) => {
       console.log(res);
-    })*/
+    })
   }, []);
 
   function handleCloseAddJob() {
@@ -74,30 +74,36 @@ export default function EmployerDashboardPage() {
   function addNewJob() {
     setShowAddJob(false);
     if (validateFields()) {
-      let date = document.getElementById("addJobStartDate");
-      date = date.split("/");
-      let month = date[0];
-      let day = date[1];
-      let year = date[2];
-
-      Axios.post("http://127.0.0.1:5000/api/postJob", {
+      Axios.post("http://127.0.0.1:5000/api/addJobPosting", {
         token: localStorage.getItem("token"),
-        year: year,
-        month: month,
-        day: day,
-        title: document.getElementById("addJobTitle").value,
+        startDate: document.getElementById("addJobStartDate").value,
+        position: document.getElementById("addJobTitle").value,
         description: document.getElementById("addJobDescription").value,
-        jobURL: document.getElementById("addJobUrl").value,
+        link: document.getElementById("addJobUrl").value,
       }).catch((res) => {
         console.log(res);
       });
     }
+    window.location.href = "http://localhost:3000/employerdashboard";
   }
 
-  function validateFields() {}
+  function validateFields() {
+    if(document.getElementById("addJobStartDate").value.length < 1){
+      return false;
+    }
+    if(document.getElementById("addJobTitle").value.length < 1){
+      return false;
+    }
+    if(document.getElementById("addJobDescription").value.length < 1){
+      return false;
+    }
+    if(document.getElementById("addJobUrl").value.length < 1){
+      return false;
+    }
+    return true;
+  }
 
-  function deleteJob(id) {
-    console.log("test");
+  function deleteJob(id, position) {
     let newJobs = jobs;
     newJobs = newJobs.filter((job) => {
       if (job.JobID !== id) return true;
@@ -105,8 +111,11 @@ export default function EmployerDashboardPage() {
     });
     setJobs(newJobs);
     Axios.delete("http://127.0.0.1:5000/api/deleteJob", {
-      token: localStorage.getItem("token"),
-      jobId: id,
+      params: {
+        token: localStorage.getItem("token"),
+        position: position,
+        jobId: id,
+      }
     })
   }
 
@@ -141,14 +150,14 @@ export default function EmployerDashboardPage() {
             return (
               <Card style={{ width: "18rem", margin: `1% 0` }}>
                 <Card.Body>
-                  <Card.Title>{job.title}</Card.Title>
+                  <Card.Title>{job.position}</Card.Title>
                   <Card.Subtitle className="mb-2 text-muted">
                     {job.description}
                   </Card.Subtitle>
                   <Card.Subtitle className="mb-2 text-muted">
-                    {job.month}/{job.day}/{job.year}
+                    {job.startDate}
                   </Card.Subtitle>
-                  <Card.Link href={job.jobURL}>Posting Link</Card.Link>
+                  <Card.Link style={{cursor:`pointer`}} href={job.link}>Posting Link</Card.Link>
                   <Row style={{ marginTop: `5%` }}>
                     <Row>
                       <Button
@@ -159,7 +168,7 @@ export default function EmployerDashboardPage() {
                       </Button>
                     </Row>
                     <Button
-                      onClick={() => deleteJob(job.JobID)}
+                      onClick={() => deleteJob(job.JobID, job.position)}
                       style={{ width: `40%`, margin: `auto` }}
                     >
                       Delete

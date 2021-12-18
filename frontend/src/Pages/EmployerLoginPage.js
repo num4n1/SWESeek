@@ -2,17 +2,17 @@ import { Form, Button, FloatingLabel, Container, Row, Col } from "react-bootstra
 import "../Styles/LoginAndSignupStyles.css";
 import Axios from "axios";
 
-export default function LoginPage() {
+export default function EmployerLoginPage() {
   function login() {
-    Axios.get("http://127.0.0.1:5000/api/login", {
+    Axios.get("http://127.0.0.1:5000/api/employerLogin", {
       params: {
-        email: document.getElementById("email").value,
+        username: document.getElementById("username").value,
         password: document.getElementById("password").value,
       },
     })
       .then((res) => {
         localStorage.setItem("token", res.data.token);
-        window.location.href = "http://localhost:3000/tracking";
+        window.location.href = "http://localhost:3000/employerdashboard";
       })
       .catch((res) => {
         console.log(res);
@@ -25,22 +25,18 @@ export default function LoginPage() {
     }
   }
 
-  function employerLogin(){
-    window.location.href = "http://localhost:3000/employerlogin";
-  }
-
   return (
     <div style={{ minHeight: `73.3vh`, paddingTop: `8%` }}>
       <Container style={{ maxWidth: `800px` }}>
-        <h1 className="SignupHeader">Login</h1>
+        <h1 className="SignupHeader">Employer Login</h1>
         <Form onSubmit={login} className="SignupForm">
           <FloatingLabel
             controlId="floatingInput"
-            label="Email address"
+            label="Username"
             className="mb-3"
           >
             <Form.Control
-              id="email"
+              id="username"
               type="text"
               placeholder="name@sweseek.com"
             />
@@ -67,18 +63,6 @@ export default function LoginPage() {
               >
                 Login
               </Button>
-            </Col>
-          </Row>
-          <Row>
-            <Col>
-              <a href="http://localhost:3000/employerlogin">
-                <Button
-                  size="lg"
-                  className="SignupButton"
-                >
-                  Or login as Employer
-                </Button>
-              </a>
             </Col>
           </Row>
         </Form>

@@ -14,69 +14,6 @@ import {
 } from "react-bootstrap";
 import "../Styles/JobsPageStyles.css";
 
-const exampleJobs = [
-  {
-    id: "1",
-    companyName: "Google",
-    industry: "Tech",
-    size: "10000+",
-    Title: "SWE",
-    Description:
-      "ageeeeeeeeeeeeeeeeeeaggggggggggggggggggggggggggggggsgkeosekgopjsegopjesopgjopsegjopjgpjsegpojseg",
-    url: "https://www.google.com",
-  },
-  {
-    id: "2",
-    companyName: "Amazon",
-    industry: "Tech",
-    size: "10000+",
-    Title: "SWE",
-    Description:
-      "ageeeeeeeeeeeeeeeeeeaggggggggggggggggggggggggggggggsgkeosekgopjsegopjesopgjopsegjopjgpjsegpojseg",
-    url: "https://www.google.com",
-  },
-  {
-    id: "3",
-    companyName: "GM",
-    industry: "Automotive",
-    size: "10000+",
-    Title: "SWE",
-    Description:
-      "ageeeeeeeeeeeeeeeeeeaggggggggggggggggggggggggggggggsgkeosekgopjsegopjesopgjopsegjopjgpjsegpojseg",
-    url: "https://www.google.com",
-  },
-  {
-    id: "4",
-    companyName: "Health Company",
-    industry: "Health",
-    size: "10000+",
-    Title: "SWE",
-    Description:
-      "ageeeeeeeeeeeeeeeeeeaggggggggggggggggggggggggggggggsgkeosekgopjsegopjesopgjopsegjopjgpjsegpojseg",
-    url: "https://www.google.com",
-  },
-  {
-    id: "5",
-    companyName: "JP Morgan",
-    industry: "Banking",
-    size: "10000+",
-    Title: "SWE",
-    Description:
-      "ageeeeeeeeeeeeeeeeeeaggggggggggggggggggggggggggggggsgkeosekgopjsegopjesopgjopsegjopjgpjsegpojseg",
-    url: "https://www.google.com",
-  },
-  {
-    id: "6",
-    companyName: "Netflix",
-    industry: "Tech",
-    size: "10000+",
-    Title: "SWE",
-    Description:
-      "ageeeeeeeeeeeeeeeeeeaggggggggggggggggggggggggggggggsgkeosekgopjsegopjesopgjopsegjopjgpjsegpojseg",
-    url: "https://www.google.com",
-  },
-];
-
 const exampleDocuments = [
   {
     fileName: "file1",
@@ -109,8 +46,8 @@ const exampleDocuments = [
 ];
 
 export default function JobsPage() {
-  const [jobs, setJobsToShow] = useState(exampleJobs);
-  const [resultsToShow, setResultsToShow] = useState(jobs);
+  const [jobs, setJobsToShow] = useState([]);
+  const [resultsToShow, setResultsToShow] = useState([]);
   const [showApplyJob, setShowApplyJob] = useState(false);
   const [currJob, setCurrJob] = useState({});
   const [documents, setDocuments] = useState(exampleDocuments);
@@ -127,7 +64,9 @@ export default function JobsPage() {
 
     Axios.get("http://127.0.0.1:5000/api/jobPostings", {})
     .then((res) => {
-      setJobsToShow(res);
+      console.log(res)
+      setJobsToShow(res.data);
+      setResultsToShow(res.data);
     })
 
     Axios.get("http://127.0.0.1:5000/api/getUserDocuments", {
@@ -233,14 +172,14 @@ export default function JobsPage() {
           return (
             <Card style={{ width: "18rem", margin: `1% 0` }}>
               <Card.Body>
-                <Card.Title>{job.companyName}</Card.Title>
+                <Card.Title>{job.company}</Card.Title>
                 <Card.Subtitle className="mb-2 text-muted">
-                  {job.Title}
+                  {job.position}
                 </Card.Subtitle>
                 <Card.Subtitle className="mb-2 text-muted">
-                  {job.industry}, {job.size}
+                  {job.industry}, {job.companySize}
                 </Card.Subtitle>
-                <Card.Text>{job.Description}</Card.Text>
+                <Card.Text>{job.description}</Card.Text>
                 <Card.Link
                   style={{ cursor: `pointer` }}
                   onClick={() => apply(job.id)}
