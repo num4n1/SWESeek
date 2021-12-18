@@ -78,16 +78,16 @@ CREATE TABLE JOBS (
 INSERT INTO JOBS (CompanyId, company, position, StartDate, link, Description)
 VALUES
 (1,'Amazon',	  'Back-End',			'15-01-2022',	'https://www.amazoncareers.ca', 'Excited by High Scale Distributed Systems and Personalization? Interested in working on complex problems and high impact projects?'),
-(2,'Google',	  'Front-End',			'11-04-2022',	'https://www.careersgoogle.com','As a Software Developer in Augmented Reality (AR) Experience Fundamentals, you will build user-facing AR experiences for phones and next-generation devices. You will work closely with other engineers and in cross-functional teams including UX, product management (PM), program management (PgM).'),
+(2,'Google',	  'Front-End',			'11-04-2022',	'https://www.careersgoogle.com','As a Software Developer in Augmented Reality (AR) Experience Fundamentals, you will build user-facing AR experiences for phones and next-generation devices. You will work closely with other engineers and in cross-functional teams including UX.'),
 (3,'IBM',         'Devops',			'21-07-2022',	'https://www.ibmrecruitment.ca','DevOps speeds delivery of higher quality software by combining and automating the work of software development and IT operations teams.'),
-(4,'Tesla',       'Machine Learning',		'15-01-2023', 	'https://www.teslahires.com',   'Teslas Autopilot Machine Learning team is currently seeking a software engineer to design and build an internal web service and database for command and control of a custom ML training accelerator (DOJO). In particular, this engineer will work with hardware designers, embedded software engineers, and ML engineers to design, prototype, and implement a web service that is responsible for interfacing to existing and future custom distributed systems for ML training.'),
+(4,'Tesla',       'Machine Learning',		'15-01-2023', 	'https://www.teslahires.com',   'Teslas Autopilot Machine Learning team is currently seeking a software engineer to design and build an internal web service and database for command and control of a custom ML training accelerator (DOJO).'),
 (5,'Microsoft',   'Back-End',			'19-06-2022',	'https://www.microsoftjobs.com','Our backend engineers develop the core Yammer services that power all our experiences. As a social networking product, Yammer has tons of interesting engineering challenges.'),
 (5,'Microsoft',   'Front-End',			'21-05-2022',	'https://www.microsoftjobs.com','The Microsoft Start team is looking for self-motivated and experienced Frontend Engineers to build the best personalized content feed system to connect 1B+ users with the most engaging, informative, and inspiring content they care about.'),
-(5,'Microsoft',   'Full-Stack',			'04-07-2022',	'https://www.microsoftjobs.com','Microsoft 365 Modern Workplace Transformation Insight (M365 MWT-Insight or Viva Insight) helps people and businesses thrive with insights, recommendations and solutions that are integrated into Microsoft Teams and Outlook to improve productivity and wellbeing.'),
-(6,'Facebook',   'Full-Stack',			'04-07-2022',	'https://www.facebookjobs.com','We are the teams who create all of Facebooks products used by billions of people around the world. Want to build new features and improve existing products like Messenger, Video, Groups, News Feed, Search and more? Want to solve unique, large scale, highly complex technical problems? Facebook is seeking experienced full-stack software engineers to join our product teams.'),
-(7,'Apple',   'Product Designer',			'04-07-2022',	'https://www.applejobs.com','App Store Connect is looking for a hardworking UI Engineer that is responsible for implementing and maintaining online tools. Candidates must be able to build web pages from design comps to pixel perfect pages. You will work across multiple teams including design, operations, QA, editorial, marketing, business and software engineering to build tools that meet Apples standard for visual perfection.'),
+(5,'Microsoft',   'Full-Stack',			'04-07-2022',	'https://www.microsoftjobs.com','Microsoft 365 Modern Workplace Transformation Insight (M365 MWT-Insight or Viva Insight) helps people and businesses thrive with insights, recommendations and solutions that are integrated into Microsoft Teams and Outlook to improve productivity.'),
+(6,'Facebook',   'Full-Stack',			'04-07-2022',	'https://www.facebookjobs.com','We are the teams who create all of Facebooks products used by billions of people around the world. Want to build new features and improve existing products like Messenger, Video, Groups, News Feed, Search and more.'),
+(7,'Apple',   'Product Designer',			'04-07-2022',	'https://www.applejobs.com','App Store Connect is looking for a hardworking UI Engineer that is responsible for implementing and maintaining online tools. Candidates must be able to build web pages from design comps to pixel perfect pages.'),
 (8,'Netflix',   'Back End',			'04-07-2022',	'https://www.netflixjobs.com','The Platform Engineering  team at Netflix is aimed at improving various aspects of our business.  The team is dedicated to providing information and tools to our colleagues so that we can make decisions on how to bring the most joy to our subscribers.'),
-(9,'Twitch',   'API Development',			'04-07-2022',	'https://www.twitchjobs.com','As part of the Interactivity team, reporting to the Director of Software Engineering, you will support a product roadmap of new features that help connect live broadcasters and audiences. Youll work with a team of accomplished engineers in developing client libraries and SDKs for AWS Interactivity services like Chat.');
+(9,'Twitch',   'API Development',			'04-07-2022',	'https://www.twitchjobs.com','As part of the Interactivity team, reporting to the Director of Software Engineering, you will support a product roadmap of new features that help connect live broadcasters and audiences. You will be developing client libraries and SDKs for AWS.');
 
 DROP TABLE IF EXISTS MYJOBS;
 CREATE TABLE MYJOBS (
@@ -100,7 +100,7 @@ CREATE TABLE MYJOBS (
     position		varchar(25) not null,
     startDate		varchar(25) not null,
     link		varchar(25) not null,
-    description		varchar(25) not null,
+    description		varchar(255) not null,
     CompanyId		integer not null,
     primary key (Id),
     foreign key (ListId) references TRACKINGLIST(listId) ON UPDATE CASCADE,
@@ -112,9 +112,9 @@ INSERT INTO MYJOBS (userName,ApplicationStatus,ListId,ApplicationDate,companyNam
 VALUES
 ('nick_knapton',	'Offer', 	1,	'01-01-2022','Amazon','Back-End',  '01-01-2021',1,'amazoncareers.ca', 'Excited by High Scale Distributed Systems and Personalization? Interested in working on complex problems and high impact projects?'),
 ('num4n',		'Applied',	2,	'01-02-2022','IBM',   'Devops',    '01-01-2021',3,'ibmrecruitment.ca','DevOps speeds delivery of higher quality software by combining and automating the work of software development and IT operations teams.'),
-('zeeshansalim',	'Interview',	3,	'02-01-2022','Tesla', 'AI',  '01-01-2021',4,'teslahires.com',   'Teslas Autopilot Machine Learning team is currently seeking a software engineer to design and build an internal web service and database for command and control of a custom ML training accelerator (DOJO). In particular, this engineer will work with hardware designers, embedded software engineers, and ML engineers to design, prototype, and implement a web service that is responsible for interfacing to existing and future custom distributed systems for ML training.'),
+('zeeshansalim',	'Interview',	3,	'02-01-2022','Tesla', 'AI',  '01-01-2021',4,'teslahires.com',   'Teslas Autopilot Machine Learning team is currently seeking a software engineer to design and build an internal web service and database for command and control of a custom ML training accelerator (DOJO).'),
 ('zeeshansalim',	'Rejected',     3,	'12-01-2022','IBM',   'DevOps',    '01-01-2021',3,'ibmrecruitment.ca','DevOps speeds delivery of higher quality software by combining and automating the work of software development and IT operations teams.'),
-('zeeshansalim',	'Wishlist',	4,	'12-04-2022','Google','Front-End', '01-01-2021',2,'careersgoogle.com','As a Software Developer in Augmented Reality (AR) Experience Fundamentals, you will build user-facing AR experiences for phones and next-generation devices. You will work closely with other engineers and in cross-functional teams including UX, product management (PM), program management (PgM).');
+('zeeshansalim',	'Wishlist',	4,	'12-04-2022','Google','Front-End', '01-01-2021',2,'careersgoogle.com','As a Software Developer in Augmented Reality (AR), you will build user-facing AR experiences for phones and next-gen devices. You will work in cross-functional teams including UX, product management (PM), program management (PgM).');
 
 DROP TABLE IF EXISTS SALARY;
 CREATE TABLE SALARY (
@@ -131,7 +131,7 @@ CREATE TABLE SALARY (
 INSERT INTO SALARY (company, companySize, role, totalComp, companyId)
 VALUES
 ('Amazon',	'Large', 'Back-End', 115000.0, 1),
-('Amazon', 'Large',	'Back-End',	140000.0, 1)
+('Amazon', 'Large',	'Back-End',	140000.0, 1),
 ('IBM',		'Large',	'Devops',		70000.0,  3),
 ('Tesla',     	'Large',	'Machine Learning',	100000.0, 4),
 ('Google',     	'Large',	'Front-End',		120000.0, 2),
@@ -240,7 +240,7 @@ VALUES
 (4,'#leetcode easy'),
 (4,'#Arrays'),
 (3,'#leetcode medium'),
-(3,'#Strings'),
+(3,'#Strings');
 
 DROP TABLE IF EXISTS QUESTIONRESOURCES;
 CREATE TABLE QUESTIONRESOURCES (
@@ -256,9 +256,9 @@ CREATE TABLE QUESTIONRESOURCES (
 
 INSERT INTO QUESTIONRESOURCES (tags,qPrompt,questionNum,link,description)
 VALUES
-(4,'Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target. You may assume that each input would have exactly one solution, and you may not use the same element twice. You can return the answer in any order.','Two Sum', 'https://www.youtube.com/watch?v=BoHO04xVeU0','How to solve Two Sum'),
+(4,'Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target. You may assume that each input would have exactly one solution, and you may not use the same element twice.','Two Sum', 'https://www.youtube.com/watch?v=BoHO04xVeU0','How to solve Two Sum'),
 (1,'Given the head of a singly linked list, reverse the list, and return the reversed list.','Reverse Linked List', 'https://www.youtube.com/watch?v=NhapasNIKuQ&t=76s','How to Reverse a Linked List'),
-(2,'Given an m x n 2D binary grid grid which represents a map of '1's (land) and '0's (water), return the number of islands. An island is surrounded by water and is formed by connecting adjacent lands horizontally or vertically. You may assume all four edges of the grid are all surrounded by water.','Number of Islands', 'https://www.youtube.com/watch?v=U6-X_QOwPcs','Learn to solve Number of Islands');
+(2,'Given an m x n 2D binary grid grid which represents a map of 1s [land] and 0s (water), return the number of islands. An island is surrounded by water and is formed by connecting adjacent lands horizontally or vertically.','Number of Islands', 'https://www.youtube.com/watch?v=U6-X_QOwPcs','Learn to solve Number of Islands'),
 (3,'Given a string s, find the length of the longest substring without repeating characters.','Longest Substring w/o Repeating Characters', 'https://www.youtube.com/watch?v=3IETreEybaA','Learn to solve longest Substring');
 
 
@@ -287,6 +287,14 @@ CREATE TABLE USERDOCUMENTS (
     foreign key (username) references USERCREDENTIALS(userName) ON UPDATE CASCADE
 );
 
+INSERT INTO USERDOCUMENTS (userName,fileName,type)
+VALUES
+('num4n','file1','pdf'),
+('nick_knapton','file2', 'pdf'),
+('num4n','file3','png'),
+('zeeshansalim','file4','pdf'),
+('nick_knapton','file5','pdf');
+
 DROP TABLE IF EXISTS APPLIED;
 CREATE TABLE APPLIED (
     username			varchar(25) not null,
@@ -297,3 +305,9 @@ CREATE TABLE APPLIED (
     foreign key (username) references USERCREDENTIALS(userName) ON UPDATE CASCADE,
     foreign key (dNo) references USERDOCUMENTS(dNo) ON UPDATE CASCADE
 );
+INSERT INTO APPLIED (username,JobId,dNo)
+VALUES
+('num4n',3,1),
+('zeeshansalim',4,4),
+('nick_knapton',1,2),
+('nick_knapton',2,5);
