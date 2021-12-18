@@ -808,7 +808,36 @@ def getCompanyJobs(): #correct
 @app.route('/api/removeUserDocuments', methods=['DELETE'])
 def removeUserDocuments():
 
-    pass
+    token = request.args.get('token')
+    username = token.split(':')[0]  # gives username
+    dNo = request.args.get('dNo')
+
+    cur0 = mysql.connection.cursor()
+    cur0.execute("""Select fileName FROM USERDOCUMENTS WHERE dNo=%s""",(dNo))
+
+    fileName = cur0.fetchall()[0][0]
+
+    mysql.connection.commit()
+    cur0.close()
+
+    cur = mysql.connection.cursor()
+    cur.execute("""DELETE FROM APPLIED WHERE userName=%s AND dNo=%s """,
+                (username, dNo))
+
+    mysql.connection.commit()
+    cur.close()
+
+    cur1 = mysql.connection.cursor()
+    cur1.execute("""DELETE FROM USERDOCUMENTS WHERE userName=%s AND dNo=%s""",
+                (username, dNo))
+
+    mysql.connection.commit()
+    cur1.close()
+
+    if os.path.exists(app.config["CLIENT_pdfs"]):
+        os.remove(os.path.join(app.config["CLIENT_pdfs"], fileName))
+
+    return jsonify({'Status': 'Request Successful'}), 200
 
 
 @app.route('/api/signupcompany', methods=['POST'])
