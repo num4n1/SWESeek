@@ -26,7 +26,7 @@ import {
           companyName: document.getElementById("companyName").value,
           username: document.getElementById("username").value,
           industry: document.getElementById("industry").value,
-          size: document.getElementById("size").value,
+          size: document.getElementById("companySize").value,
           password: document.getElementById("password").value,
         })
           .then((res) => {
@@ -41,7 +41,7 @@ import {
   
     function validateFields(){
       let returnVal = true;
-      if(document.getElementById("company").value.length < 2){
+      if(document.getElementById("companyName").value.length < 2){
           returnVal = false;
           setCompanyValidity(true);
       }
@@ -57,7 +57,7 @@ import {
           returnVal = false;
           setUsernameValidity(true);
       }
-      if(document.getElementById("password").value !== document.getElementById("confirmPassword")){
+      if(document.getElementById("password").value !== document.getElementById("confirmPassword").value){
           returnVal = false;
           setConfirmPasswordValidity(true);
       }
@@ -79,7 +79,7 @@ import {
               className="mb-3"
             >
               <Form.Control
-                id="company"
+                id="companyName"
                 type="company"
                 placeholder="name@sweseek.com"
                 required
