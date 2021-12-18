@@ -19,7 +19,7 @@ export default function EmployerDashboardPage() {
   const [showAddJob, setShowAddJob] = useState(false);
   const [jobs, setJobs] = useState([]);
   const [showApplicants, setShowApplicants] = useState(false);
-  const [applicants, setApplicants] = useState();
+  const [applicants, setApplicants] = useState([]);
 
   useEffect(() => {
     Axios.get("http://127.0.0.1:5000/api/getCompanyJobs", {
@@ -99,8 +99,14 @@ export default function EmployerDashboardPage() {
       }
     })
     .then((res) => {
-      //download files https://medium.com/yellowcode/download-api-files-with-react-fetch-393e4dae0d9e
+      console.log(res)
+      setApplicants(res.data);
     })
+  }
+
+  function openApplicants(id){
+    downloadJobApplicants(id);
+    setShowApplicants(true);
   }
 
   return (
@@ -133,7 +139,7 @@ export default function EmployerDashboardPage() {
                   <Row style={{ marginTop: `5%` }}>
                     <Row>
                       <Button
-                        onClick={() => downloadJobApplicants(job.JobID)}
+                        onClick={() => openApplicants(job.JobID)}
                         style={{ width: `90%`, margin: `auto auto 5% auto` }}
                       >
                         Download Applicants Resumes
@@ -151,7 +157,22 @@ export default function EmployerDashboardPage() {
             );
           })}
         </Row>
-
+        <Modal centered show={showApplicants} onHide={() => setShowApplicants(false)}>
+          <Modal.Header closeButton>
+            <Modal.Title>Applicants</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            {
+              applicants.map((applicant) => {
+                return(
+                  <div>
+                    <a href={"http://127.0.0.1:5000/api/getUserDocuments?token=" + applicant.user + ":" + "&fileName=" + applicant.fileName} >{applicant.type}: {applicant.fileName}</a>
+                  </div>
+                )
+              })
+            }
+          </Modal.Body>
+        </Modal>
         <Modal centered show={showAddJob} onHide={handleCloseAddJob}>
           <Modal.Header closeButton>
             <Modal.Title>Add Job</Modal.Title>

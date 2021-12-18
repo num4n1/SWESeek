@@ -123,14 +123,16 @@ export default function JobsPage() {
 
   function applyForJob(id, resumeDNo, coverDno) {
     let temp = [resumeDNo];
-    if(coverDno !== undefined){
+    if(coverDno !== ""){
       temp.push(coverDno);
     }
+    console.log(temp)
     Axios.post("http://127.0.0.1:5000/api/apply", {
       token: localStorage.getItem("token"),
       JobID: id,
       dNo:  temp,
     })
+    setShowApplyJob(false);
   }
   
   function submitDocuments(resume, coverLetter){
@@ -139,16 +141,21 @@ export default function JobsPage() {
     formData.append("file", resume[0]);
     Axios.post("http://127.0.0.1:5000/api/addUserDocument", formData, {
       headers: {
-        'Content-Type': 'multipart/form-data'
+        'Content-Type': 'multipart/form-data',
+        token: localStorage.getItem("token"),
+        type: "resume",
       }
     })
-    formData.append("file", coverLetter);
-    Axios.post({
-      method: "post",
-      url: "http://127.0.0.1:5000/api/addUserDocument",
-      data: formData,
-      headers: { "Content-Type": "multipart/form-data" },
+    let formData1 = new FormData();
+    formData1.append("file", coverLetter);
+    Axios.post("http://127.0.0.1:5000/api/addUserDocument", formData1, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        token: localStorage.getItem("token"),
+        type: "coverLetter",
+      }
     })
+    setShowAddDoc(false);
   }
 
   return (

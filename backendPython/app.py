@@ -514,9 +514,9 @@ def addUserDocument():
         return jsonify({'Error': 'No file has been passed!'}), 500
 
     else:
-        token = request.json['token']
+        token = request.headers['token']
         username = token.split(':')[0]  # gives username
-        type = request.json['type']
+        type = request.headers['type']
         file = request.files['file']
         file.save(os.path.join(app.config["CLIENT_pdfs"], file.filename))
         fileName = file.filename
@@ -529,6 +529,20 @@ def addUserDocument():
     cur.close()
 
     return jsonify({'Status':'Request Successful'}), 200
+
+@app.route('/api/getUserDocumentsNames', methods=['GET'])
+def getUserDocumentsNames():
+    token = request.args.get('token')
+    username = token.split(':')[0]  # gives username
+    cur = mysql.connection.cursor()
+    cur.execute("""SELECT fileName,dNo,type FROM USERDOCUMENTS 
+        WHERE userName = %s """, (username,))
+    rows = cur.fetchall()
+    list = []
+    for row in rows:
+        print(row)
+        list.append({"fileName": row[0], "dNo": row[1], "type": row[2]})
+    return jsonify(list), 200
 
 @app.route('/api/getUserDocuments', methods=['GET'])
 def getUserDocuments():
@@ -544,29 +558,30 @@ def getUserDocuments():
     rows = cur.fetchall()
     list = []
     for row in rows:
-        list.append({"fileName": row[0], "dNo": row[1], "file":
-            send_from_directory(app.config["CLIENT_pdfs"], row[0], request.environ, as_attachment=True),
-                     "type": row[2]})
-
-    return jsonify(list), 200
+        try:
+            return send_from_directory(app.config["CLIENT_pdfs"], row[0], request.environ, as_attachment=True)
+        except FileNotFoundError:
+            return jsonify("filenotfound"), 404
+            
+    return jsonify(), 500
     
     
 @app.route('/api/getUsersWhoApplied', methods=['GET'])
 def getUsersWhoApplied():
-
     token = request.args.get('token')
     username = token.split(':')[0]  # gives username
     JobID = request.args.get('JobID')
 
     cur = mysql.connection.cursor()
-    cur.execute("""SELECT U.fileName,U.type 
+    cur.execute("""SELECT A.username, U.fileName, U.type 
     FROM APPLIED AS A, USERDOCUMENTS AS U
-    WHERE A.username = %s AND  JobId = %s AND U.dNo = A.dNo""", (username,JobID))
+    WHERE JobId = %s AND U.dNo = A.dNo""", (JobID,))
 
     rows = cur.fetchall()
     list = []
     for row in rows:
-        list.append({"file": row[0], "type": row[1]})
+        print(row)
+        list.append({"fileName": row[1], "type": row[2], "user": row[0]})
 
     return jsonify(list), 200
 
