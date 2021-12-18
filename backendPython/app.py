@@ -556,7 +556,6 @@ def apply():
     for i in range(len(dNo)):
         
         Dno = dNo[i]
-        print(Dno)
         cur = mysql.connection.cursor()
         cur.execute("""INSERT INTO APPLIED(username,JobId,dNo) VALUES (%s,%s,%s)""", (username, JobID,Dno))
         mysql.connection.commit()
