@@ -532,11 +532,23 @@ def addUserDocument():
 
 @app.route('/api/getUserDocuments', methods=['GET'])
 def getUserDocuments():
+
+    token = request.args.get('token')
+    username = token.split(':')[0]  # gives username
     fileName = request.args.get('fileName')
-    try:
-        return send_from_directory(app.config["CLIENT_pdfs"], fileName, request.environ, as_attachment=True)
-    except FileNotFoundError:
-        return jsonify(), 500
+
+    cur = mysql.connection.cursor()
+    cur.execute("""SELECT fileName,dNo,type FROM USERDOCUMENTS 
+    WHERE userName = %s AND fileName=%s """, (username, fileName))
+
+    rows = cur.fetchall()
+    list = []
+    for row in rows:
+        list.append({"fileName": row[0], "dNo": row[1], "file":
+            send_from_directory(app.config["CLIENT_pdfs"], row[0], request.environ, as_attachment=True),
+                     "type": row[2]})
+
+    return jsonify(list), 200
     
     
 @app.route('/api/getUsersWhoApplied', methods=['GET'])
