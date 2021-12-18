@@ -3,7 +3,7 @@
 ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
 ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
 ![Flask](https://img.shields.io/badge/flask-%23000.svg?style=for-the-badge&logo=flask&logoColor=white)
-![MySQL](https://miro.medium.com/max/1400/1*TTM5AleQfFJ-mItttJROdg.jpeg)
+![MySQL](https://img.shields.io/badge/MySQL-00000F?style=for-the-badge&logo=mysql&logoColor=white)
 
 Final Report: https://docs.google.com/document/d/1ZfPcr0qd9JfwfSy9evFjaMGI0iQDI99Uj6QnABjf4v8/edit?usp=sharing
 
