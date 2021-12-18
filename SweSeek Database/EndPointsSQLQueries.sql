@@ -85,10 +85,14 @@ Endpoint 16:
 INSERT INTO USERDOCUMENTS (username,fileName,file,type)
 VALUES('zeeshansalim','file 6','path6','pdf');
 
-Endpoint 17:
-SELECT U.fileName,U.dNo,U.file,U.type 
-FROM USERDOCUMENTS AS U, APPLIED AS A
-WHERE A.username='num4n' and U.dNo=A.dNo
+Endpoint 17.1:
+SELECT fileName,dNo,file,type FROM USERDOCUMENTS WHERE userName ='num4n' AND fileName='file1';
+
+Endpoint 17.2:
+SELECT U.file,U.type 
+FROM APPLIED AS A, USERDOCUMENTS AS U
+WHERE A.username = 'nick_knapton' AND  JobId = 2 AND U.dNo = A.dNo
+
 
 Endpoint 18:
 INSERT INTO APPLIED(username,JobId)
@@ -151,11 +155,8 @@ FROM JOBS
 WHERE company ='Microsoft'; 
 
 EndPoint 23:
-DELETE FROM APPLIED
-WHERE dNo =1;
-DELETE FROM USERDOCUMENTS
-WHERE dNo =1;
-SELECT * FROM APPLIED; 
+DELETE FROM APPLIED WHERE userName='num4n' AND dNo=1;
+DELETE FROM USERDOCUMENTS WHERE userName='num4n' AND dNo=1;
 
 Endpoint 24:
 INSERT INTO COMPANYCREDENTIALS(companyName, username, industry, size, password)
