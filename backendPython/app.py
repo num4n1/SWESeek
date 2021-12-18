@@ -532,7 +532,23 @@ def getUsersWhoApplied():
 
 @app.route('/api/apply', methods=['POST'])
 def apply():
-    pass
+
+    token = request.json['token']
+    username = token.split(':')[0]  # gives username
+    JobID = request.json['JobID']
+    dNo = request.json['dNo']
+
+    for i in range(len(dNo)):
+        
+        Dno = dNo[i]
+        print(Dno)
+        cur = mysql.connection.cursor()
+        cur.execute("""INSERT INTO APPLIED(username,JobId,dNo) VALUES (%s,%s,%s)""", (username, JobID,Dno))
+        mysql.connection.commit()
+        cur.close()
+
+    return jsonify({'Status': 'Request Successful'}), 200
+
 
 @app.route('/api/savedResources', methods=['GET'])
 def savedResources(): #correct
