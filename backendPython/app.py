@@ -317,8 +317,9 @@ def jobPostings():  #  correct
 
 @app.route('/api/summarizedPopularSalaryInfo', methods=['GET'])
 def summarizedPopularSalaryInfo(): #  correct
-    
-    popularCompanys = ["Facebook", "Amazon", "Apple", "Netflix", "Google"] # These are companys that should be in the return for "popular" companys
+
+    popularCompanys = ["Facebook", "Amazon", "Apple", "Netflix",
+                       "Google"]  # These are companys that should be in the return for "popular" companys
 
     cur = mysql.connection.cursor()
     result = cur.execute("""SELECT company,companySize,industry
@@ -332,10 +333,15 @@ def summarizedPopularSalaryInfo(): #  correct
 
         for row in rows:
 
+            if row[0] not in popularCompanys:
+                continue
+
             temp = {}
             cur1 = mysql.connection.cursor()
-            cur1.execute("""SELECT role,totalComp
-            FROM SALARY AS S, COMPANYCREDENTIALS AS C WHERE S.companyId = C.companyId AND C.companyName = %s""",(row[0],))
+            cur1.execute("""SELECT role,avg(totalComp) 
+                        FROM SALARY AS S, COMPANYCREDENTIALS AS C 
+                        WHERE S.companyId = C.companyId AND C.companyName = %s
+                        GROUP BY role """, (row[0],))
             temp["company"] = row[0]
             temp["companySize"] = row[1]
             temp["industry"] = row[2]
