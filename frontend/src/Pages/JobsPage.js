@@ -14,43 +14,12 @@ import {
 } from "react-bootstrap";
 import "../Styles/JobsPageStyles.css";
 
-const exampleDocuments = [
-  {
-    fileName: "file1",
-    dNo: "1",
-    dateUploaded: "10/2/5",
-    file: "filehere",
-    type: "resume",
-  },
-  {
-    fileName: "file2",
-    dNo: "2",
-    dateUploaded: "10/2/5",
-    file: "filehere",
-    type: "resume",
-  },
-  {
-    fileName: "file3",
-    dNo: "3",
-    dateUploaded: "10/2/5",
-    file: "filehere",
-    type: "coverLetter",
-  },
-  {
-    fileName: "file4",
-    dNo: "4",
-    dateUploaded: "10/2/5",
-    file: "filehere",
-    type: "coverLetter",
-  },
-];
-
 export default function JobsPage() {
   const [jobs, setJobsToShow] = useState([]);
   const [resultsToShow, setResultsToShow] = useState([]);
   const [showApplyJob, setShowApplyJob] = useState(false);
   const [currJob, setCurrJob] = useState({});
-  const [documents, setDocuments] = useState(exampleDocuments);
+  const [documents, setDocuments] = useState([]);
   const [showAddDoc, setShowAddDoc] = useState(false);
   const [resume, setResume] = useState();
   const [coverLetter, setCoverLetter] = useState();
@@ -136,25 +105,30 @@ export default function JobsPage() {
   }
   
   function submitDocuments(resume, coverLetter){
-    console.log(resume);
-    let formData = new FormData();
-    formData.append("file", resume[0]);
-    Axios.post("http://127.0.0.1:5000/api/addUserDocument", formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-        token: localStorage.getItem("token"),
-        type: "resume",
-      }
-    })
-    let formData1 = new FormData();
-    formData1.append("file", coverLetter);
-    Axios.post("http://127.0.0.1:5000/api/addUserDocument", formData1, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-        token: localStorage.getItem("token"),
-        type: "coverLetter",
-      }
-    })
+    if(resume !== undefined){
+      let formData = new FormData();
+      formData.append("file", resume[0]);
+      Axios.post("http://127.0.0.1:5000/api/addUserDocument", formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          token: localStorage.getItem("token"),
+          type: "resume",
+        }
+      })
+    }
+
+    if(coverLetter !== undefined){
+      let formData1 = new FormData();
+      formData1.append("file", coverLetter[0]);
+      Axios.post("http://127.0.0.1:5000/api/addUserDocument", formData1, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          token: localStorage.getItem("token"),
+          type: "coverLetter",
+        }
+      })
+    }
+
     setShowAddDoc(false);
   }
 
