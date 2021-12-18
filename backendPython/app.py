@@ -10,7 +10,7 @@ app = Flask(__name__)
 
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'Whicket1'
+app.config['MYSQL_PASSWORD'] = ''
 app.config['MYSQL_DB'] = 'sweseek'
 app.config['SECRET_KEY'] = 'MySecretKey'
 app.config["CLIENT_pdfs"] = "C:/Users/Nick/Desktop/University/CPSC471/Project/SWESeek/backendPython/resumeStorage"
