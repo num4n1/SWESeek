@@ -289,20 +289,22 @@ VALUES
 
 DROP TABLE IF EXISTS USERDOCUMENTS;
 CREATE TABLE USERDOCUMENTS (
-	dNo						integer not null auto_increment,
+    dNo					integer not null auto_increment,
+    userName				varchar(25) not null,
     fileName				varchar(25) not null,
-    file					varchar(25) not null,
-    type					varchar(25) not null,
-    primary key(dNo)
+    file				varchar(25) not null,
+    type				varchar(25) not null,
+    primary key(dNo),
+    foreign key (username) references USERCREDENTIALS(userName) ON UPDATE CASCADE
 );
 
-INSERT INTO USERDOCUMENTS (fileName,file,type)
+INSERT INTO USERDOCUMENTS (userName,fileName,file,type)
 VALUES
-('file1','path1','pdf'),
-('file2','path2', 'pdf'),
-('file3','path3','png'),
-('file4','path4','pdf'),
-('file5','path5','pdf');
+('num4n','file1','path1','pdf'),
+('nick_knapton','file2','path2', 'pdf'),
+('num4n','file3','path3','png'),
+('zeeshansalim','file4','path4','pdf'),
+('nick_knapton','file5','path5','pdf');
 
 DROP TABLE IF EXISTS APPLIED;
 CREATE TABLE APPLIED (
@@ -318,9 +320,8 @@ INSERT INTO APPLIED (username,JobId,dNo)
 VALUES
 ('num4n',3,1),
 ('zeeshansalim',4,4),
-('nick_knapton',1,3),
-('zeeshansalim',2,5);
-
+('nick_knapton',1,2),
+('nick_knapton',2,5);
 
 
 
