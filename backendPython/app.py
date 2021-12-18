@@ -528,7 +528,25 @@ def getUserDocuments():
 
 @app.route('/api/getUsersWhoApplied', methods=['GET'])
 def getUsersWhoApplied():
-    pass
+    
+    @app.route('/api/getUsersWhoApplied', methods=['GET'])
+def getUsersWhoApplied():
+
+    token = request.args.get('token')
+    username = token.split(':')[0]  # gives username
+    JobID = request.args.get('JobID')
+
+    cur = mysql.connection.cursor()
+    cur.execute("""SELECT U.fileName,U.type 
+    FROM APPLIED AS A, USERDOCUMENTS AS U
+    WHERE A.username = %s AND  JobId = %s AND U.dNo = A.dNo""", (username,JobID))
+
+    rows = cur.fetchall()
+    list = []
+    for row in rows:
+        list.append({"file": row[0], "type": row[1]})
+
+    return jsonify(list), 200
 
 @app.route('/api/apply', methods=['POST'])
 def apply():
