@@ -8,7 +8,7 @@ app = Flask(__name__)
 
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'Whicket1'
+app.config['MYSQL_PASSWORD'] = ''
 app.config['MYSQL_DB'] = 'sweseek'
 app.config['SECRET_KEY'] = 'MySecretKey'
 
@@ -271,8 +271,7 @@ def removeJobFromList(): # correct
 @app.route('/api/addJobPosting', methods=['POST'])
 def addJobPosting(): # correct
 
-    token = request.json['token']
-    company = request.json['company']
+    company = request.json['token']
     position = request.json['position']
     startDate = request.json['startDate']
     link = request.json['link']
@@ -670,17 +669,20 @@ def deleteSavedPracticeResources():
 
 @app.route('/api/deleteJob', methods=['DELETE'])
 def deleteJob(): #correct
-
-    companyName = request.args.get('companyName')
+    companyName = request.args.get('token')
     position = request.args.get('position')
 
     cur = mysql.connection.cursor()
     result = cur.execute("""SELECT JobId FROM JOBS WHERE company =%s AND position =%s""",(companyName,position))
 
     if(result>0):
-
         jobID = cur.fetchall()[0][0]
+        
+        cur2 = mysql.connection.cursor()
+        cur2.execute("""DELETE FROM APPLIED WHERE JobId =%s""", (jobID,))
+
         cur1 = mysql.connection.cursor()
+        print(jobID)
         cur1.execute("""DELETE FROM JOBS WHERE JobId=%s""", (jobID,))
         mysql.connection.commit()
         cur1.close()
@@ -757,7 +759,26 @@ def signupcompany(): #correct
     mysql.connection.commit()
     cur.close()
 
-    return jsonify({'Status':'Request Successful'}), 200
+    return jsonify({'token':companyName}), 200
+
+@app.route('/api/employerLogin', methods=['GET'])
+def employerLogin(): #correct
+
+    username = request.args.get('username')
+    password = request.args.get('password')
+
+    cur = mysql.connection.cursor()
+    result = cur.execute("Select * FROM COMPANYCREDENTIALS")
+
+    if(result>0):
+
+        userDetails = cur.fetchall()
+        for user in userDetails:
+            if(user[2]==username and user[5]==password):
+                token = user[1]
+                return jsonify({'token':token}), 200
+
+    return jsonify({'error':'No valid account found!'}), 401
 
 
 if __name__ == "__main__":
