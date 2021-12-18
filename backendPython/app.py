@@ -509,13 +509,26 @@ def companyreviews(): #correct
 
 @app.route('/api/addUserDocument', methods=['POST'])
 def addUserDocument():
+
     if 'file' not in request.files:
-        print("no file")
+        return jsonify({'Error': 'No file has been passed!'}), 500
+
     else:
+        token = request.json['token']
+        username = token.split(':')[0]  # gives username
+        type = request.json['type']
         file = request.files['file']
-        with open(os.path.join(app.config["CLIENT_pdfs"], file.filename), "wb") as fp:
-            fp.write(file.read())
-    return jsonify(), 200
+        file.save(os.path.join(app.config["CLIENT_pdfs"], file.filename))
+        fileName = file.filename
+
+
+    cur = mysql.connection.cursor()
+    cur.execute("""INSERT INTO USERDOCUMENTS (username,fileName,type)
+    VALUES(%s,%s,%s)""", (username, fileName, type))
+    mysql.connection.commit()
+    cur.close()
+
+    return jsonify({'Status':'Request Successful'}), 200
 
 @app.route('/api/getUserDocuments', methods=['GET'])
 def getUserDocuments():
