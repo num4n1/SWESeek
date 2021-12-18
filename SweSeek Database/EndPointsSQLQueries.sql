@@ -1,3 +1,10 @@
+Endpoint 1:
+INSERT INTO USERCREDENTIALS(email,firstName,lastName,phoneNumber,username,password) 
+VALUES('jibran6@gmail.com','jibran','khan','2832389801','jbrn','jibn2193'); 
+
+Endpoint 2:
+Select * FROM USERCREDENTIALS WHERE username=’num4n’ AND password=’Numan1234’;
+
 Endpoint 3: #correct
 SELECT T.ListId, T.ListName
 FROM TRACKINGLIST AS T
