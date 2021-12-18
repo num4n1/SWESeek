@@ -292,19 +292,18 @@ CREATE TABLE USERDOCUMENTS (
     dNo					integer not null auto_increment,
     userName				varchar(25) not null,
     fileName				varchar(25) not null,
-    file				varchar(25) not null,
     type				varchar(25) not null,
     primary key(dNo),
     foreign key (username) references USERCREDENTIALS(userName) ON UPDATE CASCADE
 );
 
-INSERT INTO USERDOCUMENTS (userName,fileName,file,type)
+INSERT INTO USERDOCUMENTS (userName,fileName,type)
 VALUES
-('num4n','file1','path1','pdf'),
-('nick_knapton','file2','path2', 'pdf'),
-('num4n','file3','path3','png'),
-('zeeshansalim','file4','path4','pdf'),
-('nick_knapton','file5','path5','pdf');
+('num4n','file1','pdf'),
+('nick_knapton','file2', 'pdf'),
+('num4n','file3','png'),
+('zeeshansalim','file4','pdf'),
+('nick_knapton','file5','pdf');
 
 DROP TABLE IF EXISTS APPLIED;
 CREATE TABLE APPLIED (
