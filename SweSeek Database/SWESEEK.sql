@@ -287,13 +287,6 @@ CREATE TABLE USERDOCUMENTS (
     foreign key (username) references USERCREDENTIALS(userName) ON UPDATE CASCADE
 );
 
-INSERT INTO USERDOCUMENTS (userName,fileName,type)
-VALUES
-('num4n','file1','pdf'),
-('nick_knapton','file2', 'pdf'),
-('num4n','file3','png'),
-('zeeshansalim','file4','pdf'),
-('nick_knapton','file5','pdf');
 
 DROP TABLE IF EXISTS APPLIED;
 CREATE TABLE APPLIED (
@@ -305,9 +298,4 @@ CREATE TABLE APPLIED (
     foreign key (username) references USERCREDENTIALS(userName) ON UPDATE CASCADE,
     foreign key (dNo) references USERDOCUMENTS(dNo) ON UPDATE CASCADE
 );
-INSERT INTO APPLIED (username,JobId,dNo)
-VALUES
-('num4n',3,1),
-('zeeshansalim',4,4),
-('nick_knapton',1,2),
-('nick_knapton',2,5);
+
