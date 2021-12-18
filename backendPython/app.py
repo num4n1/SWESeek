@@ -525,11 +525,8 @@ def getUserDocuments():
     except FileNotFoundError:
         return jsonify(), 500
     
-
-@app.route('/api/getUsersWhoApplied', methods=['GET'])
-def getUsersWhoApplied():
     
-    @app.route('/api/getUsersWhoApplied', methods=['GET'])
+@app.route('/api/getUsersWhoApplied', methods=['GET'])
 def getUsersWhoApplied():
 
     token = request.args.get('token')
