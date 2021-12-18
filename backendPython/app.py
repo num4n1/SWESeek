@@ -1,6 +1,8 @@
-from flask import Flask, request, jsonify, make_response
+from flask import Flask, request, jsonify, make_response, send_from_directory, send_file
+import os
 from flask_mysqldb import MySQL
 from flask_cors import CORS
+from werkzeug.utils import send_from_directory
 import yaml
 import jwt, datetime
 
@@ -8,9 +10,11 @@ app = Flask(__name__)
 
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = ''
+app.config['MYSQL_PASSWORD'] = 'Whicket1'
 app.config['MYSQL_DB'] = 'sweseek'
 app.config['SECRET_KEY'] = 'MySecretKey'
+app.config["CLIENT_pdfs"] = "C:/Users/Nick/Desktop/University/CPSC471/Project/SWESeek/backendPython/resumeStorage"
+
 
 CORS(app)
 mysql = MySQL(app)
@@ -503,15 +507,24 @@ def companyreviews(): #correct
                      "year": row[5]})
     return jsonify(list), 200
 
-
 @app.route('/api/addUserDocument', methods=['POST'])
 def addUserDocument():
-    pass
-
+    if 'file' not in request.files:
+        print("no file")
+    else:
+        file = request.files['file']
+        with open(os.path.join(app.config["CLIENT_pdfs"], file.filename), "wb") as fp:
+            fp.write(file.read())
+    return jsonify(), 200
 
 @app.route('/api/getUserDocuments', methods=['GET'])
 def getUserDocuments():
-    pass
+    fileName = request.args.get('fileName')
+    try:
+        return send_from_directory(app.config["CLIENT_pdfs"], fileName, request.environ, as_attachment=True)
+    except FileNotFoundError:
+        return jsonify(), 500
+    
 
 @app.route('/api/getUsersWhoApplied', methods=['GET'])
 def getUsersWhoApplied():

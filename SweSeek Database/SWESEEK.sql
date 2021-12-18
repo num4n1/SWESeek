@@ -292,7 +292,7 @@ CREATE TABLE USERDOCUMENTS (
 	dNo						integer not null auto_increment,
     username				varchar(25) not null,
     fileName				varchar(25) not null,
-    file					varchar(25) not null,
+    file					BLOB not null,
     type					varchar(25) not null,
     primary key(dNo),
     foreign key (username) references USERCREDENTIALS(userName) ON UPDATE CASCADE

@@ -12,40 +12,12 @@ import {
 import { useEffect, useState } from "react";
 import Axios from "axios";
 
-const exampleJobsPosted = [
-  {
-    JobID: "1",
-    year: "2020",
-    month: "January",
-    day: "15",
-    title: "Software Developer",
-    description: "agjkagjegisoegjisgojeiojgseiogjseiogjeiojgsoiejgsegjio",
-    jobURL: "https://www.google.com",
-  },
-  {
-    JobID: "2",
-    year: "2020",
-    month: "January",
-    day: "15",
-    title: "Software Developer Intern",
-    description: "agjkagjegisoegjisgojeiojgseiogjseiogjeiojgsoiejgsegjio",
-    jobURL: "https://www.google.com",
-  },
-  {
-    JobID: "3",
-    year: "2020",
-    month: "January",
-    day: "15",
-    title: "Software Developer Manager",
-    description: "agjkagjegisoegjisgojeiojgseiogjseiogjeiojgsoiejgsegjio",
-    jobURL: "https://www.google.com",
-  },
-];
+
 
 export default function EmployerDashboardPage() {
   const companyName = localStorage.getItem("token");
   const [showAddJob, setShowAddJob] = useState(false);
-  const [jobs, setJobs] = useState(exampleJobsPosted);
+  const [jobs, setJobs] = useState([]);
   const [showApplicants, setShowApplicants] = useState(false);
   const [applicants, setApplicants] = useState();
 
