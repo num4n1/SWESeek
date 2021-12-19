@@ -6,7 +6,6 @@
 ![Flask](https://img.shields.io/badge/flask-%23000.svg?style=for-the-badge&logo=flask&logoColor=white)
 ![Postman](https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=Postman&logoColor=white)
 
-
 Final Report: https://docs.google.com/document/d/1ZfPcr0qd9JfwfSy9evFjaMGI0iQDI99Uj6QnABjf4v8/edit?usp=sharing
 
 API blueprint: https://docs.google.com/document/d/1f0E2IFWKJpyCwDqSWkeAMy-VrVE3pY0qMF_GdLFkSJM/edit?usp=sharing

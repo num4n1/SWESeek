@@ -1,0 +1,2443 @@
+{
+	"info": {
+		"_postman_id": "e26e2636-cb3b-4aa2-b914-a127fefcc26b",
+		"name": "SWEseek",
+		"description": "SWEseek API Documentation",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://127.0.0.1:5000/api/signupcompany",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"companyName\": String,\r\n    \"username\": String,\r\n    \"industry\": String,\r\n    \"size\": String,\r\n    \"password\": String\r\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/api/signupcompany",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"signupcompany"
+					]
+				},
+				"description": "Signs up a company for a company acount"
+			},
+			"response": [
+				{
+					"name": "http://127.0.0.1:5000/api/signupcompany",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"companyName\": \"Replicon\",\r\n    \"username\": \"RP\",\r\n    \"industry\": \"Tech\",\r\n    \"size\": \"Medium\",\r\n    \"password\": \"1234\"\r\n}"
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/api/signupcompany",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"signupcompany"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "26"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Server",
+							"value": "Werkzeug/2.0.2 Python/3.9.6"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 19 Dec 2021 01:42:23 GMT"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"token\": \"Replicon\"\n}"
+				}
+			]
+		},
+		{
+			"name": "http://127.0.0.1:5000/api/signup",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": String,\r\n    \"firstName\": String,\r\n    \"lastName\": String,\r\n    \"phoneNumber\": String,\r\n    \"username\": String,\r\n    \"password\": String\r\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/api/signup",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"signup"
+					]
+				},
+				"description": "Signs up a user for an account"
+			},
+			"response": [
+				{
+					"name": "http://127.0.0.1:5000/api/signup",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"hamdaan@ucalgary.ca\",\r\n    \"firstName\": \"hamdaan\",\r\n    \"lastName\": \"younus\",\r\n    \"phoneNumber\": \"+8255615201\",\r\n    \"username\": \"hamdaan1234\",\r\n    \"password\": \"1234\"\r\n}"
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/api/signup",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"signup"
+							]
+						}
+					},
+					"status": "CREATED",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "34"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Server",
+							"value": "Werkzeug/2.0.2 Python/3.9.6"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 19 Dec 2021 01:44:38 GMT"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"token\": \"hamdaan1234:1234\"\n}"
+				}
+			]
+		},
+		{
+			"name": "http://127.0.0.1:5000/api/login?email=hamdaan@ucalgary.ca&password=1234",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/api/login?email=hamdaan@ucalgary.ca&password=1234",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"login"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "hamdaan@ucalgary.ca",
+							"description": "String"
+						},
+						{
+							"key": "password",
+							"value": "1234",
+							"description": "String"
+						}
+					]
+				},
+				"description": "Logs a user in"
+			},
+			"response": [
+				{
+					"name": "http://127.0.0.1:5000/api/login?email=hamdaan@ucalgary.ca&password=1234",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5000/api/login?email=hamdaan@ucalgary.ca&password=1234",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"login"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "hamdaan@ucalgary.ca"
+								},
+								{
+									"key": "password",
+									"value": "1234"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "34"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Server",
+							"value": "Werkzeug/2.0.2 Python/3.9.6"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 19 Dec 2021 01:45:22 GMT"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"token\": \"hamdaan1234:1234\"\n}"
+				}
+			]
+		},
+		{
+			"name": "http://127.0.0.1:5000/api/getLists?token=hamdaan1234:1234",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/api/getLists?token=nick_knapton:software1234",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"getLists"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "nick_knapton:software1234",
+							"description": "String"
+						}
+					]
+				},
+				"description": "Gets all a users lists"
+			},
+			"response": [
+				{
+					"name": "http://127.0.0.1:5000/api/getLists?token=hamdaan1234:1234",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5000/api/getLists?token=nick_knapton:software1234",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"getLists"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "nick_knapton:software1234"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "490"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Server",
+							"value": "Werkzeug/2.0.2 Python/3.9.6"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 19 Dec 2021 01:47:24 GMT"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"jobs\": [\n            {\n                \"applicationDate\": \"01-01-2022\",\n                \"applicationStatus\": \"Offer\",\n                \"companyName\": \"Amazon\",\n                \"description\": \"Excited by High Scale Distributed Systems and Personalization? Interested in working on complex problems and high impact projects?\",\n                \"id\": 1,\n                \"link\": \"amazoncareers.ca\",\n                \"position\": \"Back-End\",\n                \"startDate\": \"01-01-2021\"\n            }\n        ],\n        \"listID\": 1,\n        \"listName\": \"Back-End\"\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "http://127.0.0.1:5000/api/getTrackingList?token=hamdaan1234:1234&listName=Front-End",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/api/getTrackingList?token=nick_knapton:software1234&listName=Back-End",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"getTrackingList"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "nick_knapton:software1234",
+							"description": "String"
+						},
+						{
+							"key": "listName",
+							"value": "Back-End",
+							"description": "String"
+						}
+					]
+				},
+				"description": "Gets a particular tracking list of the passed user"
+			},
+			"response": [
+				{
+					"name": "http://127.0.0.1:5000/api/getTrackingList?token=hamdaan1234:1234&listName=Front-End",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5000/api/getTrackingList?token=nick_knapton:software1234&listName=Back-End",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"getTrackingList"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "nick_knapton:software1234"
+								},
+								{
+									"key": "listName",
+									"value": "Back-End"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "490"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Server",
+							"value": "Werkzeug/2.0.2 Python/3.9.6"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 19 Dec 2021 01:48:44 GMT"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"jobs\": [\n            {\n                \"applicationDate\": \"01-01-2022\",\n                \"applicationStatus\": \"Offer\",\n                \"companyName\": \"Amazon\",\n                \"description\": \"Excited by High Scale Distributed Systems and Personalization? Interested in working on complex problems and high impact projects?\",\n                \"id\": 1,\n                \"link\": \"amazoncareers.ca\",\n                \"position\": \"Back-End\",\n                \"startDate\": \"01-01-2021\"\n            }\n        ],\n        \"listID\": 1,\n        \"listName\": \"Back-End\"\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "http://127.0.0.1:5000/api/updateTrackingList",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"token\": String,\r\n    \"listName\": String,\r\n    \"listId\": String,\r\n    \"jobId\": String,\r\n    \"applicationStatus\": String\r\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/api/updateTrackingList",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"updateTrackingList"
+					]
+				},
+				"description": "Puts a specific tracking list that the user owns with a change in a jobs Status."
+			},
+			"response": [
+				{
+					"name": "http://127.0.0.1:5000/api/updateTrackingList",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"token\": \"nick_knapton:software1234\",\r\n    \"listName\": \"Back-End\",\r\n    \"listId\": \"1\",\r\n    \"jobId\": \"1\",\r\n    \"applicationStatus\": \"Interview\"\r\n}"
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/api/updateTrackingList",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"updateTrackingList"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "37"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Server",
+							"value": "Werkzeug/2.0.2 Python/3.9.6"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 19 Dec 2021 01:51:55 GMT"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"Status\": \"Request Successful\"\n}"
+				}
+			]
+		},
+		{
+			"name": "http://127.0.0.1:5000/api/addList",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"token\": String,\r\n    \"listName\": String\r\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/api/addList",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"addList"
+					]
+				},
+				"description": "Adds a tracking list to the users account."
+			},
+			"response": [
+				{
+					"name": "http://127.0.0.1:5000/api/addList",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"token\": \"nick_knapton:software1234\",\r\n    \"listName\": \"Front-End\"\r\n}"
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/api/addList",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"addList"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "18"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Server",
+							"value": "Werkzeug/2.0.2 Python/3.9.6"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 19 Dec 2021 01:52:13 GMT"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"listID\": 2\n}"
+				}
+			]
+		},
+		{
+			"name": "http://127.0.0.1:5000/api/addJobToTrack",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"token\": String,\r\n    \"companyName\": String,\r\n    \"position\": String,\r\n    \"startDate\": String,\r\n    \"link\": String,\r\n    \"description\": String,\r\n    \"listName\": String,\r\n    \"listId\": String,\r\n    \"applicationStatus\": String,\r\n    \"applicationDate\": String\r\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/api/addJobToTrack",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"addJobToTrack"
+					]
+				},
+				"description": "Adds a job to a users tracking list."
+			},
+			"response": [
+				{
+					"name": "http://127.0.0.1:5000/api/addJobToTrack",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"token\": \"nick_knapton:software1234\",\r\n    \"companyName\": \"Amazon\",\r\n    \"position\": \"CEO\",\r\n    \"startDate\": \"10-10-1999\",\r\n    \"link\": \"amazon.ca\",\r\n    \"description\": \"Ceo of the company\",\r\n    \"listName\": \"Front-End\",\r\n    \"listId\": \"1\",\r\n    \"applicationStatus\": \"Hired\",\r\n    \"applicationDate\": \"10-10-2000\"\r\n}"
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/api/addJobToTrack",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"addJobToTrack"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "37"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Server",
+							"value": "Werkzeug/2.0.2 Python/3.9.6"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 19 Dec 2021 01:52:48 GMT"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"Status\": \"Request Successful\"\n}"
+				}
+			]
+		},
+		{
+			"name": "http://127.0.0.1:5000/api/removeJobFromList?token=hamdaan1234:1234&listId=1",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/api/removeJobFromList?token=nick_knapton:software1234&listId=1",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"removeJobFromList"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "nick_knapton:software1234",
+							"description": "String"
+						},
+						{
+							"key": "listId",
+							"value": "1",
+							"description": "String"
+						}
+					]
+				},
+				"description": "Removes a job from users tracking list"
+			},
+			"response": [
+				{
+					"name": "http://127.0.0.1:5000/api/removeJobFromList?token=hamdaan1234:1234&listId=1",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5000/api/removeJobFromList?token=nick_knapton:software1234&listId=1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"removeJobFromList"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "nick_knapton:software1234",
+									"description": "String"
+								},
+								{
+									"key": "listId",
+									"value": "1",
+									"description": "String"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "37"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Server",
+							"value": "Werkzeug/2.0.2 Python/3.9.6"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 19 Dec 2021 01:54:23 GMT"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"Status\": \"Request Successful\"\n}"
+				}
+			]
+		},
+		{
+			"name": "http://127.0.0.1:5000/api/addJobPosting",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"token\": String,\r\n    \"position\": String,\r\n    \"startDate\": String,\r\n    \"link\": String,\r\n    \"description\": String\r\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/api/addJobPosting",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"addJobPosting"
+					]
+				},
+				"description": "Adds a job to the job page."
+			},
+			"response": [
+				{
+					"name": "http://127.0.0.1:5000/api/addJobPosting",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"token\": \"Amazon\",\r\n    \"position\": \"CEO\",\r\n    \"startDate\": \"10-10-1999\",\r\n    \"link\": \"amazon.ca\",\r\n    \"description\": \"Ceo of the company\"\r\n}"
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/api/addJobPosting",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"addJobPosting"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "18"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Server",
+							"value": "Werkzeug/2.0.2 Python/3.9.6"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 19 Dec 2021 01:59:28 GMT"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"jobID\": 13\n}"
+				}
+			]
+		},
+		{
+			"name": "http://127.0.0.1:5000/api/jobPosting",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/api/jobPostings",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"jobPostings"
+					]
+				},
+				"description": "Gets all job postings"
+			},
+			"response": [
+				{
+					"name": "http://127.0.0.1:5000/api/jobPosting",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5000/api/jobPostings",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"jobPostings"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "4686"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Server",
+							"value": "Werkzeug/2.0.2 Python/3.9.6"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 19 Dec 2021 02:00:44 GMT"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"company\": \"Google\",\n        \"companySize\": \"Large\",\n        \"description\": \"As a Software Developer in Augmented Reality (AR) Experience Fundamentals, you will build user-facing AR experiences for phones and next-generation devices. You will work closely with other engineers and in cross-functional teams including UX.\",\n        \"id\": 2,\n        \"industry\": \"Technology\",\n        \"link\": \"https://www.careersgoogle.com\",\n        \"position\": \"Front-End\"\n    },\n    {\n        \"company\": \"IBM\",\n        \"companySize\": \"Large\",\n        \"description\": \"DevOps speeds delivery of higher quality software by combining and automating the work of software development and IT operations teams.\",\n        \"id\": 3,\n        \"industry\": \"Computer-Hardware\",\n        \"link\": \"https://www.ibmrecruitment.ca\",\n        \"position\": \"Devops\"\n    },\n    {\n        \"company\": \"Tesla\",\n        \"companySize\": \"Large\",\n        \"description\": \"Teslas Autopilot Machine Learning team is currently seeking a software engineer to design and build an internal web service and database for command and control of a custom ML training accelerator (DOJO).\",\n        \"id\": 4,\n        \"industry\": \"Vehicle Manufacturer\",\n        \"link\": \"https://www.teslahires.com\",\n        \"position\": \"Machine Learning\"\n    },\n    {\n        \"company\": \"Microsoft\",\n        \"companySize\": \"Large\",\n        \"description\": \"Our backend engineers develop the core Yammer services that power all our experiences. As a social networking product, Yammer has tons of interesting engineering challenges.\",\n        \"id\": 5,\n        \"industry\": \"Technology\",\n        \"link\": \"https://www.microsoftjobs.com\",\n        \"position\": \"Back-End\"\n    },\n    {\n        \"company\": \"Microsoft\",\n        \"companySize\": \"Large\",\n        \"description\": \"The Microsoft Start team is looking for self-motivated and experienced Frontend Engineers to build the best personalized content feed system to connect 1B+ users with the most engaging, informative, and inspiring content they care about.\",\n        \"id\": 5,\n        \"industry\": \"Technology\",\n        \"link\": \"https://www.microsoftjobs.com\",\n        \"position\": \"Front-End\"\n    },\n    {\n        \"company\": \"Microsoft\",\n        \"companySize\": \"Large\",\n        \"description\": \"Microsoft 365 Modern Workplace Transformation Insight (M365 MWT-Insight or Viva Insight) helps people and businesses thrive with insights, recommendations and solutions that are integrated into Microsoft Teams and Outlook to improve productivity.\",\n        \"id\": 5,\n        \"industry\": \"Technology\",\n        \"link\": \"https://www.microsoftjobs.com\",\n        \"position\": \"Full-Stack\"\n    },\n    {\n        \"company\": \"Facebook\",\n        \"companySize\": \"Large\",\n        \"description\": \"We are the teams who create all of Facebooks products used by billions of people around the world. Want to build new features and improve existing products like Messenger, Video, Groups, News Feed, Search and more.\",\n        \"id\": 6,\n        \"industry\": \"Technology\",\n        \"link\": \"https://www.facebookjobs.com\",\n        \"position\": \"Full-Stack\"\n    },\n    {\n        \"company\": \"Apple\",\n        \"companySize\": \"Large\",\n        \"description\": \"App Store Connect is looking for a hardworking UI Engineer that is responsible for implementing and maintaining online tools. Candidates must be able to build web pages from design comps to pixel perfect pages.\",\n        \"id\": 7,\n        \"industry\": \"Technology\",\n        \"link\": \"https://www.applejobs.com\",\n        \"position\": \"Product Designer\"\n    },\n    {\n        \"company\": \"Netflix\",\n        \"companySize\": \"Medium\",\n        \"description\": \"The Platform Engineering  team at Netflix is aimed at improving various aspects of our business.  The team is dedicated to providing information and tools to our colleagues so that we can make decisions on how to bring the most joy to our subscribers.\",\n        \"id\": 8,\n        \"industry\": \"Streaming\",\n        \"link\": \"https://www.netflixjobs.com\",\n        \"position\": \"Back End\"\n    },\n    {\n        \"company\": \"Twitch\",\n        \"companySize\": \"Large\",\n        \"description\": \"As part of the Interactivity team, reporting to the Director of Software Engineering, you will support a product roadmap of new features that help connect live broadcasters and audiences. You will be developing client libraries and SDKs for AWS.\",\n        \"id\": 9,\n        \"industry\": \"Technology\",\n        \"link\": \"https://www.twitchjobs.com\",\n        \"position\": \"API Development\"\n    },\n    {\n        \"company\": \"Amazon\",\n        \"companySize\": \"Large\",\n        \"description\": \"C++, React\",\n        \"id\": 1,\n        \"industry\": \"E-commerce\",\n        \"link\": \"https://www.amazoncareers.com\",\n        \"position\": \"Fullstack\"\n    },\n    {\n        \"company\": \"Amazon\",\n        \"companySize\": \"Large\",\n        \"description\": \"Ceo of the company\",\n        \"id\": 1,\n        \"industry\": \"E-commerce\",\n        \"link\": \"amazon.ca\",\n        \"position\": \"CEO\"\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "http://127.0.0.1:5000/api/summarizedPopularSalaryInfo",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/api/summarizedPopularSalaryInfo",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"summarizedPopularSalaryInfo"
+					]
+				},
+				"description": "Gets summarized popular salary information (Average of all salaries reported) for popular companies default set to FAANG companies : \\[Facebook, Amazon, Apple, Netflix, Google\\]."
+			},
+			"response": [
+				{
+					"name": "http://127.0.0.1:5000/api/summarizedPopularSalaryInfo",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5000/api/summarizedPopularSalaryInfo",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"summarizedPopularSalaryInfo"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "1069"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Server",
+							"value": "Werkzeug/2.0.2 Python/3.9.6"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 19 Dec 2021 02:01:10 GMT"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"company\": \"Facebook\",\n        \"companySize\": \"Large\",\n        \"industry\": \"Technology\",\n        \"payInfo\": [\n            {\n                \"position\": \"Front-End\",\n                \"totalComp\": 98000\n            }\n        ]\n    },\n    {\n        \"company\": \"Amazon\",\n        \"companySize\": \"Large\",\n        \"industry\": \"E-commerce\",\n        \"payInfo\": [\n            {\n                \"position\": \"Back-End\",\n                \"totalComp\": 127500\n            },\n            {\n                \"position\": \"Intern\",\n                \"totalComp\": 100000\n            }\n        ]\n    },\n    {\n        \"company\": \"Apple\",\n        \"companySize\": \"Large\",\n        \"industry\": \"Technology\",\n        \"payInfo\": [\n            {\n                \"position\": \"AI\",\n                \"totalComp\": 112000\n            }\n        ]\n    },\n    {\n        \"company\": \"Netflix\",\n        \"companySize\": \"Medium\",\n        \"industry\": \"Streaming\",\n        \"payInfo\": [\n            {\n                \"position\": \"Front-End\",\n                \"totalComp\": 200000\n            }\n        ]\n    },\n    {\n        \"company\": \"Google\",\n        \"companySize\": \"Large\",\n        \"industry\": \"Technology\",\n        \"payInfo\": [\n            {\n                \"position\": \"Front-End\",\n                \"totalComp\": 120000\n            }\n        ]\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "http://127.0.0.1:5000/api/summerizedSalaryInfo",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/api/summerizedSalaryInfo",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"summerizedSalaryInfo"
+					]
+				},
+				"description": "Gets summarized salary information (Average of all salaries reported) for all companies."
+			},
+			"response": [
+				{
+					"name": "http://127.0.0.1:5000/api/summerizedSalaryInfo",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5000/api/summerizedSalaryInfo",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"summerizedSalaryInfo"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "2157"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Server",
+							"value": "Werkzeug/2.0.2 Python/3.9.6"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 19 Dec 2021 02:01:17 GMT"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"company\": \"Facebook\",\n        \"companySize\": \"Large\",\n        \"industry\": \"Technology\",\n        \"payInfo\": [\n            {\n                \"position\": \"Front-End\",\n                \"totalComp\": 98000\n            }\n        ]\n    },\n    {\n        \"company\": \"Amazon\",\n        \"companySize\": \"Large\",\n        \"industry\": \"E-commerce\",\n        \"payInfo\": [\n            {\n                \"position\": \"Back-End\",\n                \"totalComp\": 127500\n            },\n            {\n                \"position\": \"Intern\",\n                \"totalComp\": 100000\n            }\n        ]\n    },\n    {\n        \"company\": \"Microsoft\",\n        \"companySize\": \"Large\",\n        \"industry\": \"Technology\",\n        \"payInfo\": [\n            {\n                \"position\": \"Back-End\",\n                \"totalComp\": 111000\n            },\n            {\n                \"position\": \"Front-End\",\n                \"totalComp\": 89800\n            },\n            {\n                \"position\": \"UI\",\n                \"totalComp\": 67000\n            }\n        ]\n    },\n    {\n        \"company\": \"Apple\",\n        \"companySize\": \"Large\",\n        \"industry\": \"Technology\",\n        \"payInfo\": [\n            {\n                \"position\": \"AI\",\n                \"totalComp\": 112000\n            }\n        ]\n    },\n    {\n        \"company\": \"Netflix\",\n        \"companySize\": \"Medium\",\n        \"industry\": \"Streaming\",\n        \"payInfo\": [\n            {\n                \"position\": \"Front-End\",\n                \"totalComp\": 200000\n            }\n        ]\n    },\n    {\n        \"company\": \"General Motors\",\n        \"companySize\": \"Large\",\n        \"industry\": \"Technology\",\n        \"payInfo\": []\n    },\n    {\n        \"company\": \"Tesla\",\n        \"companySize\": \"Large\",\n        \"industry\": \"Vehicle Manufacturer\",\n        \"payInfo\": [\n            {\n                \"position\": \"Machine Learning\",\n                \"totalComp\": 100000\n            }\n        ]\n    },\n    {\n        \"company\": \"IBM\",\n        \"companySize\": \"Large\",\n        \"industry\": \"Computer-Hardware\",\n        \"payInfo\": [\n            {\n                \"position\": \"Devops\",\n                \"totalComp\": 70000\n            }\n        ]\n    },\n    {\n        \"company\": \"Twitch\",\n        \"companySize\": \"Large\",\n        \"industry\": \"Technology\",\n        \"payInfo\": [\n            {\n                \"position\": \"API Dev\",\n                \"totalComp\": 89800\n            }\n        ]\n    },\n    {\n        \"company\": \"Google\",\n        \"companySize\": \"Large\",\n        \"industry\": \"Technology\",\n        \"payInfo\": [\n            {\n                \"position\": \"Front-End\",\n                \"totalComp\": 120000\n            }\n        ]\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "http://127.0.0.1:5000/api/addSalary",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"company\": String,\r\n    \"companySize\": String,\r\n    \"role\": String,\r\n    \"totalComp\": String\r\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/api/addSalary",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"addSalary"
+					]
+				},
+				"description": "Adds new salary info for the provided company and position/role."
+			},
+			"response": [
+				{
+					"name": "http://127.0.0.1:5000/api/addSalary",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"company\": \"Amazon\",\r\n    \"companySize\": \"Large\",\r\n    \"role\": \"Front-End\",\r\n    \"totalComp\": \"100000\"\r\n}"
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/api/addSalary",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"addSalary"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "37"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Server",
+							"value": "Werkzeug/2.0.2 Python/3.9.6"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 19 Dec 2021 02:01:29 GMT"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"Status\": \"Request Successful\"\n}"
+				}
+			]
+		},
+		{
+			"name": "http://127.0.0.1:5000/api/learningResources",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/api/learningResources",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"learningResources"
+					]
+				},
+				"description": "Gets all learning resources."
+			},
+			"response": [
+				{
+					"name": "http://127.0.0.1:5000/api/learningResources",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5000/api/learningResources",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"learningResources"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "1041"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Server",
+							"value": "Werkzeug/2.0.2 Python/3.9.6"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 19 Dec 2021 02:02:06 GMT"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"link\": \"https://www.youtube.com/watch?v=UB1O30fR-EE\",\n        \"rId\": 6,\n        \"tags\": [\n            \"#frontend\"\n        ],\n        \"topic\": \"HTML crash course\"\n    },\n    {\n        \"link\": \"https://www.youtube.com/watch?v=JJmcL1N2KQs&t=284s\",\n        \"rId\": 1,\n        \"tags\": [\n            \"#coding\",\n            \"#compsci\"\n        ],\n        \"topic\": \"Python Beginner Crash Course\"\n    },\n    {\n        \"link\": \"https://www.youtube.com/watch?v=vtPkZShrvXQ&t=5650s\",\n        \"rId\": 3,\n        \"tags\": [\n            \"#java\"\n        ],\n        \"topic\": \"Java Springboot\"\n    },\n    {\n        \"link\": \"https://www.youtube.com/watch?v=vtPkZShrvXQ&t=5650s\",\n        \"rId\": 4,\n        \"tags\": [\n            \"#c++\",\n            \"#challenge\",\n            \"#coding\"\n        ],\n        \"topic\": \"C++ coding challenge\"\n    },\n    {\n        \"link\": \"https://www.youtube.com/watch?v=7S_tz1z_5bA\",\n        \"rId\": 2,\n        \"tags\": [\n            \"#coding\",\n            \"#compsci\"\n        ],\n        \"topic\": \"MySQL tutorial\"\n    },\n    {\n        \"link\": \"https://www.youtube.com/watch?v=I-k-iTUMQAY\",\n        \"rId\": 5,\n        \"tags\": [\n            \"#java\"\n        ],\n        \"topic\": \"Basics of coding\"\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "http://127.0.0.1:5000/api/exampleQuestionResources",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/api/exampleQuestionResources",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"exampleQuestionResources"
+					]
+				},
+				"description": "Gets all question resources in the database."
+			},
+			"response": [
+				{
+					"name": "http://127.0.0.1:5000/api/exampleQuestionResources",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5000/api/exampleQuestionResources",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"exampleQuestionResources"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "1826"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Server",
+							"value": "Werkzeug/2.0.2 Python/3.9.6"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 19 Dec 2021 02:02:13 GMT"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"qId\": 2,\n        \"qPrompt\": \"Given the head of a singly linked list, reverse the list, and return the reversed list.\",\n        \"questionNum\": \"Reverse Linked List\",\n        \"solutionVideo\": {\n            \"description\": \"How to Reverse a Linked List\",\n            \"link\": \"https://www.youtube.com/watch?v=NhapasNIKuQ&t=76s\"\n        },\n        \"tags\": [\n            \"#leetcode easy\",\n            \"#LinkedList\"\n        ]\n    },\n    {\n        \"qId\": 1,\n        \"qPrompt\": \"Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target. You may assume that each input would have exactly one solution, and you may not use the same element twice.\",\n        \"questionNum\": \"Two Sum\",\n        \"solutionVideo\": {\n            \"description\": \"How to solve Two Sum\",\n            \"link\": \"https://www.youtube.com/watch?v=BoHO04xVeU0\"\n        },\n        \"tags\": [\n            \"#Arrays\",\n            \"#leetcode easy\"\n        ]\n    },\n    {\n        \"qId\": 4,\n        \"qPrompt\": \"Given a string s, find the length of the longest substring without repeating characters.\",\n        \"questionNum\": \"Longest Substring w/o Repeating Characters\",\n        \"solutionVideo\": {\n            \"description\": \"Learn to solve longest Substring\",\n            \"link\": \"https://www.youtube.com/watch?v=3IETreEybaA\"\n        },\n        \"tags\": [\n            \"#leetcode medium\",\n            \"#Strings\"\n        ]\n    },\n    {\n        \"qId\": 3,\n        \"qPrompt\": \"Given an m x n 2D binary grid grid which represents a map of 1s [land] and 0s (water), return the number of islands. An island is surrounded by water and is formed by connecting adjacent lands horizontally or vertically.\",\n        \"questionNum\": \"Number of Islands\",\n        \"solutionVideo\": {\n            \"description\": \"Learn to solve Number of Islands\",\n            \"link\": \"https://www.youtube.com/watch?v=U6-X_QOwPcs\"\n        },\n        \"tags\": [\n            \"#Graphs\",\n            \"#leetcode mediun\"\n        ]\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "http://127.0.0.1:5000/api/companyreviews?companyName=Amazon",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/api/companyreviews?companyName=Amazon",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"companyreviews"
+					],
+					"query": [
+						{
+							"key": "companyName",
+							"value": "Amazon",
+							"description": "String"
+						}
+					]
+				},
+				"description": "Gets all company reviews for the passed company"
+			},
+			"response": [
+				{
+					"name": "http://127.0.0.1:5000/api/companyreviews?companyName=Amazon",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5000/api/companyreviews?companyName=Amazon",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"companyreviews"
+							],
+							"query": [
+								{
+									"key": "companyName",
+									"value": "Amazon"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "166"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Server",
+							"value": "Werkzeug/2.0.2 Python/3.9.6"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 19 Dec 2021 02:02:55 GMT"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"companyName\": \"Amazon\",\n        \"day\": \"3\",\n        \"month\": \"January\",\n        \"review\": \"Satisfactory\",\n        \"title\": \"Product Review\",\n        \"year\": \"2021\"\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "http://127.0.0.1:5000/api/getUsersWhoApplied?token=zeeshansalim:1234&jobID:1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/api/getUsersWhoApplied?token=Google&JobID=2",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"getUsersWhoApplied"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "Google",
+							"description": "String"
+						},
+						{
+							"key": "JobID",
+							"value": "2",
+							"description": "Integer"
+						}
+					]
+				},
+				"description": "Gets all documents of users who applied for the specific job whose jobID is passed"
+			},
+			"response": [
+				{
+					"name": "http://127.0.0.1:5000/api/getUsersWhoApplied?token=zeeshansalim:1234&jobID:1",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5000/api/getUsersWhoApplied?token=Google&JobID=2",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"getUsersWhoApplied"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "Google"
+								},
+								{
+									"key": "JobID",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "295"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Server",
+							"value": "Werkzeug/2.0.2 Python/3.9.6"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 19 Dec 2021 02:05:05 GMT"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"fileName\": \"NicholasKnapton.pdf\",\n        \"type\": \"resume\",\n        \"user\": \"nick_knapton\"\n    },\n    {\n        \"fileName\": \"Cover Letter.pdf\",\n        \"type\": \"coverLetter\",\n        \"user\": \"nick_knapton\"\n    },\n    {\n        \"fileName\": \"Resume.pdf\",\n        \"type\": \"resume\",\n        \"user\": \"zeeshansalim\"\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "http://127.0.0.1:5000/api/apply",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"token\": String,\r\n    \"JobID\": String,\r\n    \"dNo\": String\r\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/api/apply",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"apply"
+					]
+				},
+				"description": "Applied user for the job whose jobID is provided"
+			},
+			"response": [
+				{
+					"name": "http://127.0.0.1:5000/api/apply",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"token\": \"nick_knapton:software1234\",\r\n    \"JobID\": \"4\",\r\n    \"dNo\": \"3\"\r\n}"
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/api/apply",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"apply"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "37"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Server",
+							"value": "Werkzeug/2.0.2 Python/3.9.6"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 19 Dec 2021 02:06:44 GMT"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"Status\": \"Request Successful\"\n}"
+				}
+			]
+		},
+		{
+			"name": "http://127.0.0.1:5000/api/savedResource?token=zeeshansalim:1234",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/api/savedResources?token=zeeshansalim:1234",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"savedResources"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "zeeshansalim:1234",
+							"description": "String"
+						}
+					]
+				},
+				"description": "Gets users saved learning resources."
+			},
+			"response": [
+				{
+					"name": "http://127.0.0.1:5000/api/savedResource?token=zeeshansalim:1234",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5000/api/savedResources?token=zeeshansalim:1234",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"savedResources"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "zeeshansalim:1234"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "315"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Server",
+							"value": "Werkzeug/2.0.2 Python/3.9.6"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 19 Dec 2021 02:07:20 GMT"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"link\": \"https://www.youtube.com/watch?v=I-k-iTUMQAY\",\n        \"rId\": 5,\n        \"tags\": [\n            \"#java\"\n        ],\n        \"topic\": \"Basics of coding\"\n    },\n    {\n        \"link\": \"https://www.youtube.com/watch?v=vtPkZShrvXQ&t=5650s\",\n        \"rId\": 3,\n        \"tags\": [\n            \"#java\"\n        ],\n        \"topic\": \"Java Springboot\"\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "http://127.0.0.1:5000/api/setSavedLearningResources",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"token\": String,\r\n    \"id\": String\r\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/api/setSavedLearningResources",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"setSavedLearningResources"
+					]
+				},
+				"description": "Adds a resource to users **saved** **learning** resources."
+			},
+			"response": [
+				{
+					"name": "http://127.0.0.1:5000/api/setSavedLearningResources",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"token\": \"zeeshansalim:1234\",\r\n    \"id\": \"1\"\r\n}"
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/api/setSavedLearningResources",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"setSavedLearningResources"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "37"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Server",
+							"value": "Werkzeug/2.0.2 Python/3.9.6"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 19 Dec 2021 02:07:39 GMT"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"Status\": \"Request Successful\"\n}"
+				}
+			]
+		},
+		{
+			"name": "http://127.0.0.1:5000/api/deleteSavedResources?token=zeeshansalim:1234&token=1",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/api/deleteSavedResources?token=zeeshansalim:1234&id=1",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"deleteSavedResources"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "zeeshansalim:1234",
+							"description": "String"
+						},
+						{
+							"key": "id",
+							"value": "1",
+							"description": "String"
+						}
+					]
+				},
+				"description": "Deletes a users saved learning resource."
+			},
+			"response": [
+				{
+					"name": "http://127.0.0.1:5000/api/deleteSavedResources?token=zeeshansalim:1234&token=1",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5000/api/deleteSavedResources?token=zeeshansalim:1234&id=1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"deleteSavedResources"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "zeeshansalim:1234",
+									"description": "String"
+								},
+								{
+									"key": "id",
+									"value": "1",
+									"description": "String"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "37"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Server",
+							"value": "Werkzeug/2.0.2 Python/3.9.6"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 19 Dec 2021 02:08:21 GMT"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"Status\": \"Request Successful\"\n}"
+				}
+			]
+		},
+		{
+			"name": "http://127.0.0.1:5000/api/savedPracticeResources?token=zeeshansalim:1234",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/api/savedPracticeResources?token=nick_knapton:software1234",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"savedPracticeResources"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "nick_knapton:software1234",
+							"description": "String"
+						}
+					]
+				},
+				"description": "Gets all practice question resources of a particular user."
+			},
+			"response": [
+				{
+					"name": "http://127.0.0.1:5000/api/savedPracticeResources?token=zeeshansalim:1234",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5000/api/savedPracticeResources?token=nick_knapton:software1234",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"savedPracticeResources"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "nick_knapton:software1234",
+									"description": "String"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "393"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Server",
+							"value": "Werkzeug/2.0.2 Python/3.9.6"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 19 Dec 2021 02:08:56 GMT"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"qId\": 2,\n        \"qPrompt\": \"Given the head of a singly linked list, reverse the list, and return the reversed list.\",\n        \"questionNum\": \"Reverse Linked List\",\n        \"solutionVideo\": {\n            \"description\": \"How to Reverse a Linked List\",\n            \"link\": \"https://www.youtube.com/watch?v=NhapasNIKuQ&t=76s\"\n        },\n        \"tags\": [\n            \"#leetcode easy\",\n            \"#LinkedList\"\n        ]\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "http://127.0.0.1:5000/api/setSavedPracticeResources",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"token\": String,\r\n    \"id\": Integer\r\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/api/setSavedPracticeResources",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"setSavedPracticeResources"
+					]
+				},
+				"description": "Adds question to users saved **practice question** resources"
+			},
+			"response": [
+				{
+					"name": "http://127.0.0.1:5000/api/setSavedPracticeResources",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"token\": \"zeeshansalim:1234\",\r\n    \"id\":1\r\n}"
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/api/setSavedPracticeResources",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"setSavedPracticeResources"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "37"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Server",
+							"value": "Werkzeug/2.0.2 Python/3.9.6"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 19 Dec 2021 02:09:27 GMT"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"Status\": \"Request Successful\"\n}"
+				}
+			]
+		},
+		{
+			"name": "http://127.0.0.1:5000/api/deleteSavedResources?token=zeeshansalim:1234&id=1",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/api/deleteSavedResources?token=zeeshansalim:1234&id=1",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"deleteSavedResources"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "zeeshansalim:1234",
+							"description": "String"
+						},
+						{
+							"key": "id",
+							"value": "1",
+							"description": "Integer"
+						}
+					]
+				},
+				"description": "Removes question from users saved **practice question** resources"
+			},
+			"response": [
+				{
+					"name": "http://127.0.0.1:5000/api/deleteSavedResources?token=zeeshansalim:1234&id=1",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5000/api/deleteSavedResources?token=zeeshansalim:1234&id=1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"deleteSavedResources"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "zeeshansalim:1234",
+									"description": "String"
+								},
+								{
+									"key": "id",
+									"value": "1",
+									"description": "Integer"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "37"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Server",
+							"value": "Werkzeug/2.0.2 Python/3.9.6"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 19 Dec 2021 02:10:42 GMT"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"Status\": \"Request Successful\"\n}"
+				}
+			]
+		},
+		{
+			"name": "http://127.0.0.1:5000/api/deleteJob?companyName=Amazon&position=Front-End",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/api/deleteJob?token=IBM&position=Devops",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"deleteJob"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "IBM",
+							"description": "String"
+						},
+						{
+							"key": "position",
+							"value": "Devops",
+							"description": "String"
+						}
+					]
+				},
+				"description": "Deletes a job."
+			},
+			"response": [
+				{
+					"name": "http://127.0.0.1:5000/api/deleteJob?companyName=Amazon&position=Front-End",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5000/api/deleteJob?token=IBM&position=Devops",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"deleteJob"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "IBM",
+									"description": "String"
+								},
+								{
+									"key": "position",
+									"value": "Devops",
+									"description": "String"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "37"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Server",
+							"value": "Werkzeug/2.0.2 Python/3.9.6"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 19 Dec 2021 02:11:41 GMT"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"Status\": \"Request Successful\"\n}"
+				}
+			]
+		},
+		{
+			"name": "http://127.0.0.1:5000/api/editJob",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"companyName\": String,\r\n    \"JobID\": Integer,\r\n    \"startdate\": String,\r\n    \"position\": String,\r\n    \"description\": String,\r\n    \"jobURL\": String\r\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/api/editJob",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"editJob"
+					]
+				},
+				"description": "Edits a job to contain the new data"
+			},
+			"response": [
+				{
+					"name": "http://127.0.0.1:5000/api/editJob",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"companyName\": \"Google\",\r\n    \"JobID\": \"2\",\r\n    \"startdate\": \"10-10-2022\",\r\n    \"position\": \"Backend\",\r\n    \"description\": \"New description!\",\r\n    \"jobURL\": \"www.google.com/careers\"\r\n}"
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/api/editJob",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"editJob"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "37"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Server",
+							"value": "Werkzeug/2.0.2 Python/3.9.6"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 19 Dec 2021 06:02:17 GMT"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"Status\": \"Request Successful\"\n}"
+				}
+			]
+		}
+	]
+}
