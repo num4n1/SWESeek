@@ -143,32 +143,25 @@ VALUES
 ('Facebook',   'Large',	'Front-End',		98000.0, 6),
 ('General Motors',   'Large',	'UI',		67000, 5);
 
-DROP TABLE IF EXISTS JOBSAPPLIED;
-CREATE TABLE JOBSAPPLIED (
-    Id			integer not null,
-    userName		varchar(25) not null,
-    jobId		varchar(25) not null,
-    dNo			int not null,
-    primary key (jobId)
-);
-
 DROP TABLE IF EXISTS REVIEWS;
 CREATE TABLE REVIEWS (
+	companyId		integer not null ,
     companyName		varchar(25) not null,
-    title		varchar(25) not null,
-    review		varchar(25) not null,
-    month		varchar(25) not null,
-    day			varchar(3) not null,
-    year		varchar(25) not null,
-    primary key (companyName,title)
+    title		    varchar(25) not null,
+    review		    varchar(25) not null,
+    month		    varchar(25) not null,
+    day			    varchar(3) not null,
+    year		    varchar(25) not null,
+    primary key (companyName,title),
+	foreign key (companyId) references COMPANYCREDENTIALS(companyId) ON UPDATE CASCADE
 );
 
-INSERT INTO REVIEWS (companyName, title,review, month,day,year)
+INSERT INTO REVIEWS (companyId,companyName, title,review, month,day,year)
 VALUES
-('Amazon', 'Product Review',  'Satisfactory',   'January','3',  '2021'),
-('IBM',    'Interview Review','Very Tough',	'March',  '5',  '2020'),
-('Google',  'Ads',      'Inconsistant Ad showing',  'April',   '9', '2021'),
-('Tesla',  'Electrical',      'Chip glitches',  'June',   '11', '2021');
+(1,'Amazon', 'Product Review',  'Satisfactory',   'January','3',  '2021'),
+(3,'IBM',    'Interview Review','Very Tough',	    'March',  '5',  '2020'),
+(2,'Google',  'Ads',            'Inconsistant Ad showing',  'April',   '9', '2021'),
+(4,'Tesla',  'Electrical',      'Chip glitches',  'June',   '11', '2021');
 
 DROP TABLE IF EXISTS RESOURCESTAG;
 CREATE TABLE RESOURCESTAG (
