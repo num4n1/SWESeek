@@ -1,4 +1,4 @@
-<div align="center"><img src="https://readme-typing-svg.herokuapp.com?font=&color=00F747&size=40&width=170&height=80&lines=SWESeek.](https://git.io/typing-svg" /></div>
+<div align="center"><img src="https://readme-typing-svg.herokuapp.com?color=%234EA2F7&size=50&center=true&vCenter=true&multiline=true&width=470&height=150&lines=ResearchGram;(1st+Prize)"](https://git.io/typing-svg) /></div>
 
 ![MySQL](https://img.shields.io/badge/MySQL-005C84?style=for-the-badge&logo=mysql&logoColor=white)
 ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
