@@ -21,6 +21,13 @@ The problems encountered by engineering and computer science students looking fo
 
 <br />
 
+## User Interface
+![homePage](https://user-images.githubusercontent.com/73037918/147041328-30598ab4-85d8-4a6f-9256-3dc9ae929cc5.jpg)
+![ALearningPagePopup](https://user-images.githubusercontent.com/73037918/147041368-68789961-d0d1-4524-9c5a-ec4404d67baf.jpg)
+<br/>
+
+## Features
+
 SWE Seek further simplifies the issues by bringing together the features of manydifferent job search tools, with an added touch of our own features to make job search an easy-going experience. SWESeek is a mobile-friendly web application with numerous features aimed at easing the job search process for the users made possible by utilizing multiple coding segments like Web Scraping, DBMS and Machine Learning.
 
 ### Key Features include:
