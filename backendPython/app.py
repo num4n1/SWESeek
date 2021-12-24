@@ -879,8 +879,33 @@ def signupcompany(): #correct
 
     return jsonify({'token':companyName}), 200
 
+@app.route('/api/addReview', methods=['POST'])
+def signupcompany(): #reviews
+
+    companyName = request.json['companyName']
+    title = request.json['title']
+    review = request.json['review']
+    month = request.json['month']
+    day = request.json['month']
+    year = request.json['month']
+
+    cur0 = mysql.connection.cursor()
+    cur0.execute("""SELECT companyId FROM COMPANYCREDENTIALS WHERE companyName = %s""", (companyName,))
+    companyID = cur0.fetchall()[0][0]
+    mysql.connection.commit()
+    cur0.close()
+
+    cur1 = mysql.connection.cursor()
+    cur1.execute(
+        """INSERT INTO REVIEWS (companyId,companyName, title,review, month,day,year) VALUES(%s,%s,%s,%s,%s,%s,%s)""",
+        (companyID,companyName, title, review, month,day,year))
+    mysql.connection.commit()
+    cur1.close()
+
+    return jsonify({'Status':'Review succesfully added'}), 200
+
 @app.route('/api/reviews', methods=['GET'])
-def login():
+def login(): #reviews
 
     companyName = request.args.get('companyName')
 
