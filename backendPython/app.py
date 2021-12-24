@@ -879,6 +879,24 @@ def signupcompany(): #correct
 
     return jsonify({'token':companyName}), 200
 
+@app.route('/api/reviews', methods=['GET'])
+def login():
+
+    companyName = request.args.get('companyName')
+
+    cur = mysql.connection.cursor()
+    result = cur.execute("Select * FROM REVIEWS")
+
+    if(result>0):
+
+        allreviews = cur.fetchall()
+        for review in allreviews:
+            if(review[1]==companyName):
+                token = companyName
+                return jsonify({'token':token}), 200
+
+    return jsonify({'error':'No company Review found!'}), 500
+
 @app.route('/api/employerLogin', methods=['GET'])
 def employerLogin(): #correct
 
